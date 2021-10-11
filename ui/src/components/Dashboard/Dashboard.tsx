@@ -19,7 +19,7 @@ const DisplayBoard = () => {
     );
   };
   return (
-    <div className="bg-white ">
+    <div className="bg-white w-full ml-4">
       <div className="flex border-b-2">
         <h2
           onClick={() => toggleHeader("vocabularies")}

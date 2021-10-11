@@ -6,6 +6,10 @@ module.exports = {
       gridTemplateColumns: {
         2: "18rem 1fr",
       },
+      height: {
+        "90vh": "90vh",
+        "2px": "2px",
+      },
     },
   },
   variants: {

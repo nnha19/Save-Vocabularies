@@ -2,7 +2,7 @@ import React from "react";
 
 const Users = () => {
   return (
-    <div className="bg-white">
+    <div className="bg-white ml-4 w-full">
       <div className="p-4">
         <div className="flex items-center cursor-pointer border-b-2 py-4">
           <span className="user-avatar">W</span>
