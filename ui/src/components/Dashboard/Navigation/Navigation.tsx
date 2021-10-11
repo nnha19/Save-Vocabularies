@@ -6,7 +6,7 @@ const Navigation = ({ navLinkStyle }: { navLinkStyle: string }) => {
     <nav className=" bg-white shadow-sm py-2">
       <div className="flex flex-col justify-between items-center h-full">
         <div className="flex flex-col items-center">
-          <div className="px-4 flex items-center mt-4 border-b-2 border-black pb-4">
+          <div className=" flex items-center mt-4 border-b-2 border-black pb-4">
             <span className="user-avatar">N</span>
             <div className={`${navLinkStyle}`}>
               <h4 className="font-bold text-xl">Nyi Nyi</h4>
@@ -15,31 +15,34 @@ const Navigation = ({ navLinkStyle }: { navLinkStyle: string }) => {
             </div>
           </div>
           <ul className="mt-4">
-            <NavLink to="/users">
+            <NavLink activeClassName="nav-item-active" to="/users">
               <li className="nav-items">
                 <i className="fas fa-users"></i>
                 <span className={`ml-4 ${navLinkStyle}`}>Users</span>
               </li>
             </NavLink>
-            <NavLink to="/dashboard/uid/vocabularies">
+            <NavLink
+              activeClassName="nav-item-active"
+              to="/dashboard/uid/vocabularies"
+            >
               <li className="nav-items ">
                 <i className="fas fa-columns"></i>
                 <span className={`ml-4 ${navLinkStyle}`}>Dashboard</span>
               </li>
             </NavLink>
-            <NavLink to="/user/:uid/settings">
+            <NavLink activeClassName="nav-item-active" to="/user/:uid/settings">
               <li className="nav-items">
                 <i className="fas fa-cog"></i>
                 <span className={`ml-4 ${navLinkStyle}`}>Settings</span>
               </li>
             </NavLink>
-            <NavLink to="/user/:uid/noti">
+            <NavLink activeClassName="nav-item-active" to="/user/:uid/noti">
               <li className="nav-items">
                 <i className="fas fa-bell"></i>
                 <span className={`ml-4 ${navLinkStyle}`}>Notifications</span>
               </li>
             </NavLink>
-            <NavLink to="/user/:uid/learning">
+            <NavLink activeClassName="nav-item-active" to="/user/:uid/learning">
               <li className="nav-items">
                 <i className="fas fa-book-reader"></i>
                 <span className={`ml-4 ${navLinkStyle}`}>Learnings</span>

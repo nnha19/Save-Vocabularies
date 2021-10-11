@@ -9,6 +9,7 @@ module.exports = {
       height: {
         "90vh": "90vh",
         "2px": "2px",
+        "95vh": "95vh",
       },
     },
   },
