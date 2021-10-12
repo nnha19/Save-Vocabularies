@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Route, useHistory } from "react-router";
 import VocabulariesContextProvider from "../../contexts/vocabulariesContext";
+import Layout from "../Common/Layout/Layout";
 import Favuorites from "./Favourites/Favourites";
 import Vocabularies from "./Vocabularies/Vocabularies";
 
@@ -20,7 +21,7 @@ const DisplayBoard = () => {
     );
   };
   return (
-    <div className="bg-white w-full ml-4">
+    <Layout>
       <div className="flex border-b-2">
         <h2
           onClick={() => toggleHeader("vocabularies")}
@@ -47,7 +48,7 @@ const DisplayBoard = () => {
         />
       </VocabulariesContextProvider>
       <Route path="/dashboard/:uid/favourite" exact component={Favuorites} />
-    </div>
+    </Layout>
   );
 };
 
