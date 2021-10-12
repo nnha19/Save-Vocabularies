@@ -55,6 +55,12 @@ const ShowWord: React.FC<IProps> = ({ showWord }) => {
     );
   });
 
+  const pronounceWord = () => {
+    var msg = new SpeechSynthesisUtterance();
+    msg.text = showWord.vocabulary;
+    window.speechSynthesis.speak(msg);
+  };
+
   const history = useHistory();
   return (
     <Layout>
@@ -67,7 +73,13 @@ const ShowWord: React.FC<IProps> = ({ showWord }) => {
       </div>
       <div className="p-4 ">
         <div className="border-b-2">
-          <h2 className="title">{showWord.vocabulary}</h2>
+          <div className="flex items-center">
+            <h2 className="title mr-4">{showWord.vocabulary}</h2>
+            <i
+              onClick={pronounceWord}
+              className="fas fa-volume-up cursor-pointer"
+            ></i>
+          </div>
           <div className="flex items-start my-4">
             <span className="font-medium mr-4 ">Defination</span>
             <span>{showWord.defination}</span>
