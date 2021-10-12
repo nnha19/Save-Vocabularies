@@ -1,16 +1,7 @@
 import React, { useState, createContext, useEffect } from "react";
+import { IVocabularies } from "../types/types";
 
-export interface IVocabulary {
-  vocabularies: {
-    vocabulary: string;
-    id: string;
-    defination: string;
-    exampleSentences?: [string];
-    note?: string;
-    timeStamp: string;
-  }[];
-}
-export const VocabulariesContext = createContext({} as IVocabulary);
+export const VocabulariesContext = createContext({} as IVocabularies);
 
 const VocabulariesContextProvider = ({
   children,
@@ -18,8 +9,9 @@ const VocabulariesContextProvider = ({
   children: React.ReactNode;
 }) => {
   const [vocabularies, setVocabularies] = useState(
-    {} as IVocabulary["vocabularies"]
+    {} as IVocabularies["vocabularies"]
   );
+
   useEffect(() => {
     setVocabularies([
       {
@@ -32,6 +24,34 @@ const VocabulariesContextProvider = ({
       {
         vocabulary: "Worry",
         id: "2",
+        defination:
+          "Fear that something might happen, especially in the future.",
+        timeStamp: new Date().toString(),
+      },
+      {
+        vocabulary: "Worry",
+        id: "3",
+        defination:
+          "Fear that something might happen, especially in the future.",
+        timeStamp: new Date().toString(),
+      },
+      {
+        vocabulary: "Worry",
+        id: "3",
+        defination:
+          "Fear that something might happen, especially in the future.",
+        timeStamp: new Date().toString(),
+      },
+      {
+        vocabulary: "Worry",
+        id: "3",
+        defination:
+          "Fear that something might happen, especially in the future.",
+        timeStamp: new Date().toString(),
+      },
+      {
+        vocabulary: "Worry",
+        id: "3",
         defination:
           "Fear that something might happen, especially in the future.",
         timeStamp: new Date().toString(),

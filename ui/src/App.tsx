@@ -8,7 +8,8 @@ import Header from "./components/Common/Header/Header";
 import SettingsPage from "./pages/settingsPage";
 import AuthContextProvider from "./contexts/authContext";
 import Notifications from "./components/Notifications/Notifications";
-import Learning from "./pages/learning";
+import LearningPage from "./pages/learningPage";
+import ShowWordPage from "./pages/showWordPage";
 
 function App() {
   const [navLinkStyle, setNavLinkStyle] = useState("nav-right-side");
@@ -32,7 +33,8 @@ function App() {
             <Route path="/users" component={UsersPage} />
             <Route path="/user/:uid/settings" exact component={SettingsPage} />
             <Route path="/user/:uid/noti" exact component={Notifications} />
-            <Route path="/user/:uid/learning" exact component={Learning} />
+            <Route path="/user/:uid/learning" exact component={LearningPage} />
+            <Route path="/:uid/:wid" exact component={ShowWordPage} />
           </div>
         </div>
       </div>
