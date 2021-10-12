@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { IVocabulary } from "../../types/types";
@@ -27,33 +28,36 @@ const ShowWord: React.FC<IProps> = ({ showWord }) => {
     );
   });
 
-  const [synonyms, setSynonyms] = useState<string[]>();
-  useEffect(() => {
-    setSynonyms([
-      "Stop",
-      "Cease",
-      "finish",
-      "stop",
-      "force out",
-      "give notice",
-      "give the axe",
-      "give the sack",
-      "sack",
-      "send away",
-      "cease",
-    ]);
+  const [synAndAnt, setSynAndAnt] = useState<{
+    synonyms: string[];
+    antonyms: string[];
+  }>({
+    synonyms: [],
+    antonyms: [],
   });
 
-  const synonymsList = synonyms?.map((s) => {
-    return (
-      <p
-        className="px-4 py-2 mb-2 capitalize bg-gray-50 inline-block rounded mr-2"
-        key={s}
-      >
-        {s}
-      </p>
-    );
-  });
+  const func = (arr: string[]) => {
+    return arr.map((s) => {
+      return (
+        <p
+          className="px-4 py-2 mb-2 capitalize bg-gray-50 inline-block rounded mr-2"
+          key={s}
+        >
+          {s}
+        </p>
+      );
+    });
+  };
+
+  useEffect(() => {
+    (async () => {
+      const resp: any = await axios.get(
+        `https://api.dictionaryapi.dev/api/v2/entries/en/${showWord.vocabulary}`
+      );
+      const { synonyms, antonyms } = resp.data[0].meanings[0].definitions[0];
+      setSynAndAnt({ synonyms, antonyms });
+    })();
+  }, []);
 
   const pronounceWord = () => {
     var msg = new SpeechSynthesisUtterance();
@@ -91,10 +95,18 @@ const ShowWord: React.FC<IProps> = ({ showWord }) => {
             {exampleSentenceList}
           </div>
         )}
-        <div>
-          <h2 className="title my-4">Synonums</h2>
-          <div className="w-4/5">{synonymsList}</div>
-        </div>
+        {synAndAnt["synonyms"].length > 0 && (
+          <div>
+            <h2 className="title my-4">Synonums</h2>
+            {func(synAndAnt["synonyms"])}
+          </div>
+        )}
+        {synAndAnt["antonyms"].length > 0 && (
+          <div>
+            <h2 className="title my-4">Antonyms</h2>
+            {func(synAndAnt["antonyms"])}
+          </div>
+        )}
         {showWord.note && (
           <div className="my-4">
             <p className="title">Note</p>
