@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 
 const Navigation = ({ navLinkStyle }: { navLinkStyle: string }) => {
+  const [showMobileNav, setShowMobileNav] = useState(false);
+
   return (
-    <nav className=" bg-white shadow-sm py-2">
+    <nav className="fixed sm:static bg-white shadow-sm py-2">
       <div className="flex flex-col justify-between items-center h-full">
         <div className="flex flex-col items-center">
           <div className=" flex items-center mt-4 border-b-2 border-black pb-4">

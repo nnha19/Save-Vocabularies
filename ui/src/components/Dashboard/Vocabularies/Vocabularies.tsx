@@ -1,15 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
+
+import { VocabulariesContext } from "../../../contexts/vocabulariesContext";
 
 const Vocabularies = () => {
-  return (
-    <div className="px-4 border-b-2 py-4">
-      <h2 className="text-xl font-bold">Wonderful</h2>
-      <p>
-        inspiring delight, pleasure, or admiration; extremely good; marvellous.
-      </p>
-      <p className="text-right">12/4/2021</p>
-    </div>
-  );
+  const { vocabularies } = useContext(VocabulariesContext);
+
+  const vocabularyList = vocabularies.map((vo) => {
+    return (
+      <div key={vo.id} className="px-4 border-b-2 py-4">
+        <h2 className="text-xl font-bold">{vo.vocabulary}</h2>
+        <p>{vo.defination}</p>
+        <p className="text-right">{vo.timeStamp}</p>
+      </div>
+    );
+  });
+
+  return <>{vocabularyList}</>;
 };
 
 export default Vocabularies;

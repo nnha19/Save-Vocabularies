@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Route, useHistory } from "react-router";
+import VocabulariesContextProvider from "../../contexts/vocabulariesContext";
 import Favuorites from "./Favourites/Favourites";
 import Vocabularies from "./Vocabularies/Vocabularies";
 
@@ -38,11 +39,13 @@ const DisplayBoard = () => {
           My Favourites
         </h2>
       </div>
-      <Route
-        path="/dashboard/:uid/vocabularies"
-        exact
-        component={Vocabularies}
-      />
+      <VocabulariesContextProvider>
+        <Route
+          path="/dashboard/:uid/vocabularies"
+          exact
+          component={Vocabularies}
+        />
+      </VocabulariesContextProvider>
       <Route path="/dashboard/:uid/favourite" exact component={Favuorites} />
     </div>
   );
