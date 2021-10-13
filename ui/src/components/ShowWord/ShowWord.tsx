@@ -1,14 +1,16 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
+import { ISynAndAnt } from "../../pages/showWordPage";
 import { IVocabulary } from "../../types/types";
 import Layout from "../Common/Layout/Layout";
 
 interface IProps {
   showWord: IVocabulary;
+  synAndAnt: ISynAndAnt;
 }
 
-const ShowWord: React.FC<IProps> = ({ showWord }) => {
+const ShowWord: React.FC<IProps> = ({ showWord, synAndAnt }) => {
   const exampleSentenceList = showWord.exampleSentences?.map((sentence, i) => {
     return (
       <p>
@@ -28,14 +30,6 @@ const ShowWord: React.FC<IProps> = ({ showWord }) => {
     );
   });
 
-  const [synAndAnt, setSynAndAnt] = useState<{
-    synonyms: string[];
-    antonyms: string[];
-  }>({
-    synonyms: [],
-    antonyms: [],
-  });
-
   const func = (arr: string[]) => {
     return arr.map((s) => {
       return (
@@ -48,16 +42,6 @@ const ShowWord: React.FC<IProps> = ({ showWord }) => {
       );
     });
   };
-
-  useEffect(() => {
-    (async () => {
-      const resp: any = await axios.get(
-        `https://api.dictionaryapi.dev/api/v2/entries/en/${showWord.vocabulary}`
-      );
-      const { synonyms, antonyms } = resp.data[0].meanings[0].definitions[0];
-      setSynAndAnt({ synonyms, antonyms });
-    })();
-  }, []);
 
   const pronounceWord = () => {
     var msg = new SpeechSynthesisUtterance();
@@ -95,6 +79,12 @@ const ShowWord: React.FC<IProps> = ({ showWord }) => {
             {exampleSentenceList}
           </div>
         )}
+        {showWord.note && (
+          <div className="my-4">
+            <p className="title">Note</p>
+            <p>{showWord.note}</p>
+          </div>
+        )}
         {synAndAnt["synonyms"].length > 0 && (
           <div>
             <h2 className="title my-4">Synonums</h2>
@@ -105,12 +95,6 @@ const ShowWord: React.FC<IProps> = ({ showWord }) => {
           <div>
             <h2 className="title my-4">Antonyms</h2>
             {func(synAndAnt["antonyms"])}
-          </div>
-        )}
-        {showWord.note && (
-          <div className="my-4">
-            <p className="title">Note</p>
-            <p>{showWord.note}</p>
           </div>
         )}
       </div>

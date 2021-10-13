@@ -10,6 +10,7 @@ module.exports = {
         "90vh": "90vh",
         "2px": "2px",
         "95vh": "95vh",
+        "40rem": "40rem",
       },
     },
   },
