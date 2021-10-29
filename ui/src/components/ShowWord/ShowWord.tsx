@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { ISynAndAnt } from "../../pages/showWordPage";
 import { IVocabulary } from "../../types/types";
+import Back from "../Common/Back/Back";
 import Layout from "../Common/Layout/Layout";
 
 interface IProps {
@@ -59,13 +60,7 @@ const ShowWord: React.FC<IProps> = ({
   const history = useHistory();
   return (
     <Layout>
-      <div
-        onClick={history.goBack}
-        className="p-4 text-xl cursor-pointer border-b-2"
-      >
-        <i className="fas fa-arrow-left"></i>
-        <span className="ml-2">Back</span>
-      </div>
+      <Back />
       <div className="p-4 ">
         <div className="border-b-2">
           <div className="flex items-center">
