@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-
 import { Switch, Route } from "react-router-dom";
 import Navigation from "./components/Common/Navigation/Navigation";
 import DashboardPage from "./pages/dashboardPage";
@@ -29,12 +28,22 @@ function App() {
           <Header toggleNavLinkStyleHandler={toggleNavLinkStyleHandler} />
           <div className="w-full h-full  flex">
             <Navigation navLinkStyle={navLinkStyle} />
-            <Route path="/dashboard" component={DashboardPage} />
-            <Route path="/users" component={UsersPage} />
-            <Route path="/user/:uid/settings" exact component={SettingsPage} />
-            <Route path="/user/:uid/noti" exact component={Notifications} />
-            <Route path="/user/:uid/learning" exact component={LearningPage} />
-            <Route path="/:uid/:wid" exact component={ShowWordPage} />
+            <Switch>
+              <Route path="/dashboard" component={DashboardPage} />
+              <Route path="/users" component={UsersPage} />
+              <Route
+                path="/user/:uid/settings"
+                exact
+                component={SettingsPage}
+              />
+              <Route path="/user/:uid/noti" exact component={Notifications} />
+              <Route
+                path="/user/:uid/learning"
+                exact
+                component={LearningPage}
+              />
+              <Route path="/:uid/:wid" exact component={ShowWordPage} />
+            </Switch>
           </div>
         </div>
       </div>

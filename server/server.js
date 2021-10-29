@@ -16,15 +16,63 @@ mongoose
 app.use(express.json());
 app.use(userRoute);
 
-axios({
-  url: `https://od-api.oxforddictionaries.com:443/api/v2/entries/EN-US/love`,
+const http = require("https");
+
+const app_id = "214ad845"; // insert your APP Id
+const app_key = "97a07562fa8162b4b1015c53a0094923"; // insert your APP Key
+const wordId = "wonderful";
+const strictMatch = "false";
+const fields = "examples";
+
+const options = {
+  host: "od-api.oxforddictionaries.com",
+  port: "443",
+  path:
+    "/api/v2/entries/en-gb/" +
+    wordId +
+    "?fields=" +
+    fields +
+    "&strictMatch=" +
+    strictMatch,
+  method: "GET",
   headers: {
-    ap_id: "214ad845",
-    api_key: "97a07562fa8162b4b1015c53a0094923",
+    app_id: "214ad845",
+    app_key: "97a07562fa8162b4b1015c53a0094923",
+  },
+};
+
+http.get(options, (resp) => {
+  let body = "";
+  resp.on("data", (d) => {
+    body += d;
+  });
+  resp.on("end", () => {
+    let parsed = JSON.stringify(body);
+
+    console.log(parsed);
+  });
+});
+
+axios({
+  method: "GET",
+  url:
+    "od-api.oxforddictionaries.com/api/v2/entries/en-gb/" +
+    wordId +
+    "?fields=" +
+    fields +
+    "&strictMatch=" +
+    strictMatch,
+  headers: {
+    Accept: "application/json",
+    app_id: "214ad845",
+    app_key: "97a07562fa8162b4b1015c53a0094923",
   },
 })
-  .then((resp) => console.log(resp))
-  .catch((err) => console.log(err));
+  .then((resp) => console.log(resp.data))
+  .catch((err) => {
+    console.log("Error occured.");
+    // console.log(err);
+  });
 
 const PORT = process.env.PORT || 5000;
 

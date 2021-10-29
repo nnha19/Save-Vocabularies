@@ -8,27 +8,34 @@ import Layout from "../Common/Layout/Layout";
 interface IProps {
   showWord: IVocabulary;
   synAndAnt: ISynAndAnt;
+  exampleSentences: string[];
 }
 
-const ShowWord: React.FC<IProps> = ({ showWord, synAndAnt }) => {
-  const exampleSentenceList = showWord.exampleSentences?.map((sentence, i) => {
-    return (
-      <p>
-        {sentence.split(" ").map((w) => {
-          return (
-            <span
-              className={`mr-2 ${
-                showWord.vocabulary.toLocaleLowerCase() ===
-                  w.toLocaleLowerCase() && "font-bold"
-              }`}
-            >
-              {w}
-            </span>
-          );
-        })}
-      </p>
-    );
-  });
+const ShowWord: React.FC<IProps> = ({
+  showWord,
+  synAndAnt,
+  exampleSentences,
+}) => {
+  const renderExampleSents = (sentences: string[]) => {
+    return sentences.map((sentence, i) => {
+      return (
+        <p className="mb-2 flex flex-wrap">
+          {sentence.split(" ").map((w) => {
+            return (
+              <span
+                className={`mr-2 ${
+                  showWord.vocabulary.toLocaleLowerCase() ===
+                    w.toLocaleLowerCase() && "font-bold"
+                }`}
+              >
+                {w}
+              </span>
+            );
+          })}
+        </p>
+      );
+    });
+  };
 
   const func = (arr: string[]) => {
     return arr.map((s) => {
@@ -76,7 +83,7 @@ const ShowWord: React.FC<IProps> = ({ showWord, synAndAnt }) => {
         {showWord.exampleSentences && (
           <div>
             <h2 className="title my-2">Example Sentences</h2>
-            {exampleSentenceList}
+            {renderExampleSents(showWord.exampleSentences)}
           </div>
         )}
         {showWord.note && (
@@ -98,6 +105,8 @@ const ShowWord: React.FC<IProps> = ({ showWord, synAndAnt }) => {
           </div>
         )}
       </div>
+      <h1 className="title m-4">More Example Sentences</h1>
+      <div className="m-4 w-full">{renderExampleSents(exampleSentences)}</div>
     </Layout>
   );
 };
