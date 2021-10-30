@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import "./AddNewVocaForm.css";
 
@@ -6,6 +6,7 @@ import BackDrop from "../Common/BackDrop/BackDrop";
 import Input from "../Common/Input/Input";
 import TextArea from "../Common/TextArea/TextArea";
 import axios from "axios";
+import { authContext } from "../../contexts/authContext";
 
 interface IProps {
   setShowAddNewVocaForm: React.Dispatch<React.SetStateAction<boolean>>;
@@ -23,6 +24,8 @@ interface IForm {
 }
 
 const AddNewVocaForm: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
+  const user = useContext(authContext);
+
   const [inputVals, setInputVals] = useState<IForm>({
     vocabulary: {
       value: "",
@@ -116,11 +119,25 @@ const AddNewVocaForm: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
     }
   };
 
+  const addNewVocabularyHandler = async (e: any) => {
+    e.preventDefault();
+    const resp = await axios({
+      url: `${process.env.REACT_APP_BACKEND_URL}/vocabulary/${user?._id}`,
+      method: "POST",
+      data: {
+        vocabulary: inputVals["vocabulary"].value,
+        defination: inputVals["definition"].value,
+        note: inputVals["note"].value,
+        exampleSentences: addedExampleSentences,
+      },
+    });
+  };
+
   return (
     <>
       <BackDrop clicked={() => setShowAddNewVocaForm(false)} />
       <div className="fixed w-30rem center h-40rem overflow-auto  bg-white rounded">
-        <form className="w-full">
+        <form onSubmit={addNewVocabularyHandler} className="w-full">
           <h1 className="title p-4 border-2">Add New Vocabulary</h1>
           <div className="w-full flex flex-col items-center">
             <Input
@@ -139,6 +156,7 @@ const AddNewVocaForm: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
                 name="definition"
                 changeInputVal={changeInputValHandler}
                 label="Definition"
+                disabled={exampleSentenceIsDisabled}
               />
               <button
                 onClick={fetchDefinitionHandler}
