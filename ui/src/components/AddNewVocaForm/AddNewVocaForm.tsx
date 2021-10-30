@@ -8,10 +8,14 @@ interface IProps {
 }
 
 interface IForm {
-  vocabulary: { value: string; error: string };
-  defination: { value: string; error: string };
-  exampleSentences?: { value: string[]; error: string };
-  note?: { value: string; error: string };
+  vocabulary: { value: string; error: string | undefined; isTouched: boolean };
+  defination: { value: string; error: string | undefined; isTouched: boolean };
+  exampleSentences: {
+    value: string;
+    error: string | undefined;
+    isTouched: boolean;
+  };
+  note: { value: string; error: string | undefined; isTouched: boolean };
 }
 
 const AddNewVocaForm: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
@@ -19,17 +23,38 @@ const AddNewVocaForm: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
     vocabulary: {
       value: "",
       error: "",
+      isTouched: false,
     },
     defination: {
       value: "",
       error: "",
+      isTouched: false,
     },
     exampleSentences: {
-      value: [],
+      value: "",
       error: "",
+      isTouched: false,
     },
-    note: { value: "", error: "" },
+    note: { value: "", error: "", isTouched: false },
   });
+
+  const changeInputValHandler = (e: any, error: string | undefined): void => {
+    function hasKey<O>(obj: O, key: PropertyKey): key is keyof O {
+      return key in obj;
+    }
+    const { name, value } = e.target;
+    if (hasKey(inputVals, name)) {
+      const clonedInputVals = { ...inputVals };
+      const updatedVal = {
+        ...clonedInputVals[name],
+        value,
+        error,
+        isTouched: true,
+      };
+      clonedInputVals[name] = updatedVal;
+      setInputVals(clonedInputVals);
+    }
+  };
 
   return (
     <>
@@ -42,15 +67,32 @@ const AddNewVocaForm: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
               type="text"
               placeholder="E.G. wonderful"
               label="Vocabulary"
-              value=""
+              value={inputVals["vocabulary"].value}
               name="vocabulary"
+              changeInputVal={changeInputValHandler}
+              error={inputVals["vocabulary"].error}
             />
-            <TextArea name="defination" label="Defination" value="" />
-            <TextArea rows={3} name="note" label="Note" value="" />
             <TextArea
+              error={inputVals["defination"].error}
+              value={inputVals["defination"].value}
+              name="defination"
+              changeInputVal={changeInputValHandler}
+              label="Defination"
+            />
+            <TextArea
+              error={inputVals["note"].error}
+              rows={3}
+              name="note"
+              label="Note"
+              value={inputVals["note"].value}
+              changeInputVal={changeInputValHandler}
+            />
+            <TextArea
+              error={inputVals["exampleSentences"].error}
+              value={inputVals["exampleSentences"].value}
               label="Example Sentences"
-              value=""
               name="exampleSentences"
+              changeInputVal={changeInputValHandler}
             />
           </div>
           <div className="px-4 sticky bottom-0 bg-white py-4">
