@@ -10,9 +10,9 @@ const Navigation = ({ navLinkStyle }: { navLinkStyle: string }) => {
     <nav className="fixed sm:static bg-white shadow-sm py-2">
       <div className="flex flex-col justify-between items-center h-full">
         <div className="flex flex-col items-center">
-          <div className=" flex items-center mt-4 border-b-2 border-black pb-4">
+          <div className="w-full justify-center flex items-center mt-4 border-b-2 border-black pb-4">
             <span className="user-avatar">N</span>
-            <div className={`${navLinkStyle}`}>
+            <div className={` ${navLinkStyle} `}>
               <h4 className="font-bold text-xl">Nyi Nyi</h4>
               <span className="block">(Joined on Aug 12 2021)</span>
               <span>40 vocabularies</span>

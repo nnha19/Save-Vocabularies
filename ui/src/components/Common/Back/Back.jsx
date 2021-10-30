@@ -1,5 +1,5 @@
-import React from "react";
 import { useHistory } from "react-router";
+
 const Back = () => {
   const history = useHistory();
   return (

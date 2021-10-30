@@ -25,7 +25,7 @@ const addNewVocabulary = async (req, res) => {
         defination,
         exampleSentences,
         note,
-        timeStame: new Date(),
+        timeStamp: new Date(),
         owner: uid,
       });
       user.vocabularies.push(newVocabulary);

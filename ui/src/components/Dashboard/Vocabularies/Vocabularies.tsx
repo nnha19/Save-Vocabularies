@@ -6,7 +6,7 @@ import { VocabulariesContext } from "../../../contexts/vocabulariesContext";
 const Vocabularies = () => {
   const history = useHistory();
   const { vocabularies } = useContext(VocabulariesContext);
-
+  console.log(vocabularies);
   const vocabularyList = vocabularies.map((vo) => {
     const day = new Date(vo.timeStamp).getDate();
     const month = new Date(vo.timeStamp).getMonth();

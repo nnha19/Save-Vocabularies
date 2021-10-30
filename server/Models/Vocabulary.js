@@ -5,7 +5,7 @@ const vocabularySchema = new mongoose.Schema({
   defination: { type: String, required: true },
   exampleSentences: [{ type: String }],
   note: { type: String },
-  timeStamp: { type: Date },
+  timeStamp: { type: Date, default: Date.now },
   owner: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
 });
 
