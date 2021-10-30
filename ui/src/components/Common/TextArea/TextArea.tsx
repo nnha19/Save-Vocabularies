@@ -8,6 +8,7 @@ interface IProps {
   cols?: number;
   changeInputVal: (e: any, error: string | undefined) => void;
   error: string | undefined;
+  disabled?: boolean;
 }
 
 const TextArea: React.FC<IProps> = ({
@@ -17,6 +18,7 @@ const TextArea: React.FC<IProps> = ({
   rows,
   cols,
   error,
+  disabled,
   changeInputVal,
 }) => {
   const changeInputValHandler = (e: any) => {
@@ -27,6 +29,7 @@ const TextArea: React.FC<IProps> = ({
     <div className="my-2 w-full px-4 ">
       <label className="font-medium">{label}</label>
       <textarea
+        disabled={disabled}
         cols={cols || 20}
         rows={rows || 5}
         className="w-full border-2 p-2 mt-2"
@@ -34,7 +37,7 @@ const TextArea: React.FC<IProps> = ({
         onChange={changeInputValHandler}
         value={value}
       ></textarea>
-      {error && <p>{error}</p>}
+      {error && <p className="text-red-500">{error}</p>}
     </div>
   );
 };

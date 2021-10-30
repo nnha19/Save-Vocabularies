@@ -36,7 +36,7 @@ const Input: React.FC<IProps> = ({
         value={value}
         placeholder={placeholder}
       />
-      {error && <p>{error}</p>}
+      {error && <p className="text-red-500">{error}</p>}
     </div>
   );
 };
