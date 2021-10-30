@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Route, useHistory } from "react-router";
+import { authContext } from "../../contexts/authContext";
 import VocabulariesContextProvider from "../../contexts/vocabulariesContext";
 import Layout from "../Common/Layout/Layout";
 import Favuorites from "./Favourites/Favourites";
@@ -8,15 +9,15 @@ import Vocabularies from "./Vocabularies/Vocabularies";
 const DisplayBoard = () => {
   const history = useHistory();
   const [activeHeader, setActiveHeader] = useState("vocabularies");
-
+  const user = useContext(authContext);
   const activeHeaderStyle = `border-b-2 border-black font-bold`;
   const toggleHeader = (type: string) => {
     setActiveHeader(type);
     history.push(
       `${
         type === "vocabularies"
-          ? "/dashboard/:uid/vocabularies"
-          : "/dashboard/:uid/favourite"
+          ? `/dashboard/${user?._id}/vocabularies`
+          : `/dashboard/${user?._id}/favourite`
       }`
     );
   };
