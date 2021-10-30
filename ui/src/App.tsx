@@ -42,7 +42,7 @@ function App() {
                 exact
                 component={LearningPage}
               />
-              <Route path="/:uid/:wid" exact component={ShowWordPage} />
+              <Route path="/:wid" exact component={ShowWordPage} />
             </Switch>
           </div>
         </div>

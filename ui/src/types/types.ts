@@ -1,6 +1,6 @@
 export interface IVocabulary {
   vocabulary: string;
-  id: string;
+  _id: string;
   defination: string;
   exampleSentences?: string[];
   note?: string;

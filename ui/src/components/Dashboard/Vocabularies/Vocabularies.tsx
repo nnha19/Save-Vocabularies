@@ -13,8 +13,8 @@ const Vocabularies = () => {
     const year = new Date(vo.timeStamp).getFullYear();
     return (
       <div
-        onClick={() => history.push(`/userId/wordId`)}
-        key={vo.id}
+        onClick={() => history.push(`/${vo._id}`)}
+        key={vo._id}
         className="px-4 border-b-2 py-4 cursor-pointer"
       >
         <h2 className="text-xl font-bold">{vo.vocabulary}</h2>

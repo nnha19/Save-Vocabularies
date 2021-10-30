@@ -5,6 +5,7 @@ import axios from "axios";
 import ShowWord from "../components/ShowWord/ShowWord";
 import Spinner from "../components/Common/Spinner/Spinner";
 import Layout from "../components/Common/Layout/Layout";
+import { useParams } from "react-router";
 
 export interface ISynAndAnt {
   synonyms: string[];
@@ -12,6 +13,8 @@ export interface ISynAndAnt {
 }
 
 const ShowWordPage = () => {
+  const { wid } = useParams<any>();
+
   const [showWord, setShowWord] = useState({} as IVocabulary);
   const [synAndAntIsLoading, setSynAndAntIsLoading] = useState(false);
   const [exampleSentences, setExampleSentences] = useState<string[]>([]);
@@ -22,6 +25,7 @@ const ShowWordPage = () => {
   });
 
   useEffect(() => {
+    //Fetch Syn and Ant from third party API
     (async () => {
       try {
         setSynAndAntIsLoading(true);
@@ -35,24 +39,20 @@ const ShowWordPage = () => {
       }
       setSynAndAntIsLoading(false);
     })();
-  }, [showWord.vocabulary]);
+  }, [wid, showWord.vocabulary]);
 
   useEffect(() => {
-    setShowWord({
-      vocabulary: "starving",
-      note: "I learned this word on a podcast called 'This American Life'",
-      defination:
-        "bring to an end.bring to an end.bring to an end.bring to an end.bring to an end.bring to an end.bring to an end.bring to an end.bring to an end.bring to an end.bring to an end.",
-      id: "axs1234ss",
-      timeStamp: new Date().toString(),
-      exampleSentences: [
-        "he was advised to terminate the contract",
-        "you have to terminate the program before the computer will shut down properly. ",
-      ],
-    });
-  }, [showWord.vocabulary]);
+    //Fetch detail of a vocabulary own API
+    (async () => {
+      const resp = await axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/vocabulary/vocabulary/${wid}`
+      );
+      setShowWord(resp.data);
+    })();
+  }, [wid]);
 
   useEffect(() => {
+    //Fetch Example sentences from thid party API
     (async () => {
       try {
         const resp: any = await axios.get(
@@ -66,7 +66,7 @@ const ShowWordPage = () => {
         console.log(err);
       }
     })();
-  }, [showWord.vocabulary]);
+  }, [wid, showWord.vocabulary]);
 
   return (
     <>

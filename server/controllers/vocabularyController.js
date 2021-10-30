@@ -38,5 +38,21 @@ const addNewVocabulary = async (req, res) => {
   }
 };
 
+const getVocabularyById = async (req, res) => {
+  try {
+    const { vid } = req.params;
+    const vocabulary = await Vocabulary.findById(vid);
+    if (vocabulary) {
+      res.status(200).json(vocabulary);
+    } else {
+      res.status(400).json("Can't find the vocabulary with given ID.");
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json("Something went wrong with the server. Try again.");
+  }
+};
+
 exports.getVocabulariesByUserId = getVocabulariesByUserId;
 exports.addNewVocabulary = addNewVocabulary;
+exports.getVocabularyById = getVocabularyById;

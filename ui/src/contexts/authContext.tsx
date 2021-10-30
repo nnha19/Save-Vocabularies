@@ -13,9 +13,9 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     setUser({
-      username: "Nyi Nyi Hmue Aung",
-      email: "nyinyihmueaung@gmail.com",
-      _id: "1a2246b",
+      _id: "6162e68db8d492f28b8e7870",
+      username: "Nyi Nyi",
+      email: "girl@gmail.com",
     });
   }, []);
 

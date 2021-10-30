@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
+import { authContext } from "../../../contexts/authContext";
 
 const Navigation = ({ navLinkStyle }: { navLinkStyle: string }) => {
   const [showMobileNav, setShowMobileNav] = useState(false);
+  const user = useContext(authContext);
 
   return (
     <nav className="fixed sm:static bg-white shadow-sm py-2">
@@ -25,26 +27,35 @@ const Navigation = ({ navLinkStyle }: { navLinkStyle: string }) => {
             </NavLink>
             <NavLink
               activeClassName="nav-item-active"
-              to="/dashboard/uid/vocabularies"
+              to={`/dashboard/${user?._id}/vocabularies`}
             >
               <li className="nav-items ">
                 <i className="fas fa-columns"></i>
                 <span className={`ml-4 ${navLinkStyle}`}>Dashboard</span>
               </li>
             </NavLink>
-            <NavLink activeClassName="nav-item-active" to="/user/:uid/settings">
+            <NavLink
+              activeClassName="nav-item-active"
+              to={`/user/${user?._id}/settings`}
+            >
               <li className="nav-items">
                 <i className="fas fa-cog"></i>
                 <span className={`ml-4 ${navLinkStyle}`}>Settings</span>
               </li>
             </NavLink>
-            <NavLink activeClassName="nav-item-active" to="/user/:uid/noti">
+            <NavLink
+              activeClassName="nav-item-active"
+              to={`/user/${user?._id}/noti`}
+            >
               <li className="nav-items">
                 <i className="fas fa-bell"></i>
                 <span className={`ml-4 ${navLinkStyle}`}>Notifications</span>
               </li>
             </NavLink>
-            <NavLink activeClassName="nav-item-active" to="/user/:uid/learning">
+            <NavLink
+              activeClassName="nav-item-active"
+              to={`/user/${user?._id}/learning`}
+            >
               <li className="nav-items">
                 <i className="fas fa-book-reader"></i>
                 <span className={`ml-4 ${navLinkStyle}`}>Learnings</span>
