@@ -12,6 +12,12 @@ module.exports = {
         "95vh": "95vh",
         "40rem": "40rem",
       },
+      width: {
+        "30rem": "30rem",
+      },
+      colors: {
+        backdrop: "#000000b0",
+      },
     },
   },
   variants: {

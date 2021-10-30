@@ -2,8 +2,15 @@ import React, { useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { authContext } from "../../../contexts/authContext";
 
-const Navigation = ({ navLinkStyle }: { navLinkStyle: string }) => {
-  const [showMobileNav, setShowMobileNav] = useState(false);
+interface IProps {
+  navLinkStyle: string;
+  setShowAddNewVocaForm: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const Navigation: React.FC<IProps> = ({
+  navLinkStyle,
+  setShowAddNewVocaForm,
+}) => {
   const user = useContext(authContext);
 
   return (
@@ -62,7 +69,10 @@ const Navigation = ({ navLinkStyle }: { navLinkStyle: string }) => {
               </li>
             </NavLink>
           </ul>
-          <button className=" text-xl  px-4 rounded-full text-white mt-4 h-12 w-46 bg-red-500 block">
+          <button
+            onClick={() => setShowAddNewVocaForm(true)}
+            className=" text-xl  px-4 rounded-full text-white mt-4 h-12 w-46 bg-red-500 block"
+          >
             <i className="fas fa-plus"></i>
             <span className={`ml-4 ${navLinkStyle}`}>Add New</span>
           </button>

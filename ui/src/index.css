@@ -18,3 +18,8 @@
 .title {
   @apply font-medium text-xl;
 }
+.center {
+  @apply absolute inset-x-0 mx-auto -mt-1;
+}
+/* .input-style {
+} */
