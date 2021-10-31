@@ -115,7 +115,6 @@ const AddNewVocaForm: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
       setInputVals(updatedInputVals);
     } catch (err: any) {
       alert(err.response.data.title);
-      // alert(err);
     }
   };
 

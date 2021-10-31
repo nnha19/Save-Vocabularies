@@ -61,7 +61,7 @@ const ShowWordPage = () => {
         const sentences: string[] = resp.data.examples.map(
           (example: any) => example.text
         );
-        setExampleSentences(sentences);
+        setExampleSentences(Array.from(new Set(sentences)));
       } catch (err) {
         console.log(err);
       }
