@@ -5,6 +5,7 @@ export interface IVocabulary {
   exampleSentences?: string[];
   note?: string;
   timeStamp: string;
+  resource?: string;
 }
 
 export interface IVocabularies {

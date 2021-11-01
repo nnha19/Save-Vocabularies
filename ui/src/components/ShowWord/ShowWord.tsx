@@ -87,6 +87,12 @@ const ShowWord: React.FC<IProps> = ({
             <p>{showWord.note}</p>
           </div>
         )}
+        {showWord.resource && (
+          <p>
+            <span className="font-bold mr-4">Resource</span>
+            <span>{showWord.resource}</span>
+          </p>
+        )}
         {synAndAnt["synonyms"].length > 0 && (
           <div>
             <h2 className="title my-4">Synonums</h2>

@@ -21,6 +21,7 @@ interface IForm {
     isTouched: boolean;
   };
   note: { value: string; error: string | undefined; isTouched: boolean };
+  resource: { value: string; error: string | undefined; isTouched: boolean };
 }
 
 const AddNewVocaForm: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
@@ -43,6 +44,7 @@ const AddNewVocaForm: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
       isTouched: false,
     },
     note: { value: "", error: "", isTouched: false },
+    resource: { value: "", error: "", isTouched: false },
   });
 
   const [exampleSentenceIsDisabled, setExampleSentenceIsDisabled] =
@@ -128,6 +130,7 @@ const AddNewVocaForm: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
         defination: inputVals["definition"].value,
         note: inputVals["note"].value,
         exampleSentences: addedExampleSentences,
+        resource: inputVals.resource.value,
       },
     });
   };
@@ -179,6 +182,15 @@ const AddNewVocaForm: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
               label="Note"
               value={inputVals["note"].value}
               changeInputVal={changeInputValHandler}
+            />
+            <Input
+              type="text"
+              placeholder="Where did you learn this word?"
+              label="Resource"
+              value={inputVals["resource"].value}
+              name="resource"
+              changeInputVal={changeInputValHandler}
+              error={inputVals["vocabulary"].error}
             />
             <div className="w-full">
               {!!addedExampleSentences.length && (
