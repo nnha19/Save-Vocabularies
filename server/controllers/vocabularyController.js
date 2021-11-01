@@ -19,7 +19,8 @@ const addNewVocabulary = async (req, res) => {
     if (!user) {
       res.status(400).json("User can't be found.");
     } else {
-      const { vocabulary, defination, exampleSentences, note } = req.body;
+      const { vocabulary, defination, exampleSentences, note, resource } =
+        req.body;
       const newVocabulary = await Vocabulary.create({
         vocabulary,
         defination,
@@ -27,6 +28,7 @@ const addNewVocabulary = async (req, res) => {
         note,
         timeStamp: new Date(),
         owner: uid,
+        resource,
       });
       user.vocabularies.push(newVocabulary);
       await user.save();

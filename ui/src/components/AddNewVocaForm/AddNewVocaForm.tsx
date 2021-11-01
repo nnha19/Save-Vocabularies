@@ -114,7 +114,7 @@ const AddNewVocaForm: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
       updatedInputVals["definition"].value = definition;
       setInputVals(updatedInputVals);
     } catch (err: any) {
-      alert(err.response.data.title);
+      alert(err?.response?.data?.title);
     }
   };
 
@@ -137,7 +137,13 @@ const AddNewVocaForm: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
       <BackDrop clicked={() => setShowAddNewVocaForm(false)} />
       <div className="fixed w-30rem center h-40rem overflow-auto  bg-white rounded">
         <form onSubmit={addNewVocabularyHandler} className="w-full">
-          <h1 className="title p-4 border-2">Add New Vocabulary</h1>
+          <div className="flex sticky top-0 bg-white justify-between items-center border-b-2 p-4">
+            <h1 className="title ">Add New Vocabulary</h1>
+            <i
+              onClick={() => setShowAddNewVocaForm(false)}
+              className="fas fa-times cursor-pointer text-xl"
+            ></i>
+          </div>
           <div className="w-full flex flex-col items-center">
             <Input
               type="text"
