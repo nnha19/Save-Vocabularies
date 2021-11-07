@@ -168,6 +168,7 @@ const AddNewVocaForm: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
               changeInputVal={changeInputValHandler}
               error={inputVals["vocabulary"].error}
               validRules={{ REQUIRED: true }}
+              isTouched={inputVals["vocabulary"].isTouched}
             />
             <div className="w-full">
               <TextArea
@@ -178,6 +179,7 @@ const AddNewVocaForm: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
                 label="Definition"
                 disabled={exampleSentenceIsDisabled}
                 validRules={{ REQUIRED: true }}
+                isTouched={inputVals["definition"].isTouched}
               />
               <button
                 onClick={fetchDefinitionHandler}
@@ -195,6 +197,7 @@ const AddNewVocaForm: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
               label="Note"
               value={inputVals["note"].value}
               changeInputVal={changeInputValHandler}
+              isTouched={inputVals["note"].isTouched}
             />
             <Input
               type="text"
@@ -204,6 +207,14 @@ const AddNewVocaForm: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
               name="resource"
               changeInputVal={changeInputValHandler}
               error={inputVals["resource"].error}
+              isTouched={inputVals["vocabulary"].isTouched}
+              labelChild={
+                <i className="question-icon fas fa-question-circle">
+                  <span className="question-icon__label absolute text-xs p-2 bg-gray-400 hidden text-white rounded-lg">
+                    Later you will be able to filter by this field.
+                  </span>
+                </i>
+              }
             />
             <div className="w-full">
               {!!addedExampleSentences.length && (
@@ -218,6 +229,7 @@ const AddNewVocaForm: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
                 name="exampleSentence"
                 changeInputVal={changeInputValHandler}
                 disabled={exampleSentenceIsDisabled}
+                isTouched={inputVals["exampleSentence"].isTouched}
               />
               <button
                 onClick={addExampleSentenceHandler}

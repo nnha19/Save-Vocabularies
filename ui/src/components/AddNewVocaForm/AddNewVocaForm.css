@@ -3,3 +3,6 @@
   cursor: not-allowed;
   color: rgba(255, 255, 255, 0.5);
 }
+.question-icon:hover .question-icon__label {
+  display: block;
+}

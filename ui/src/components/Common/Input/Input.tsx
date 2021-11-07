@@ -11,6 +11,8 @@ interface IProps {
   changeInputVal: (e: any, error: string | undefined) => void;
   error: string | undefined;
   validRules?: {};
+  labelChild?: JSX.Element;
+  isTouched: boolean;
 }
 
 const Input: React.FC<IProps> = ({
@@ -23,6 +25,8 @@ const Input: React.FC<IProps> = ({
   label,
   changeInputVal,
   error,
+  labelChild,
+  isTouched,
 }) => {
   const changeInputValHandler = (e: any) => {
     const error = validRules && validate(validRules, e.target.value);
@@ -31,7 +35,10 @@ const Input: React.FC<IProps> = ({
 
   return (
     <div className="m-2 w-full px-4">
-      <label className="font-medium">{label}</label>
+      <label className="font-medium flex items-center">
+        <span className="mr-2">{label}</span>
+        {labelChild}
+      </label>
       <input
         onChange={changeInputValHandler}
         className="w-full mt-2  border px-4 py-2"
@@ -40,7 +47,7 @@ const Input: React.FC<IProps> = ({
         value={value}
         placeholder={placeholder}
       />
-      {error && <p className="text-red-500">{error}</p>}
+      {error && isTouched && <p className="text-red-500">{error}</p>}
     </div>
   );
 };

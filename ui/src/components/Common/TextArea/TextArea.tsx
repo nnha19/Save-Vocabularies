@@ -11,6 +11,8 @@ interface IProps {
   error: string | undefined;
   disabled?: boolean;
   validRules?: {};
+  labelChild?: JSX.Element;
+  isTouched: boolean;
 }
 
 const TextArea: React.FC<IProps> = ({
@@ -23,6 +25,8 @@ const TextArea: React.FC<IProps> = ({
   disabled,
   changeInputVal,
   validRules,
+  labelChild,
+  isTouched,
 }) => {
   const changeInputValHandler = (e: any) => {
     const error = validRules && validate(validRules, e.target.value);
@@ -31,7 +35,10 @@ const TextArea: React.FC<IProps> = ({
 
   return (
     <div className="my-2 w-full px-4 ">
-      <label className="font-medium">{label}</label>
+      <label className="font-medium">
+        <span>{label}</span>
+        {labelChild}
+      </label>
       <textarea
         disabled={disabled}
         cols={cols || 20}
@@ -41,7 +48,7 @@ const TextArea: React.FC<IProps> = ({
         onChange={changeInputValHandler}
         value={value}
       ></textarea>
-      {error && <p className="text-red-500">{error}</p>}
+      {error && isTouched && <p className="text-red-500">{error}</p>}
     </div>
   );
 };
