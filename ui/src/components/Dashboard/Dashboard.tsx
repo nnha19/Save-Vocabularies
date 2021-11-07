@@ -3,7 +3,7 @@ import { Route, useHistory } from "react-router";
 import { authContext } from "../../contexts/authContext";
 import VocabulariesContextProvider from "../../contexts/vocabulariesContext";
 import Layout from "../Common/Layout/Layout";
-import Favuorites from "./Favourites/Favourites";
+import SearchVoca from "./SearchVoca/SearchVoca";
 import Vocabularies from "./Vocabularies/Vocabularies";
 
 const DisplayBoard = () => {
@@ -11,16 +11,18 @@ const DisplayBoard = () => {
   const [activeHeader, setActiveHeader] = useState("vocabularies");
   const user = useContext(authContext);
   const activeHeaderStyle = `border-b-2 border-black font-bold`;
+
   const toggleHeader = (type: string) => {
     setActiveHeader(type);
     history.push(
       `${
         type === "vocabularies"
           ? `/dashboard/${user?._id}/vocabularies`
-          : `/dashboard/${user?._id}/favourite`
+          : `/dashboard/${user?._id}/search`
       }`
     );
   };
+
   return (
     <Layout>
       <div className="flex border-b-2">
@@ -33,12 +35,12 @@ const DisplayBoard = () => {
           Vocabularies
         </h2>
         <h2
-          onClick={() => toggleHeader("my favourites")}
+          onClick={() => toggleHeader("search")}
           className={`p-4 text-xl cursor-pointer ${
-            activeHeader === "my favourites" && activeHeaderStyle
+            activeHeader === "search" && activeHeaderStyle
           }`}
         >
-          My Favourites
+          Search Vocabularies
         </h2>
       </div>
       <VocabulariesContextProvider>
@@ -48,7 +50,7 @@ const DisplayBoard = () => {
           component={Vocabularies}
         />
       </VocabulariesContextProvider>
-      <Route path="/dashboard/:uid/favourite" exact component={Favuorites} />
+      <Route path="/dashboard/:uid/search" exact component={SearchVoca} />
     </Layout>
   );
 };

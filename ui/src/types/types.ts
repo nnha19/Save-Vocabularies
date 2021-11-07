@@ -11,3 +11,14 @@ export interface IVocabulary {
 export interface IVocabularies {
   vocabularies: IVocabulary[];
 }
+
+export interface IUser {
+  username: string;
+  email: string;
+  joinedDate: string;
+  vocabularies: string[];
+  _id: string;
+}
+export interface IUsers {
+  users: IUser[];
+}

@@ -4,7 +4,6 @@ import { IVocabulary } from "../types/types";
 import axios from "axios";
 import ShowWord from "../components/ShowWord/ShowWord";
 import Spinner from "../components/Common/Spinner/Spinner";
-import Layout from "../components/Common/Layout/Layout";
 import { useParams } from "react-router";
 
 export interface ISynAndAnt {

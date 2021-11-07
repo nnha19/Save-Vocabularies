@@ -1,4 +1,5 @@
 import React from "react";
+import { validate } from "../../../functions";
 
 interface IProps {
   type: string;
@@ -9,12 +10,14 @@ interface IProps {
   label: string;
   changeInputVal: (e: any, error: string | undefined) => void;
   error: string | undefined;
+  validRules?: {};
 }
 
 const Input: React.FC<IProps> = ({
   type,
   value,
   errMsg,
+  validRules,
   placeholder,
   name,
   label,
@@ -22,7 +25,8 @@ const Input: React.FC<IProps> = ({
   error,
 }) => {
   const changeInputValHandler = (e: any) => {
-    changeInputVal(e, "error");
+    const error = validRules && validate(validRules, e.target.value);
+    changeInputVal(e, error);
   };
 
   return (

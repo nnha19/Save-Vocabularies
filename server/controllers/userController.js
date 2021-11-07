@@ -23,6 +23,7 @@ const signUpUser = async (req, res) => {
         username,
         email,
         password: hashedPassword,
+        joinedDate: new Date(),
       });
       const token = await jwt.sign(
         { userId: newUser._id, username },

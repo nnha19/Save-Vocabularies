@@ -30,12 +30,12 @@ const AddNewVocaForm: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
   const [inputVals, setInputVals] = useState<IForm>({
     vocabulary: {
       value: "",
-      error: "",
+      error: "true",
       isTouched: false,
     },
     definition: {
       value: "",
-      error: "",
+      error: "true",
       isTouched: false,
     },
     exampleSentence: {
@@ -46,6 +46,16 @@ const AddNewVocaForm: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
     note: { value: "", error: "", isTouched: false },
     resource: { value: "", error: "", isTouched: false },
   });
+
+  const [allValid, setAllValid] = useState(false);
+
+  useEffect(() => {
+    const valid: boolean[] = [];
+    for (let key in inputVals) {
+      valid.push(!!inputVals[key as keyof IForm].error ? false : true);
+    }
+    setAllValid(valid.every((v) => v));
+  }, [inputVals]);
 
   const [exampleSentenceIsDisabled, setExampleSentenceIsDisabled] =
     useState(true);
@@ -114,6 +124,7 @@ const AddNewVocaForm: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
       const definition = resp.data[0].meanings[0].definitions[0].definition;
       const updatedInputVals = { ...inputVals };
       updatedInputVals["definition"].value = definition;
+      updatedInputVals["definition"].error = undefined;
       setInputVals(updatedInputVals);
     } catch (err: any) {
       alert(err?.response?.data?.title);
@@ -156,6 +167,7 @@ const AddNewVocaForm: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
               name="vocabulary"
               changeInputVal={changeInputValHandler}
               error={inputVals["vocabulary"].error}
+              validRules={{ REQUIRED: true }}
             />
             <div className="w-full">
               <TextArea
@@ -165,6 +177,7 @@ const AddNewVocaForm: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
                 changeInputVal={changeInputValHandler}
                 label="Definition"
                 disabled={exampleSentenceIsDisabled}
+                validRules={{ REQUIRED: true }}
               />
               <button
                 onClick={fetchDefinitionHandler}
@@ -190,7 +203,7 @@ const AddNewVocaForm: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
               value={inputVals["resource"].value}
               name="resource"
               changeInputVal={changeInputValHandler}
-              error={inputVals["vocabulary"].error}
+              error={inputVals["resource"].error}
             />
             <div className="w-full">
               {!!addedExampleSentences.length && (
@@ -217,7 +230,10 @@ const AddNewVocaForm: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
             </div>
           </div>
           <div className="px-4 sticky bottom-0 bg-white py-4">
-            <button className=" bg-red-500 text-white w-full px-4 py-2">
+            <button
+              disabled={!allValid}
+              className="button bg-red-500 text-white w-full px-4 py-2"
+            >
               Submit
             </button>
           </div>
