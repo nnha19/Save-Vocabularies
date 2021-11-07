@@ -7,6 +7,7 @@ import Input from "../Common/Input/Input";
 import TextArea from "../Common/TextArea/TextArea";
 import axios from "axios";
 import { authContext } from "../../contexts/authContext";
+import { useHistory } from "react-router";
 
 interface IProps {
   setShowAddNewVocaForm: React.Dispatch<React.SetStateAction<boolean>>;
@@ -25,6 +26,7 @@ interface IForm {
 }
 
 const AddNewVocaForm: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
+  const history = useHistory();
   const user = useContext(authContext);
 
   const [inputVals, setInputVals] = useState<IForm>({
@@ -144,6 +146,8 @@ const AddNewVocaForm: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
         resource: inputVals.resource.value,
       },
     });
+    setShowAddNewVocaForm(false);
+    history.push(`/dashboard/${user?._id}/vocabularies`);
   };
 
   return (
