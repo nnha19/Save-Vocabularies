@@ -33,7 +33,10 @@ const Features = () => {
             navLinkStyle={navLinkStyle}
           />
           <Switch>
-            <Route path="/dashboard" component={VocabulariesPage} />
+            <Route
+              path="/dashboard/:uid/vocabularies"
+              component={VocabulariesPage}
+            />
             <Route path="/users" component={UsersPage} />
             <Route path="/user/:uid/settings" exact component={SettingsPage} />
             <Route path="/user/:uid/noti" exact component={NotificationsPage} />

@@ -2,10 +2,14 @@ import React, { useContext } from "react";
 import { useHistory } from "react-router";
 
 import { VocabulariesContext } from "../../contexts/vocabulariesContext";
+import { IVocabularies } from "../../types/types";
 
-const Vocabularies = () => {
+interface IProps {
+  vocabularies: IVocabularies["vocabularies"];
+}
+
+const Vocabularies: React.FC<IProps> = ({ vocabularies }) => {
   const history = useHistory();
-  const { vocabularies } = useContext(VocabulariesContext);
   const vocabularyList = vocabularies.map((vo) => {
     const day = new Date(vo.timeStamp).getDate();
     const month = new Date(vo.timeStamp).getMonth();
