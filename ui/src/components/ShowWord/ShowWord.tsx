@@ -42,9 +42,8 @@ const ShowWord: React.FC<IProps> = ({
     window.speechSynthesis.speak(msg);
   };
 
-  const history = useHistory();
   return (
-    <Layout>
+    <>
       <Back />
       <div className="p-4 ">
         <div className="border-b-2">
@@ -95,7 +94,7 @@ const ShowWord: React.FC<IProps> = ({
       <div className="m-4 w-full">
         {useRenderExampleSentences(exampleSentences, showWord.vocabulary)}
       </div>
-    </Layout>
+    </>
   );
 };
 

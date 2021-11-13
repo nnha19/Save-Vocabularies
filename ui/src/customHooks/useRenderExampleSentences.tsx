@@ -11,8 +11,8 @@ const useRenderExampleSentences = (
   }
   return sentences.map((sentence, i) => {
     return (
-      <p className={`mb-2 flex flex-wrap ${className}`}>
-        <div>
+      <p className={`mb-2 ${className}`}>
+        <div className="flex flex-wrap">
           {sentence.split(" ").map((w) => {
             return (
               <span

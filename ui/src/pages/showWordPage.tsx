@@ -5,6 +5,7 @@ import axios from "axios";
 import ShowWord from "../components/ShowWord/ShowWord";
 import Spinner from "../components/Common/Spinner/Spinner";
 import { useParams } from "react-router";
+import Layout from "../components/Common/Layout/Layout";
 
 export interface ISynAndAnt {
   synonyms: string[];
@@ -68,7 +69,7 @@ const ShowWordPage = () => {
   }, [wid, showWord.vocabulary]);
 
   return (
-    <>
+    <Layout>
       {synAndAntIsLoading ? (
         <Spinner />
       ) : (
@@ -78,7 +79,7 @@ const ShowWordPage = () => {
           showWord={showWord}
         />
       )}
-    </>
+    </Layout>
   );
 };
 export default ShowWordPage;

@@ -1,7 +1,6 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useHistory } from "react-router";
 
-import { VocabulariesContext } from "../../contexts/vocabulariesContext";
 import { IVocabularies } from "../../types/types";
 
 interface IProps {
