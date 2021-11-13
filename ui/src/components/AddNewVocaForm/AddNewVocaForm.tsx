@@ -8,6 +8,7 @@ import TextArea from "../Common/TextArea/TextArea";
 import axios from "axios";
 import { authContext } from "../../contexts/authContext";
 import { useHistory } from "react-router";
+import ViewExamSent from "../ViewExamSent/ViewExamSent";
 
 interface IProps {
   setShowAddNewVocaForm: React.Dispatch<React.SetStateAction<boolean>>;
@@ -28,6 +29,14 @@ interface IForm {
 const AddNewVocaForm: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
   const history = useHistory();
   const user = useContext(authContext);
+  const [exampleSentenceIsDisabled, setExampleSentenceIsDisabled] =
+    useState(true);
+  const [addExmSenBtnDis, setAddExmSenBtnDis] = useState(true);
+  const [addedExampleSentences, setAddedExampleSentences] = useState<string[]>(
+    []
+  );
+  const [allValid, setAllValid] = useState(false);
+  const [showAddedExamSent, setShowAddedExamSent] = useState(false);
 
   const [inputVals, setInputVals] = useState<IForm>({
     vocabulary: {
@@ -49,8 +58,6 @@ const AddNewVocaForm: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
     resource: { value: "", error: "", isTouched: false },
   });
 
-  const [allValid, setAllValid] = useState(false);
-
   useEffect(() => {
     const valid: boolean[] = [];
     for (let key in inputVals) {
@@ -58,13 +65,6 @@ const AddNewVocaForm: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
     }
     setAllValid(valid.every((v) => v));
   }, [inputVals]);
-
-  const [exampleSentenceIsDisabled, setExampleSentenceIsDisabled] =
-    useState(true);
-  const [addExmSenBtnDis, setAddExmSenBtnDis] = useState(true);
-  const [addedExampleSentences, setAddedExampleSentences] = useState<string[]>(
-    []
-  );
 
   const changeInputValHandler = (e: any, error: string | undefined): void => {
     function hasKey<O>(obj: O, key: PropertyKey): key is keyof O {
@@ -152,6 +152,14 @@ const AddNewVocaForm: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
 
   return (
     <>
+      {showAddedExamSent && (
+        <ViewExamSent
+          vocabulary={inputVals["vocabulary"].value}
+          setShowAddedExamSent={setShowAddedExamSent}
+          exampleSentences={addedExampleSentences}
+          setAddedExampleSentences={setAddedExampleSentences}
+        />
+      )}
       <BackDrop clicked={() => setShowAddNewVocaForm(false)} />
       <div className="fixed w-30rem center h-40rem overflow-auto  bg-white rounded">
         <form onSubmit={addNewVocabularyHandler} className="w-full">
@@ -222,7 +230,10 @@ const AddNewVocaForm: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
             />
             <div className="w-full">
               {!!addedExampleSentences.length && (
-                <p className="px-4 text-blue-400 cursor-pointer">
+                <p
+                  onClick={() => setShowAddedExamSent(true)}
+                  className="px-4 text-blue-400 cursor-pointer"
+                >
                   {addedExampleSentences.length} sentence
                 </p>
               )}

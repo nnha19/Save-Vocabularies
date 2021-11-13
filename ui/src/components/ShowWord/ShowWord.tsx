@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
+import useRenderExampleSentences from "../../customHooks/useRenderExampleSentences";
 import { ISynAndAnt } from "../../pages/showWordPage";
 import { IVocabulary } from "../../types/types";
 import Back from "../Common/Back/Back";
@@ -17,26 +18,10 @@ const ShowWord: React.FC<IProps> = ({
   synAndAnt,
   exampleSentences,
 }) => {
-  const renderExampleSents = (sentences: string[]) => {
-    return sentences.map((sentence, i) => {
-      return (
-        <p className="mb-2 flex flex-wrap">
-          {sentence.split(" ").map((w) => {
-            return (
-              <span
-                className={`mr-2 ${
-                  showWord.vocabulary.toLocaleLowerCase() ===
-                    w.toLocaleLowerCase() && "font-bold"
-                }`}
-              >
-                {w}
-              </span>
-            );
-          })}
-        </p>
-      );
-    });
-  };
+  const renderExampleSentences = useRenderExampleSentences(
+    showWord.exampleSentences,
+    showWord.vocabulary
+  );
 
   const func = (arr: string[]) => {
     return arr.map((s) => {
@@ -78,7 +63,7 @@ const ShowWord: React.FC<IProps> = ({
         {showWord.exampleSentences && (
           <div>
             <h2 className="title my-2">Example Sentences</h2>
-            {renderExampleSents(showWord.exampleSentences)}
+            {renderExampleSentences}
           </div>
         )}
         {showWord.note && (
@@ -107,7 +92,9 @@ const ShowWord: React.FC<IProps> = ({
         )}
       </div>
       <h1 className="title m-4">More Example Sentences</h1>
-      <div className="m-4 w-full">{renderExampleSents(exampleSentences)}</div>
+      <div className="m-4 w-full">
+        {useRenderExampleSentences(exampleSentences, showWord.vocabulary)}
+      </div>
     </Layout>
   );
 };
