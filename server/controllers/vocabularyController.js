@@ -3,9 +3,16 @@ const User = require("../Models/User");
 
 const getVocabulariesByUserId = async (req, res) => {
   try {
-    const { uid } = req.params;
-    const vocabularies = await Vocabulary.find({ owner: uid });
-    res.status(200).json(vocabularies);
+    const { uid, page } = req.params;
+    let vocabularies = await Vocabulary.find({ owner: uid });
+    let hasMore = !!vocabularies[Number(page)];
+    if (vocabularies[Number(page) + 10]) {
+      vocabularies = vocabularies.splice(page, page + 10);
+    } else {
+      vocabularies = vocabularies.splice(page);
+    }
+
+    res.status(200).json({ vocabularies, hasMore });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);

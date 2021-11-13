@@ -8,27 +8,30 @@ import { useParams } from "react-router";
 const VocabulariesPage = () => {
   //length of current vocabularies+1
   const [page, setPage] = useState(0);
-
   const getMoreRef: any = useRef();
+  const [hasMore, setHasMore] = useState(true);
   const { uid } = useParams<any>();
 
   const [vocabularies, setVocabularies] = useState<
     IVocabularies["vocabularies"]
   >([] as IVocabularies["vocabularies"]);
 
-  console.log(vocabularies);
-
   const getVocabularies = async () => {
-    const resp = await axios.get(
+    const resp: any = await axios.get(
       `${process.env.REACT_APP_BACKEND_URL}/vocabulary/${uid}/${page}`
     );
-    const updatedVocabularies = [...vocabularies, ...resp.data];
+    const updatedVocabularies = [...vocabularies, ...resp.data.vocabularies];
+    setHasMore(resp.data.hasMore);
+    setPage(updatedVocabularies.length + 1);
     setVocabularies(updatedVocabularies);
   };
 
+  let gettingMore = false;
   const handleObserver = (entries: any, observer: any) => {
     entries.forEach((entry: any) => {
       if (entry.isIntersecting) {
+        !gettingMore && hasMore && getVocabularies();
+        gettingMore = true;
       }
     });
   };
@@ -41,7 +44,7 @@ const VocabulariesPage = () => {
     };
     const observer = new IntersectionObserver(handleObserver, options);
     observer.observe(getMoreRef.current);
-  }, []);
+  }, [vocabularies]);
 
   useEffect(() => {
     getVocabularies();
