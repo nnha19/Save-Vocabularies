@@ -21,8 +21,6 @@ const Navigation: React.FC<IProps> = ({
             <span className="user-avatar">N</span>
             <div className={` ${navLinkStyle} `}>
               <h4 className="font-bold text-xl">Nyi Nyi</h4>
-              <span className="block">(Joined on Aug 12 2021)</span>
-              <span>40 vocabularies</span>
             </div>
           </div>
           <ul className="mt-4">

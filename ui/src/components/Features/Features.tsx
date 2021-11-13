@@ -27,7 +27,7 @@ const Features = () => {
     <div className="min-h-screen flex items-center bg-red-500  ">
       <div className="w-full flex h-95vh py-2 sm:w-5/6 mx-auto flex-col items-center">
         <Header toggleNavLinkStyleHandler={toggleNavLinkStyleHandler} />
-        <div className="w-full h-full  flex">
+        <div className="w-full h-90%  flex">
           <Navigation
             setShowAddNewVocaForm={setShowAddNewVocaForm}
             navLinkStyle={navLinkStyle}

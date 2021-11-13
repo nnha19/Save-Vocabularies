@@ -11,6 +11,7 @@ module.exports = {
         "2px": "2px",
         "95vh": "95vh",
         "40rem": "40rem",
+        "90%": "90%",
       },
       width: {
         "30rem": "30rem",

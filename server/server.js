@@ -17,6 +17,7 @@ mongoose
     console.log("CONNECTED TO MONGODB");
   })
   .catch((err) => console.log(err));
+
 app.use(express.json());
 
 app.use(userRoute);
