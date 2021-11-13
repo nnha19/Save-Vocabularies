@@ -36,7 +36,7 @@ const Navigation: React.FC<IProps> = ({
             >
               <li className="nav-items ">
                 <i className="fas fa-columns"></i>
-                <span className={`ml-4 ${navLinkStyle}`}>Dashboard</span>
+                <span className={`ml-4 ${navLinkStyle}`}>Vocabularies</span>
               </li>
             </NavLink>
             <NavLink

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Switch, Route } from "react-router-dom";
 
-import DashboardPage from "../../pages/dashboardPage";
+import VocabulariesPage from "../../pages/VocabulariesPage";
 import Header from "../Common/Header/Header";
 import Navigation from "../Common/Navigation/Navigation";
 import UsersPage from "../../pages/usersPage";
@@ -33,7 +33,7 @@ const Features = () => {
             navLinkStyle={navLinkStyle}
           />
           <Switch>
-            <Route path="/dashboard" component={DashboardPage} />
+            <Route path="/dashboard" component={VocabulariesPage} />
             <Route path="/users" component={UsersPage} />
             <Route path="/user/:uid/settings" exact component={SettingsPage} />
             <Route path="/user/:uid/noti" exact component={NotificationsPage} />

@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { useHistory } from "react-router";
 
-import { VocabulariesContext } from "../../../contexts/vocabulariesContext";
+import { VocabulariesContext } from "../../contexts/vocabulariesContext";
 
 const Vocabularies = () => {
   const history = useHistory();

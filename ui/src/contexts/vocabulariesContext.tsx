@@ -14,6 +14,7 @@ const VocabulariesContextProvider = ({
   const [vocabularies, setVocabularies] = useState(
     {} as IVocabularies["vocabularies"]
   );
+
   useEffect(() => {
     (async () => {
       const resp = await axios.get(
