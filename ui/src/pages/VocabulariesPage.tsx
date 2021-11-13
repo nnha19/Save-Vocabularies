@@ -19,6 +19,9 @@ const VocabulariesPage = () => {
   >([] as IVocabularies["vocabularies"]);
 
   const getVocabularies = async () => {
+    if (!hasMore) {
+      return;
+    }
     setInfiniteLoading(true);
     const resp: any = await axios.get(
       `${process.env.REACT_APP_BACKEND_URL}/vocabulary/${uid}/${page}`
@@ -32,6 +35,8 @@ const VocabulariesPage = () => {
   let getting: boolean;
   const handleObserver = (entries: any, observer: any) => {
     entries.forEach((entry: any) => {
+      console.log("intersect");
+
       if (entry.isIntersecting && !getting) {
         getVocabularies();
         getting = true;
