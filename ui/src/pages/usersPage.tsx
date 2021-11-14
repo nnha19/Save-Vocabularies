@@ -1,25 +1,8 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
 import Users from "../components/Users/Users";
-import { IUsers } from "../types/types";
+import { useAllUsersContext } from "../customHooks/useAllUsersContext";
 
 const UsersPage = () => {
-  const [allUsers, setAllUsers] = useState<IUsers["users"]>(
-    {} as IUsers["users"]
-  );
-  useEffect(() => {
-    (async () => {
-      try {
-        const resp = await axios.get(
-          `${process.env.REACT_APP_BACKEND_URL}/users`
-        );
-        setAllUsers(resp.data);
-      } catch (err) {
-        alert(err);
-      }
-    })();
-  }, []);
-
+  const allUsers = useAllUsersContext();
   return allUsers.length > 0 ? <Users allUsers={allUsers} /> : null;
 };
 

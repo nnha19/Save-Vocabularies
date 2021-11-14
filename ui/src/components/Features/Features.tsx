@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { Switch, Route } from "react-router-dom";
 
-import { useAuthContext } from "../../customHooks/useAuthContext";
-
 import VocabulariesPage from "../../pages/VocabulariesPage";
 import Header from "../Common/Header/Header";
 import Navigation from "../Common/Navigation/Navigation";

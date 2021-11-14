@@ -1,12 +1,17 @@
 const User = require("../Models/User");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const { body, validationResult } = require("express-validator");
+const { validationResult } = require("express-validator");
 
 const getAllUsers = async (req, res) => {
   try {
     const users = await User.find({});
-    res.status(200).json(users);
+    const resultUsers = users.map((user) => {
+      const { username, email, _id, joinedDate, vocabularies } = user;
+      return { username, email, _id, joinedDate, vocabularies };
+    });
+    console.log(resultUsers);
+    res.status(200).json(resultUsers);
   } catch (err) {
     res.status(500).json(err);
   }

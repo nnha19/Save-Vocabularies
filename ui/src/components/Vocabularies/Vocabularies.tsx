@@ -1,5 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router";
+import { useAuthContext } from "../../customHooks/useAuthContext";
 
 import { IVocabularies } from "../../types/types";
 import UserInfo from "../Common/UserInfo/UserInfo";
@@ -9,6 +10,7 @@ interface IProps {
 }
 
 const Vocabularies: React.FC<IProps> = ({ vocabularies }) => {
+  const user = useAuthContext();
   const history = useHistory();
   const vocabularyList = vocabularies.map((vo) => {
     const day = new Date(vo.timeStamp).getDate();
@@ -30,7 +32,7 @@ const Vocabularies: React.FC<IProps> = ({ vocabularies }) => {
   return (
     <div>
       {/* If vocas are not current user's, show voca owner info. */}
-      <UserInfo />
+      {<UserInfo className="px-4 " user={user} />}
       <div>{vocabularyList}</div>
     </div>
   );

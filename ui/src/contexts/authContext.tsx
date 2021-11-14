@@ -14,7 +14,7 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
       vocabularies: [""],
       joinedDate: "12/1/2021",
       token:
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTkwY2MwMWIzODgzZTBhNzc2ZWI0NDAiLCJ1c2VybmFtZSI6InZhbGlkdXNlciIsImVtYWlsIjoidmFsaWR1c2VyQGdtYWlsLmNvbSIsImlhdCI6MTYzNjg4Nzc5MSwiZXhwIjoxNjM2ODkxMzkxfQ.hRG9k5Jn-3zSnWcupi2m7msEARFyQ_tT4rw2E_ei8D0",
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTkwY2MwMWIzODgzZTBhNzc2ZWI0NDAiLCJ1c2VybmFtZSI6InZhbGlkdXNlciIsImVtYWlsIjoidmFsaWR1c2VyQGdtYWlsLmNvbSIsImlhdCI6MTYzNjg5MTYzOSwiZXhwIjoxNjM2ODk1MjM5fQ.FACXl5Gj5KCLm8TCmroVyL0X5SwezD352HVDnePaI88",
     });
   }, []);
 

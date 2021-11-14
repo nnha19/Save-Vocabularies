@@ -6,11 +6,12 @@ import { IVocabularies } from "../types/types";
 import { useParams } from "react-router";
 import Spinner from "../components/Common/Spinner/Spinner";
 import { useAuthContext } from "../customHooks/useAuthContext";
+import UserInfo from "../components/Common/UserInfo/UserInfo";
 
 const VocabulariesPage = () => {
   //length of current vocabularies+1
 
-  const { token } = useAuthContext();
+  const { token, _id: userId } = useAuthContext();
   const [page, setPage] = useState(0);
   const getMoreRef: any = useRef();
   const [hasMore, setHasMore] = useState(true);
@@ -74,6 +75,7 @@ const VocabulariesPage = () => {
 
   return (
     <Layout>
+      <UserInfo className="px-4 " />
       {vocabularies.length > 0 && <Vocabularies vocabularies={vocabularies} />}
       <div ref={getMoreRef}>
         {infiniteLoading && <Spinner style={{ height: "6rem" }} />}
