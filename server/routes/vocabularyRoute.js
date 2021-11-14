@@ -10,8 +10,8 @@ route.get("/vocabulary/:vid/", vocabularyController.getVocabularyById);
 route.get("/:uid/:page", vocabularyController.getVocabulariesByUserId);
 route.post(
   "/:uid",
-  // body("vocabulary").not().isEmpty(),
-  // body("definition").not().isEmpty(),
+  body("vocabulary").not().isEmpty(),
+  body("definition").not().isEmpty(),
   vocabularyController.addNewVocabulary
 );
 
