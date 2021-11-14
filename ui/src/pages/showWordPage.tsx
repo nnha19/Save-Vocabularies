@@ -6,6 +6,7 @@ import ShowWord from "../components/ShowWord/ShowWord";
 import Spinner from "../components/Common/Spinner/Spinner";
 import { useParams } from "react-router";
 import Layout from "../components/Common/Layout/Layout";
+import { useAuthContext } from "../customHooks/useAuthContext";
 
 export interface ISynAndAnt {
   synonyms: string[];
@@ -13,6 +14,7 @@ export interface ISynAndAnt {
 }
 
 const ShowWordPage = () => {
+  const { token } = useAuthContext();
   const { wid } = useParams<any>();
 
   const [showWord, setShowWord] = useState({} as IVocabulary);
@@ -44,7 +46,12 @@ const ShowWordPage = () => {
     //Fetch detail of a vocabulary own API
     (async () => {
       const resp = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/vocabulary/vocabulary/${wid}`
+        `${process.env.REACT_APP_BACKEND_URL}/vocabulary/vocabulary/${wid}`,
+        {
+          headers: {
+            authorization: `bearer ${token}`,
+          },
+        }
       );
       setShowWord(resp.data);
     })();

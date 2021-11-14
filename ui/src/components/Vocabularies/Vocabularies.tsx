@@ -20,7 +20,7 @@ const Vocabularies: React.FC<IProps> = ({ vocabularies }) => {
         className="px-4 border-b-2 py-4 cursor-pointer"
       >
         <h2 className="text-xl font-bold">{vo.vocabulary}</h2>
-        <p>{vo.defination}</p>
+        <p>{vo.definition}</p>
         <p className="text-right">{`${day}/${month}/${year}`}</p>
       </div>
     );

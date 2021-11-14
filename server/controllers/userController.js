@@ -1,6 +1,7 @@
 const User = require("../Models/User");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const { body, validationResult } = require("express-validator");
 
 const getAllUsers = async (req, res) => {
   try {
@@ -13,6 +14,13 @@ const getAllUsers = async (req, res) => {
 
 const signUpUser = async (req, res) => {
   try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      res
+        .status(400)
+        .json("Invalid Input. Please fill all the required fields.");
+      return;
+    }
     const { username, email, password } = req.body;
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -40,6 +48,11 @@ const signUpUser = async (req, res) => {
 };
 
 const signInUser = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    res.status(400).json("Invalid Input. Please fill all the required fields.");
+    return;
+  }
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email });

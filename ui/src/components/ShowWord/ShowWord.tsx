@@ -55,8 +55,8 @@ const ShowWord: React.FC<IProps> = ({
             ></i>
           </div>
           <div className="flex items-start my-4">
-            <span className="font-medium mr-4 ">Defination</span>
-            <span>{showWord.defination}</span>
+            <span className="font-medium mr-4 ">Definition</span>
+            <span>{showWord.definition}</span>
           </div>
         </div>
         {showWord.exampleSentences && (

@@ -140,7 +140,7 @@ const AddNewVocaForm: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
       method: "POST",
       data: {
         vocabulary: inputVals["vocabulary"].value,
-        defination: inputVals["definition"].value,
+        definition: inputVals["definition"].value,
         note: inputVals["note"].value,
         exampleSentences: addedExampleSentences,
         resource: inputVals.resource.value,

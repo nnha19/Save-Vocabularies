@@ -1,5 +1,6 @@
 const Vocabulary = require("../Models/Vocabulary");
 const User = require("../Models/User");
+const { validationResult } = require("express-validator");
 
 const getVocabulariesByUserId = async (req, res) => {
   try {
@@ -20,16 +21,25 @@ const getVocabulariesByUserId = async (req, res) => {
 
 const addNewVocabulary = async (req, res) => {
   try {
+    const errors = validationResult(req);
+    // if (!errors.isEmpty()) {
+    //   res
+    //     .status(400)
+    //     .json(
+    //       "Invalid input fields. Please make sure to fill all the required fields."
+    //     );
+    //   return;
+    // }
     const { uid } = req.params;
     const user = await User.findById(uid);
     if (!user) {
       res.status(400).json("User can't be found.");
     } else {
-      const { vocabulary, defination, exampleSentences, note, resource } =
+      const { vocabulary, definition, exampleSentences, note, resource } =
         req.body;
       const newVocabulary = await Vocabulary.create({
         vocabulary,
-        defination,
+        definition,
         exampleSentences,
         note,
         timeStamp: new Date(),
