@@ -28,8 +28,7 @@ const UserInfo: React.FC<IProps> = (props) => {
   const year = date?.getFullYear();
   const month = date?.getMonth();
   const day = date?.getDate();
-
-  return userId !== uid && user ? (
+  return userId !== uid && user && userId !== user._id ? (
     <div
       onClick={() => history.push(`/dashboard/${user?._id}/vocabularies`)}
       key={user._id}
