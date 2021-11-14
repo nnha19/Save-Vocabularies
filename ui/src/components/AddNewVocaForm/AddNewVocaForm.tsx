@@ -9,6 +9,7 @@ import axios from "axios";
 import { authContext } from "../../contexts/authContext";
 import { useHistory } from "react-router";
 import ViewExamSent from "../ViewExamSent/ViewExamSent";
+import { useAuthContext } from "../../customHooks/useAuthContext";
 
 interface IProps {
   setShowAddNewVocaForm: React.Dispatch<React.SetStateAction<boolean>>;
@@ -28,7 +29,7 @@ interface IForm {
 
 const AddNewVocaForm: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
   const history = useHistory();
-  const user = useContext(authContext);
+  const user = useAuthContext();
   const [exampleSentenceIsDisabled, setExampleSentenceIsDisabled] =
     useState(true);
   const [addExmSenBtnDis, setAddExmSenBtnDis] = useState(true);
@@ -136,7 +137,7 @@ const AddNewVocaForm: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
   const addNewVocabularyHandler = async (e: any) => {
     e.preventDefault();
     const resp = await axios({
-      url: `${process.env.REACT_APP_BACKEND_URL}/vocabulary/${user?._id}`,
+      url: `${process.env.REACT_APP_BACKEND_URL}/vocabulary/${user._id}`,
       method: "POST",
       data: {
         vocabulary: inputVals["vocabulary"].value,
@@ -145,9 +146,12 @@ const AddNewVocaForm: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
         exampleSentences: addedExampleSentences,
         resource: inputVals.resource.value,
       },
+      headers: {
+        authorization: `bearer ${user.token}`,
+      },
     });
     setShowAddNewVocaForm(false);
-    history.push(`/dashboard/${user?._id}/vocabularies`);
+    history.push(`/dashboard/${user._id}/vocabularies`);
   };
 
   return (

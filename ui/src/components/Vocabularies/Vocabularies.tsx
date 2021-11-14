@@ -2,6 +2,7 @@ import React from "react";
 import { useHistory } from "react-router";
 
 import { IVocabularies } from "../../types/types";
+import UserInfo from "../Common/UserInfo/UserInfo";
 
 interface IProps {
   vocabularies: IVocabularies["vocabularies"];
@@ -26,7 +27,13 @@ const Vocabularies: React.FC<IProps> = ({ vocabularies }) => {
     );
   });
 
-  return <>{vocabularyList}</>;
+  return (
+    <div>
+      {/* If vocas are not current user's, show voca owner info. */}
+      <UserInfo />
+      <div>{vocabularyList}</div>
+    </div>
+  );
 };
 
 export default Vocabularies;

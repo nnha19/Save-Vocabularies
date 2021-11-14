@@ -8,7 +8,13 @@ interface IProps {
 
 const Users: React.FC<IProps> = ({ allUsers }) => {
   const history = useHistory();
+  const months = "Jan Feb Mar April May Jun Jul Aug Sep Oct Nov Dec".split(" ");
   const allUserList = allUsers.map((user) => {
+    const date = new Date(user.joinedDate);
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const day = date.getDate();
+
     return (
       <div
         onClick={() => history.push(`dashboard/${user._id}/vocabularies`)}
@@ -22,7 +28,7 @@ const Users: React.FC<IProps> = ({ allUsers }) => {
             <i className="fas fa-bell ml-4 text-xl cursor-pointer"></i>
           </div>
           <p>({user.vocabularies.length} vocabularies)</p>
-          <p>Joined on {user.joinedDate}</p>
+          <p>Joined on {`${months[month]} ${day} ${year}`}</p>
         </div>
       </div>
     );
