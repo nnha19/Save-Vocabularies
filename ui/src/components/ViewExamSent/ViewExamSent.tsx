@@ -1,6 +1,7 @@
 import React from "react";
 import BackDrop from "../Common/BackDrop/BackDrop";
 import useRenderExampleSentences from "../../customHooks/useRenderExampleSentences";
+
 interface IProps {
   exampleSentences: string[];
   setShowAddedExamSent: React.Dispatch<React.SetStateAction<boolean>>;

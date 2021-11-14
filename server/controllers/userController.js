@@ -26,15 +26,12 @@ const signUpUser = async (req, res) => {
         joinedDate: new Date(),
       });
       const token = await jwt.sign(
-        { userId: newUser._id, username },
+        { userId: newUser._id, username, email },
         process.env.JWT_KEY,
         { expiresIn: "1h" }
       );
-      res.status(200).json({
-        message: "Account successfully created",
-        token,
-        user: { username: newUser.username, userId: newUser._id },
-      });
+      const { _id } = newUser;
+      res.status(200).json({ username, email, _id, token });
     }
   } catch (err) {
     console.log(err);
@@ -51,23 +48,21 @@ const signInUser = async (req, res) => {
     } else {
       const validPassword = await bcrypt.compare(password, user.password);
       if (validPassword) {
+        const { username, _id } = user;
         const token = jwt.sign(
           {
             userId: user._id,
-            username: user.username,
-            admin: user.admin,
+            username,
+            email,
           },
           process.env.JWT_KEY,
           { expiresIn: "1h" }
         );
         res.status(200).json({
-          message: "Logged you in",
+          username,
+          email,
+          _id,
           token,
-          user: {
-            username: user.username,
-            userId: user._id,
-            admin: user.admin,
-          },
         });
       } else {
         res.status(400).json("Incorrect password.");

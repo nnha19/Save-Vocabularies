@@ -1,10 +1,10 @@
 import React, { createContext, useEffect, useState } from "react";
 import { IUser } from "../types/types";
 
-export const authContext = createContext({} as IUser | undefined);
+export const authContext = createContext({} as IUser);
 
 const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<IUser>();
+  const [user, setUser] = useState<IUser>({} as IUser);
 
   useEffect(() => {
     setUser({
@@ -13,6 +13,8 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
       email: "girl@gmail.com",
       vocabularies: [""],
       joinedDate: "12/1/2021",
+      token:
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTkwYmM1ZThkZTQ0MzhiYTgzODhiZmMiLCJ1c2VybmFtZSI6IkZha2UgVXNlciIsImVtYWlsIjoiRmFrZSBFbWFpbCIsImlhdCI6MTYzNjg3NzU5OCwiZXhwIjoxNjM2ODgxMTk4fQ.kI1ySSxCUvZfu0efyNmZjy26aikaSex5C_rNzSq5udY",
     });
   }, []);
 

@@ -18,6 +18,7 @@ export interface IUser {
   joinedDate: string;
   vocabularies: string[];
   _id: string;
+  token: string;
 }
 export interface IUsers {
   users: IUser[];

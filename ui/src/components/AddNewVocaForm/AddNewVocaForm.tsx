@@ -95,8 +95,7 @@ const AddNewVocaForm: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
   useEffect(() => {
     //enable the button if vocabulary is included in exampleSentence
     let { value } = inputVals["exampleSentence"];
-    value = value.replaceAll(".", "");
-    value = value.replaceAll(",", "");
+
     const included = value
       .split(" ")
       .find((w) => w === inputVals["vocabulary"].value);
@@ -108,6 +107,7 @@ const AddNewVocaForm: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
   }, [inputVals["vocabulary"].value, inputVals["exampleSentence"].value]);
 
   const addExampleSentenceHandler = () => {
+    const exceptions = `ing ed s 's n`.split(" ");
     setAddedExampleSentences([
       ...addedExampleSentences,
       inputVals["exampleSentence"].value,
