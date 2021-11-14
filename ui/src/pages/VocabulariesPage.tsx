@@ -10,6 +10,7 @@ import { useParams } from "react-router";
 import Spinner from "../components/Common/Spinner/Spinner";
 import { useAuthContext } from "../customHooks/useAuthContext";
 import UserInfo from "../components/Common/UserInfo/UserInfo";
+import SkeletonLoading from "../components/Vocabularies/SkeletonLoading/SkeletonLoading";
 
 const VocabulariesPage = () => {
   //length of current vocabularies+1
@@ -28,7 +29,6 @@ const VocabulariesPage = () => {
   >([] as IVocabularies["vocabularies"]);
 
   const getVocabularies = async () => {
-    vocabularies.length < 1 && setInitialLoading(true);
     try {
       if (!hasMore) {
         return;
@@ -50,12 +50,11 @@ const VocabulariesPage = () => {
       console.log(err?.response?.data);
     }
     setInfiniteLoading(false);
-    vocabularies.length < 1 && setInitialLoading(false);
+    initialLoading && setInitialLoading(false);
   };
 
   let getting = false;
   const handleObserver = (entries: any, observer: any) => {
-    console.log("intersect");
     entries.forEach((entry: any) => {
       if (entry.isIntersecting && !getting) {
         getVocabularies();
@@ -88,7 +87,8 @@ const VocabulariesPage = () => {
 
   return (
     <Layout>
-      <UserInfo className="px-4 sticky top-0 bg-white" />
+      {initialLoading && <SkeletonLoading />}
+      {!initialLoading && <UserInfo className="px-4 sticky top-0 bg-white" />}
       {vocabularies.length > 0 && <Vocabularies vocabularies={vocabularies} />}
       {vocabularies.length < 1 && !initialLoading && noVocabulary}
       <div className={`${hasMore ? "h-20" : ""}`} ref={getMoreRef}>
