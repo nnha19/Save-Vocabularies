@@ -23,15 +23,13 @@ const UserInfo: React.FC<IProps> = (props) => {
   } else {
     user = props.user;
   }
-  if (!user) {
-    throw new Error("User can't be found.");
-  }
-  const date = new Date(user.joinedDate);
-  const year = date.getFullYear();
-  const month = date.getMonth();
-  const day = date.getDate();
 
-  return userId !== uid ? (
+  const date = user && new Date(user.joinedDate);
+  const year = date?.getFullYear();
+  const month = date?.getMonth();
+  const day = date?.getDate();
+
+  return userId !== uid && user ? (
     <div
       onClick={() => history.push(`/dashboard/${user?._id}/vocabularies`)}
       key={user._id}
@@ -44,7 +42,7 @@ const UserInfo: React.FC<IProps> = (props) => {
           <i className="fas fa-bell ml-4 text-xl cursor-pointer"></i>
         </div>
         <p>({user.vocabularies.length} vocabularies)</p>
-        <p>Joined on {`${months[month]} ${day} ${year}`}</p>
+        <p>Joined on {`${month && months[month]} ${day} ${year}`}</p>
       </div>
     </div>
   ) : null;

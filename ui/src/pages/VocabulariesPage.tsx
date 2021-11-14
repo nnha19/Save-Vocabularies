@@ -47,11 +47,10 @@ const VocabulariesPage = () => {
     }
   };
 
-  let getting: boolean;
+  let getting = false;
   const handleObserver = (entries: any, observer: any) => {
+    console.log("intersect");
     entries.forEach((entry: any) => {
-      console.log("intersect");
-
       if (entry.isIntersecting && !getting) {
         getVocabularies();
         getting = true;
@@ -67,7 +66,7 @@ const VocabulariesPage = () => {
     };
     const observer = new IntersectionObserver(handleObserver, options);
     observer.observe(getMoreRef.current);
-  }, [vocabularies]);
+  }, [vocabularies, uid]);
 
   useEffect(() => {
     getVocabularies();
@@ -75,9 +74,9 @@ const VocabulariesPage = () => {
 
   return (
     <Layout>
-      <UserInfo className="px-4 " />
+      <UserInfo className="px-4 sticky top-0 bg-white" />
       {vocabularies.length > 0 && <Vocabularies vocabularies={vocabularies} />}
-      <div ref={getMoreRef}>
+      <div className={`${hasMore ? "h-20" : ""}`} ref={getMoreRef}>
         {infiniteLoading && <Spinner style={{ height: "6rem" }} />}
       </div>
     </Layout>

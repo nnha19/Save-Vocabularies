@@ -32,7 +32,6 @@ const Vocabularies: React.FC<IProps> = ({ vocabularies }) => {
   return (
     <div>
       {/* If vocas are not current user's, show voca owner info. */}
-      {<UserInfo className="px-4 " user={user} />}
       <div>{vocabularyList}</div>
     </div>
   );

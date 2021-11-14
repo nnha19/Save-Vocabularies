@@ -8,13 +8,13 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     setUser({
-      _id: "6162e68db8d492f28b8e7870",
+      _id: "6162e64c2a4fb425114a5fc3",
       username: "Nyi Nyi",
       email: "girl@gmail.com",
       vocabularies: [""],
       joinedDate: "12/1/2021",
       token:
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTkwY2MwMWIzODgzZTBhNzc2ZWI0NDAiLCJ1c2VybmFtZSI6InZhbGlkdXNlciIsImVtYWlsIjoidmFsaWR1c2VyQGdtYWlsLmNvbSIsImlhdCI6MTYzNjg5MTYzOSwiZXhwIjoxNjM2ODk1MjM5fQ.FACXl5Gj5KCLm8TCmroVyL0X5SwezD352HVDnePaI88",
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTkwY2MwMWIzODgzZTBhNzc2ZWI0NDAiLCJ1c2VybmFtZSI6InZhbGlkdXNlciIsImVtYWlsIjoidmFsaWR1c2VyQGdtYWlsLmNvbSIsImlhdCI6MTYzNjg5NDU3NywiZXhwIjoxNjM2ODk4MTc3fQ.uXo7N4ZiJw5QzV4EETuivXevvO0cVxv-jTDQR7lA4QU",
     });
   }, []);
 
