@@ -11,6 +11,7 @@ import Spinner from "../components/Common/Spinner/Spinner";
 import { useAuthContext } from "../customHooks/useAuthContext";
 import UserInfo from "../components/Common/UserInfo/UserInfo";
 import SkeletonLoading from "../components/Vocabularies/SkeletonLoading/SkeletonLoading";
+import Search from "../components/Vocabularies/Search/Search";
 
 const VocabulariesPage = () => {
   //length of current vocabularies+1
@@ -23,6 +24,7 @@ const VocabulariesPage = () => {
   const [initialLoading, setInitialLoading] = useState(true);
   const { uid } = useParams<any>();
   const [error, setError] = useState(false);
+  const [skeletonLoading, setSkeletonLoading] = useState(false);
 
   const [vocabularies, setVocabularies] = useState<
     IVocabularies["vocabularies"]
@@ -87,15 +89,22 @@ const VocabulariesPage = () => {
 
   return (
     <Layout>
-      {initialLoading && <SkeletonLoading />}
-      {!initialLoading && <UserInfo className="px-4 sticky top-0 bg-white" />}
-      {vocabularies.length > 0 && <Vocabularies vocabularies={vocabularies} />}
-      {vocabularies.length < 1 && !initialLoading && noVocabulary}
-      <div className={`${hasMore ? "h-20" : ""}`} ref={getMoreRef}>
-        {infiniteLoading && !initialLoading && (
-          <Spinner style={{ height: "6rem" }} />
-        )}
+      <div className="border-b-2 p-4">
+        <Search setSkeletonLoading={setSkeletonLoading} />
       </div>
+      {initialLoading || (skeletonLoading && <SkeletonLoading />)}
+      {!initialLoading && <UserInfo className="px-4 sticky top-0 bg-white" />}
+      {vocabularies.length > 0 && !skeletonLoading && (
+        <Vocabularies vocabularies={vocabularies} />
+      )}
+      {vocabularies.length < 1 && !initialLoading && noVocabulary}
+      {!skeletonLoading && (
+        <div className={`${hasMore ? "h-20" : ""}`} ref={getMoreRef}>
+          {infiniteLoading && !initialLoading && (
+            <Spinner style={{ height: "6rem" }} />
+          )}
+        </div>
+      )}
     </Layout>
   );
 };

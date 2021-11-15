@@ -4,6 +4,7 @@ import { useAuthContext } from "../../customHooks/useAuthContext";
 
 import { IVocabularies } from "../../types/types";
 import UserInfo from "../Common/UserInfo/UserInfo";
+import Search from "./Search/Search";
 
 interface IProps {
   vocabularies: IVocabularies["vocabularies"];
@@ -31,7 +32,6 @@ const Vocabularies: React.FC<IProps> = ({ vocabularies }) => {
 
   return (
     <div>
-      {/* If vocas are not current user's, show voca owner info. */}
       <div>{vocabularyList}</div>
     </div>
   );
