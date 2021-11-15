@@ -8,7 +8,7 @@ interface IProps {
 
 const Users: React.FC<IProps> = ({ allUsers }) => {
   const allUserList = allUsers.map((user) => {
-    return <UserInfo user={user} />;
+    return <UserInfo key={user._id} user={user} />;
   });
 
   return (

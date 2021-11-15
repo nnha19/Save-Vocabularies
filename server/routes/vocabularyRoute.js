@@ -4,7 +4,7 @@ const { body } = require("express-validator");
 
 const authMiddleware = require("../middlewares/authMiddleware");
 
-route.use(authMiddleware);
+// route.use(authMiddleware);
 
 route.get("/vocabulary/:vid/", vocabularyController.getVocabularyById);
 route.get("/:uid/:page", vocabularyController.getVocabulariesByUserId);

@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .nav-items {
-  @apply text-xl flex justify-center hover:bg-red-500  transition-all py-4 hover:text-white px-4;
+  @apply text-xl flex justify-center border-l-4 border-transparent hover:bg-red-500  transition-all py-4 hover:text-white px-4;
 }
 .user-avatar {
   @apply flex items-center justify-center text-xl text-white h-12 w-12 rounded-full bg-purple-400;

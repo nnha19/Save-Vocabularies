@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 
 import AuthContextProvider from "./contexts/authContext";
 import Features from "./components/Features/Features";
