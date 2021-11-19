@@ -26,6 +26,7 @@ const VocabulariesPage = () => {
   const { uid } = useParams<any>();
   const [error, setError] = useState(false);
   const [skeletonLoading, setSkeletonLoading] = useState(false);
+  const [isInfinite, setIsInfinite] = useState(true);
 
   const [vocabularies, setVocabularies] = useState<
     IVocabularies["vocabularies"]
@@ -92,7 +93,10 @@ const VocabulariesPage = () => {
     <Layout>
       {userId === uid && (
         <div className="border-b-2 p-4 flex items-center sticky top-0 bg-white">
-          <FilterByResource vocabularies={vocabularies} />
+          <FilterByResource
+            setIsInfinite={setIsInfinite}
+            setOriginalVocabularies={setVocabularies}
+          />
           <Search setSkeletonLoading={setSkeletonLoading} />
         </div>
       )}
@@ -102,7 +106,7 @@ const VocabulariesPage = () => {
         <Vocabularies vocabularies={vocabularies} />
       )}
       {vocabularies.length < 1 && !initialLoading && noVocabulary}
-      {!skeletonLoading && (
+      {!skeletonLoading && isInfinite && (
         <div className={`${hasMore ? "h-20" : ""}`} ref={getMoreRef}>
           {infiniteLoading && !initialLoading && (
             <Spinner style={{ height: "6rem" }} />

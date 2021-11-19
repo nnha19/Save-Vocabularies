@@ -262,7 +262,7 @@ const AddNewVocaForm: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
           <div className="px-4 sticky bottom-0 bg-white py-4">
             <button
               disabled={!allValid}
-              className="button bg-red-500 text-white w-full px-4 py-2"
+              className="button bg-primaryColor text-white w-full px-4 py-2"
             >
               Submit
             </button>

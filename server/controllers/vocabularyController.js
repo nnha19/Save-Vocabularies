@@ -2,6 +2,20 @@ const Vocabulary = require("../Models/Vocabulary");
 const User = require("../Models/User");
 const { validationResult } = require("express-validator");
 
+const getAllVocabulariesByUserId = async (req, res) => {
+  try {
+    const { uid } = req.params;
+    if (uid) {
+      const vocabularies = await Vocabulary.find({ owner: uid });
+      res.status(200).json(vocabularies);
+    } else {
+      res.status(400).json("User with the provided id couldn't be found.");
+    }
+  } catch (err) {
+    res.status(400).json("Something went wrong.");
+  }
+};
+
 const getVocabulariesByUserId = async (req, res) => {
   try {
     const { uid, page } = req.params;
@@ -75,6 +89,20 @@ const getVocabularyById = async (req, res) => {
   }
 };
 
+const getVocabulariesByResources = async (req, res) => {
+  try {
+    const { resources } = req.params;
+    const vocabularies = await Vocabulary.find({
+      resource: resources.split("&"),
+    });
+    res.status(200).json(vocabularies);
+  } catch (err) {
+    res.status(500).json("Something went wrong.");
+  }
+};
+
+exports.getAllVocabulariesByUserId = getAllVocabulariesByUserId;
 exports.getVocabulariesByUserId = getVocabulariesByUserId;
 exports.addNewVocabulary = addNewVocabulary;
 exports.getVocabularyById = getVocabularyById;
+exports.getVocabulariesByResources = getVocabulariesByResources;

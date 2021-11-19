@@ -69,7 +69,7 @@ const Navigation: React.FC<IProps> = ({
           </ul>
           <button
             onClick={() => setShowAddNewVocaForm(true)}
-            className=" text-xl  px-4 rounded-full text-white mt-4 h-12 w-46 bg-red-500 block"
+            className=" text-xl  px-4 rounded-full text-white mt-4 h-12 w-46 bg-primaryColor block"
           >
             <i className="fas fa-plus"></i>
             <span className={`ml-4 ${navLinkStyle}`}>Add New</span>

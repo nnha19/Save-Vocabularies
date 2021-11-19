@@ -48,7 +48,7 @@ const TextArea: React.FC<IProps> = ({
         onChange={changeInputValHandler}
         value={value}
       ></textarea>
-      {error && isTouched && <p className="text-red-500">{error}</p>}
+      {error && isTouched && <p className="text-primaryColor">{error}</p>}
     </div>
   );
 };

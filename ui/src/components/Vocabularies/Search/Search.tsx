@@ -29,7 +29,7 @@ const Search: React.FC<IProps> = ({ setSkeletonLoading }) => {
           type="text"
           placeholder="Search Vocabularies"
         />
-        <button className="absolute bg-red-500 h-full px-8 -ml-10 text-white rounded-full">
+        <button className="absolute bg-primarColor h-full px-8 bg-primaryColor -ml-10 text-white rounded-full">
           Search
         </button>
       </form>

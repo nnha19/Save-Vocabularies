@@ -35,7 +35,7 @@ const Features = () => {
   return (
     <div
       onClick={closeDropdownHandler}
-      className="min-h-screen flex items-center bg-red-500  "
+      className="min-h-screen flex items-center bg-primaryColor  "
     >
       <div className="w-full flex h-95vh py-2 sm:w-5/6 mx-auto flex-col items-center">
         <Header toggleNavLinkStyleHandler={toggleNavLinkStyleHandler} />

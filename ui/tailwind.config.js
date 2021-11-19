@@ -18,6 +18,8 @@ module.exports = {
       },
       colors: {
         backdrop: "#000000b0",
+        primaryColor: "red",
+        secondaryColor: "white",
       },
     },
   },

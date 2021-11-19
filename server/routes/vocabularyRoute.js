@@ -6,7 +6,12 @@ const authMiddleware = require("../middlewares/authMiddleware");
 
 // route.use(authMiddleware);
 
+route.get("/all/:uid", vocabularyController.getAllVocabulariesByUserId);
 route.get("/vocabulary/:vid/", vocabularyController.getVocabularyById);
+route.get(
+  "/filter/:resources",
+  vocabularyController.getVocabulariesByResources
+);
 route.get("/:uid/:page", vocabularyController.getVocabulariesByUserId);
 route.post(
   "/:uid",

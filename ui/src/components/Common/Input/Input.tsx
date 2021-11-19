@@ -47,7 +47,7 @@ const Input: React.FC<IProps> = ({
         value={value}
         placeholder={placeholder}
       />
-      {error && isTouched && <p className="text-red-500">{error}</p>}
+      {error && isTouched && <p className="text-primaryColor">{error}</p>}
     </div>
   );
 };
