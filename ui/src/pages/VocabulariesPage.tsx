@@ -33,6 +33,7 @@ const VocabulariesPage = () => {
   >([] as IVocabularies["vocabularies"]);
 
   const getVocabularies = async () => {
+    console.log(vocabularies.length);
     try {
       if (!hasMore) {
         return;
@@ -98,6 +99,7 @@ const VocabulariesPage = () => {
             setIsInfinite={setIsInfinite}
             setOriginalVocabularies={setVocabularies}
             setSkeletonLoading={setSkeletonLoading}
+            getVocabularies={getVocabularies}
           />
           <Search setSkeletonLoading={setSkeletonLoading} />
         </div>

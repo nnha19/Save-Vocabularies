@@ -9,12 +9,14 @@ interface IProps {
   setIsInfinite: React.Dispatch<React.SetStateAction<boolean>>;
   setOriginalVocabularies: React.Dispatch<React.SetStateAction<IVocabulary[]>>;
   setSkeletonLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  getVocabularies: () => Promise<void>;
 }
 
 const FilterByResource: React.FC<IProps> = ({
   setOriginalVocabularies,
   setIsInfinite,
   setSkeletonLoading,
+  getVocabularies,
 }) => {
   const [fetchResourceIsLoading, setFetchIsLoading] = useState(false);
   const [vocabularies, setVocabularies] = useState<
@@ -99,6 +101,13 @@ const FilterByResource: React.FC<IProps> = ({
     setSkeletonLoading(false);
   };
 
+  const clearFilterHandler = () => {
+    setOriginalVocabularies([]);
+    setIsInfinite(true);
+    setSelectedResources([]);
+    getVocabularies();
+  };
+
   return (
     <div id="filter-by-resource" className="relative ">
       <div
@@ -121,6 +130,12 @@ const FilterByResource: React.FC<IProps> = ({
               className="px-8 py-2 bg-primaryColor text-white rounded"
             >
               Save
+            </button>
+            <button
+              onClick={clearFilterHandler}
+              className="mt-4 px-8 py-2 bg-primaryColor text-white rounded"
+            >
+              Clear All
             </button>
           </div>
         </div>
