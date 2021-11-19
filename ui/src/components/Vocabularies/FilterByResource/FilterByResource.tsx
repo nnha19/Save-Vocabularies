@@ -3,22 +3,28 @@ import React, { useContext, useEffect, useState } from "react";
 import { FilterDropdownContext } from "../../../contexts/filterDropdownContext";
 import { useAuthContext } from "../../../customHooks/useAuthContext";
 import { IVocabularies, IVocabulary } from "../../../types/types";
+import Spinner from "../../Common/Spinner/Spinner";
 
 interface IProps {
   setIsInfinite: React.Dispatch<React.SetStateAction<boolean>>;
   setOriginalVocabularies: React.Dispatch<React.SetStateAction<IVocabulary[]>>;
+  setSkeletonLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const FilterByResource: React.FC<IProps> = ({
   setOriginalVocabularies,
   setIsInfinite,
+  setSkeletonLoading,
 }) => {
+  const [fetchResourceIsLoading, setFetchIsLoading] = useState(false);
   const [vocabularies, setVocabularies] = useState<
     IVocabularies["vocabularies"]
   >([] as IVocabularies["vocabularies"]);
   const { _id, token } = useAuthContext();
+
   useEffect(() => {
     (async () => {
+      setFetchIsLoading(true);
       const resp = await axios({
         url: `${process.env.REACT_APP_BACKEND_URL}/vocabulary/all/${_id}`,
         method: "GET",
@@ -27,6 +33,7 @@ const FilterByResource: React.FC<IProps> = ({
         },
       });
       setVocabularies(resp.data);
+      setFetchIsLoading(false);
     })();
   }, []);
 
@@ -77,6 +84,7 @@ const FilterByResource: React.FC<IProps> = ({
   });
 
   const filterByResourcesHandler = async () => {
+    setSkeletonLoading(true);
     const resources = selectedResources.join("&");
     const resp = await axios({
       url: `${process.env.REACT_APP_BACKEND_URL}/vocabulary/filter/${resources}`,
@@ -88,6 +96,7 @@ const FilterByResource: React.FC<IProps> = ({
     setOriginalVocabularies(resp.data);
     setIsInfinite(false);
     setShowFilterDropdown(false);
+    setSkeletonLoading(false);
   };
 
   return (
@@ -101,7 +110,11 @@ const FilterByResource: React.FC<IProps> = ({
       </div>
       {showFilterDropdown && (
         <div className=" absolute min-h-52 top-10 left-0 rounded w-full py-4 bg-white mt-2 shadow-xl">
-          {resourcesList}
+          {fetchResourceIsLoading ? (
+            <Spinner style={{ height: "8rem" }} />
+          ) : (
+            resourcesList
+          )}
           <div className="px-4">
             <button
               onClick={filterByResourcesHandler}

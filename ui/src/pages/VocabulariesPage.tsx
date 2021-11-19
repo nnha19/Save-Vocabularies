@@ -68,6 +68,7 @@ const VocabulariesPage = () => {
   };
 
   useEffect(() => {
+    if (!isInfinite || !getMoreRef || !getMoreRef.current) return;
     const options = {
       root: null,
       rootMargin: "0px",
@@ -96,6 +97,7 @@ const VocabulariesPage = () => {
           <FilterByResource
             setIsInfinite={setIsInfinite}
             setOriginalVocabularies={setVocabularies}
+            setSkeletonLoading={setSkeletonLoading}
           />
           <Search setSkeletonLoading={setSkeletonLoading} />
         </div>

@@ -1,5 +1,4 @@
 import React from "react";
-import BackDrop from "../BackDrop/BackDrop";
 
 import "./Spinner.css";
 
@@ -10,10 +9,11 @@ const Spinner = ({
   style?: object;
   className?: string;
 }) => {
+  console.log(style);
   return (
     <div
-      style={style}
       className={`${className} ml-4 bg-white h-40rem w-full flex items-center justify-center`}
+      style={style}
     >
       <span className="spinner"></span>
     </div>
