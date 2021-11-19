@@ -4,13 +4,16 @@ import AuthContextProvider from "./contexts/authContext";
 import Features from "./components/Features/Features";
 import { useAuthContext } from "./customHooks/useAuthContext";
 import AllUsersContextProvider from "./contexts/allUsersContext";
+import FilterDropdownContextProvider from "./contexts/filterDropdownContext";
 
 const CheckAuth = () => {
   const userData = useAuthContext();
   return Object.keys(userData)[0] ? (
-    <AllUsersContextProvider>
-      <Features />
-    </AllUsersContextProvider>
+    <FilterDropdownContextProvider>
+      <AllUsersContextProvider>
+        <Features />
+      </AllUsersContextProvider>
+    </FilterDropdownContextProvider>
   ) : (
     <div>Login First</div>
   );

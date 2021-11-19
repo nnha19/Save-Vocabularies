@@ -12,6 +12,7 @@ import { useAuthContext } from "../customHooks/useAuthContext";
 import UserInfo from "../components/Common/UserInfo/UserInfo";
 import SkeletonLoading from "../components/Vocabularies/SkeletonLoading/SkeletonLoading";
 import Search from "../components/Vocabularies/Search/Search";
+import FilterByResource from "../components/Vocabularies/FilterByResource/FilterByResource";
 
 const VocabulariesPage = () => {
   //length of current vocabularies+1
@@ -90,7 +91,8 @@ const VocabulariesPage = () => {
   return (
     <Layout>
       {userId === uid && (
-        <div className="border-b-2 p-4">
+        <div className="border-b-2 p-4 flex items-center sticky top-0 bg-white">
+          <FilterByResource vocabularies={vocabularies} />
           <Search setSkeletonLoading={setSkeletonLoading} />
         </div>
       )}

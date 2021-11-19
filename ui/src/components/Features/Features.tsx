@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Switch, Route } from "react-router-dom";
 
 import VocabulariesPage from "../../pages/VocabulariesPage";
@@ -10,10 +10,12 @@ import LearningPage from "../../pages/learningPage";
 import ShowWordPage from "../../pages/showWordPage";
 import NotificationsPage from "../Notifications/Notifications";
 import AddNewVocaForm from "../AddNewVocaForm/AddNewVocaForm";
+import { FilterDropdownContext } from "../../contexts/filterDropdownContext";
 
 const Features = () => {
   const [navLinkStyle, setNavLinkStyle] = useState("nav-right-side");
   const [showAddNewVocaForm, setShowAddNewVocaForm] = useState(false);
+  const { setShowFilterDropdown } = useContext(FilterDropdownContext);
 
   const toggleNavLinkStyleHandler = () => {
     setNavLinkStyle(
@@ -23,8 +25,18 @@ const Features = () => {
     );
   };
 
+  const closeDropdownHandler = (e: any) => {
+    if (e.target.closest("#filter-by-resource")) {
+      return;
+    }
+    setShowFilterDropdown(false);
+  };
+
   return (
-    <div className="min-h-screen flex items-center bg-red-500  ">
+    <div
+      onClick={closeDropdownHandler}
+      className="min-h-screen flex items-center bg-red-500  "
+    >
       <div className="w-full flex h-95vh py-2 sm:w-5/6 mx-auto flex-col items-center">
         <Header toggleNavLinkStyleHandler={toggleNavLinkStyleHandler} />
         <div className="w-full h-90%  flex">
