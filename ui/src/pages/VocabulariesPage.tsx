@@ -89,9 +89,11 @@ const VocabulariesPage = () => {
 
   return (
     <Layout>
-      <div className="border-b-2 p-4">
-        <Search setSkeletonLoading={setSkeletonLoading} />
-      </div>
+      {userId === uid && (
+        <div className="border-b-2 p-4">
+          <Search setSkeletonLoading={setSkeletonLoading} />
+        </div>
+      )}
       {initialLoading || (skeletonLoading && <SkeletonLoading />)}
       {!initialLoading && <UserInfo className="px-4 sticky top-0 bg-white" />}
       {vocabularies.length > 0 && !skeletonLoading && (

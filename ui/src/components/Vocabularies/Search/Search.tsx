@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { IVocabularies } from "../../../types/types";
 
 interface IProps {
   setSkeletonLoading: React.Dispatch<React.SetStateAction<boolean>>;
@@ -12,6 +13,12 @@ const Search: React.FC<IProps> = ({ setSkeletonLoading }) => {
     if (searchVal === "") return;
     setSkeletonLoading(true);
   };
+
+  useEffect(() => {
+    if (searchVal.length < 1) {
+      setTimeout(() => {}, 1000);
+    }
+  }, [searchVal]);
 
   return (
     <div className="w-3/5  mx-auto">
