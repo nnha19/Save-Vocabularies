@@ -9,14 +9,14 @@ interface IProps {
   setIsInfinite: React.Dispatch<React.SetStateAction<boolean>>;
   setOriginalVocabularies: React.Dispatch<React.SetStateAction<IVocabulary[]>>;
   setSkeletonLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  getVocabularies: () => Promise<void>;
+  getOriginalVocabularies: () => void;
 }
 
 const FilterByResource: React.FC<IProps> = ({
   setOriginalVocabularies,
   setIsInfinite,
   setSkeletonLoading,
-  getVocabularies,
+  getOriginalVocabularies,
 }) => {
   const [fetchResourceIsLoading, setFetchIsLoading] = useState(false);
   const [vocabularies, setVocabularies] = useState<
@@ -47,7 +47,35 @@ const FilterByResource: React.FC<IProps> = ({
     .filter((voca) => voca.resource)
     .map((v) => v.resource);
 
-  resources = Array.from(new Set(resources));
+  const resourceObj: any = {};
+  resources.forEach((r, i) => {
+    if (!r) return;
+    if (resourceObj[r] > 0) {
+      resourceObj[r] = resourceObj[r] + 1;
+    } else {
+      resourceObj[r] = 1;
+    }
+  });
+
+  const resourcesList = Object.keys(resourceObj).map((k, i) => {
+    let checkboxChecked = k && selectedResources.includes(k) ? true : false;
+    return (
+      k && (
+        <div className="my-2 px-4 py-2 text-lg flex items-center" key={i}>
+          <input
+            checked={checkboxChecked}
+            onChange={(e) => selectResourceHandler(e, k)}
+            className="mr-2 cursor-pointer"
+            id={k}
+            type="checkbox"
+          />
+          <label className="cursor-pointer" htmlFor={k}>
+            {k} ({resourceObj[k]})
+          </label>
+        </div>
+      )
+    );
+  });
 
   const selectResourceHandler = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -63,27 +91,6 @@ const FilterByResource: React.FC<IProps> = ({
       setSelectedResources(updatedSelectedResources);
     }
   };
-
-  const resourcesList = resources.map((resource, i) => {
-    let checkboxChecked =
-      resource && selectedResources.includes(resource) ? true : false;
-    return (
-      resource && (
-        <div className="my-2 px-4 py-2 text-lg flex items-center" key={i}>
-          <input
-            checked={checkboxChecked}
-            onChange={(e) => selectResourceHandler(e, resource)}
-            className="mr-2 cursor-pointer"
-            id={resource}
-            type="checkbox"
-          />
-          <label className="cursor-pointer" htmlFor={resource}>
-            {resource}
-          </label>
-        </div>
-      )
-    );
-  });
 
   const filterByResourcesHandler = async () => {
     setSkeletonLoading(true);
@@ -101,11 +108,10 @@ const FilterByResource: React.FC<IProps> = ({
     setSkeletonLoading(false);
   };
 
-  const clearFilterHandler = () => {
-    setOriginalVocabularies([]);
-    setIsInfinite(true);
+  const clearSelectedVocabularies = () => {
     setSelectedResources([]);
-    getVocabularies();
+    setShowFilterDropdown(false);
+    getOriginalVocabularies();
   };
 
   return (
@@ -132,7 +138,7 @@ const FilterByResource: React.FC<IProps> = ({
               Save
             </button>
             <button
-              onClick={clearFilterHandler}
+              onClick={clearSelectedVocabularies}
               className="mt-4 px-8 py-2 bg-primaryColor text-white rounded"
             >
               Clear All

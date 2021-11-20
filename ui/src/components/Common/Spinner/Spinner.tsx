@@ -9,7 +9,6 @@ const Spinner = ({
   style?: object;
   className?: string;
 }) => {
-  console.log(style);
   return (
     <div
       className={`${className} ml-4 bg-white h-40rem w-full flex items-center justify-center`}

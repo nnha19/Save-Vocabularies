@@ -107,7 +107,6 @@ const AddNewVocaForm: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
   }, [inputVals["vocabulary"].value, inputVals["exampleSentence"].value]);
 
   const addExampleSentenceHandler = () => {
-    const exceptions = `ing ed s 's n`.split(" ");
     setAddedExampleSentences([
       ...addedExampleSentences,
       inputVals["exampleSentence"].value,

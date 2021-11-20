@@ -32,22 +32,25 @@ const VocabulariesPage = () => {
     IVocabularies["vocabularies"]
   >([] as IVocabularies["vocabularies"]);
 
-  const getVocabularies = async () => {
-    console.log(vocabularies.length);
+  const getVocabularies = async (startIndex?: number) => {
+    const startFrom = startIndex !== undefined ? startIndex : page;
     try {
       if (!hasMore) {
         return;
       }
       setInfiniteLoading(true);
       const resp: any = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/vocabulary/${uid}/${page}`,
+        `${process.env.REACT_APP_BACKEND_URL}/vocabulary/${uid}/${startFrom}`,
         {
           headers: {
             authorization: `bearer ${token}`,
           },
         }
       );
-      const updatedVocabularies = [...vocabularies, ...resp.data.vocabularies];
+      const updatedVocabularies =
+        startIndex === undefined
+          ? [...vocabularies, ...resp.data.vocabularies]
+          : resp.data.vocabularies;
       setHasMore(resp.data.hasMore);
       setPage(updatedVocabularies.length);
       setVocabularies(updatedVocabularies);
@@ -91,6 +94,11 @@ const VocabulariesPage = () => {
     </div>
   );
 
+  const getOriginalVocabularies = () => {
+    getVocabularies(0);
+    setIsInfinite(true);
+  };
+
   return (
     <Layout>
       {userId === uid && (
@@ -99,7 +107,7 @@ const VocabulariesPage = () => {
             setIsInfinite={setIsInfinite}
             setOriginalVocabularies={setVocabularies}
             setSkeletonLoading={setSkeletonLoading}
-            getVocabularies={getVocabularies}
+            getOriginalVocabularies={getOriginalVocabularies}
           />
           <Search setSkeletonLoading={setSkeletonLoading} />
         </div>
