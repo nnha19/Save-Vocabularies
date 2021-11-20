@@ -83,7 +83,10 @@ const VocabulariesPage = () => {
   }, [vocabularies, uid]);
 
   useEffect(() => {
-    getVocabularies();
+    const selectedResources = localStorage.getItem("selectedResources");
+    if (!selectedResources) {
+      getVocabularies();
+    }
   }, [uid]);
 
   //If there is no vocabulary, show this page.

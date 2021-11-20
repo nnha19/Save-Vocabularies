@@ -25,6 +25,7 @@ const FilterByResource: React.FC<IProps> = ({
   const { _id, token } = useAuthContext();
 
   useEffect(() => {
+    if (selectedResources.length > 0) return;
     (async () => {
       setFetchIsLoading(true);
       const resp = await axios({
@@ -81,22 +82,30 @@ const FilterByResource: React.FC<IProps> = ({
     e: React.ChangeEvent<HTMLInputElement>,
     resource: string
   ) => {
+    let updatedSelectedResources;
     if (e.target.checked) {
-      setSelectedResources([...selectedResources, resource]);
+      updatedSelectedResources = [...selectedResources, resource];
     } else {
-      let updatedSelectedResources = [...selectedResources];
+      updatedSelectedResources = [...selectedResources];
       updatedSelectedResources = updatedSelectedResources.filter(
         (r) => r !== resource
       );
-      setSelectedResources(updatedSelectedResources);
     }
+    localStorage.setItem(
+      "selectedResources",
+      JSON.stringify(updatedSelectedResources)
+    );
+    setSelectedResources(updatedSelectedResources);
   };
 
-  const filterByResourcesHandler = async () => {
+  const filterByResourcesHandler = async (rArg?: string[]) => {
     setSkeletonLoading(true);
-    const resources = selectedResources.join("&");
+    const resources = rArg ? rArg : selectedResources;
+    console.log(resources);
     const resp = await axios({
-      url: `${process.env.REACT_APP_BACKEND_URL}/vocabulary/filter/${resources}`,
+      url: `${
+        process.env.REACT_APP_BACKEND_URL
+      }/vocabulary/filter/${resources.join("&")}`,
       method: "GET",
       headers: {
         authorization: `bearer ${token}`,
@@ -112,7 +121,18 @@ const FilterByResource: React.FC<IProps> = ({
     setSelectedResources([]);
     setShowFilterDropdown(false);
     getOriginalVocabularies();
+    localStorage.removeItem("selectedResources");
   };
+
+  useEffect(() => {
+    //See if there is selected resources in LS
+    let lItems: any = localStorage.getItem("selectedResources");
+    if (!lItems) return;
+    lItems = JSON.parse(lItems);
+    console.log(lItems);
+    setSelectedResources(lItems);
+    filterByResourcesHandler(lItems);
+  }, []);
 
   return (
     <div id="filter-by-resource" className="relative ">
@@ -124,15 +144,15 @@ const FilterByResource: React.FC<IProps> = ({
         <span>Filter By Resources</span>
       </div>
       {showFilterDropdown && (
-        <div className=" absolute min-h-52 top-10 left-0 rounded w-full py-4 bg-white mt-2 shadow-xl">
+        <div className=" absolute h-96 overflow-y-auto min-h-52 top-10 left-0 rounded w-full pt-4 bg-white mt-2 shadow-xl">
           {fetchResourceIsLoading ? (
             <Spinner style={{ height: "8rem" }} />
           ) : (
             resourcesList
           )}
-          <div className="px-4">
+          <div className="px-4 sticky bottom-0 border-t-2 py-2">
             <button
-              onClick={filterByResourcesHandler}
+              onClick={() => filterByResourcesHandler()}
               className="px-8 py-2 bg-primaryColor text-white rounded"
             >
               Save
