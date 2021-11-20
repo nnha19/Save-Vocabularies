@@ -99,6 +99,10 @@ const FilterByResource: React.FC<IProps> = ({
   };
 
   const filterByResourcesHandler = async (rArg?: string[]) => {
+    if (selectedResources.length === 0 && !rArg) {
+      console.log(selectedResources);
+      return;
+    }
     setSkeletonLoading(true);
     const resources = rArg ? rArg : selectedResources;
     console.log(resources);
@@ -118,6 +122,9 @@ const FilterByResource: React.FC<IProps> = ({
   };
 
   const clearSelectedVocabularies = () => {
+    if (selectedResources.length < 1) {
+      return;
+    }
     setSelectedResources([]);
     setShowFilterDropdown(false);
     getOriginalVocabularies();
@@ -129,10 +136,11 @@ const FilterByResource: React.FC<IProps> = ({
     let lItems: any = localStorage.getItem("selectedResources");
     if (!lItems) return;
     lItems = JSON.parse(lItems);
-    console.log(lItems);
     setSelectedResources(lItems);
     filterByResourcesHandler(lItems);
   }, []);
+
+  const btnsDisabled = selectedResources.length < 1;
 
   return (
     <div id="filter-by-resource" className="relative ">
@@ -150,16 +158,18 @@ const FilterByResource: React.FC<IProps> = ({
           ) : (
             resourcesList
           )}
-          <div className="px-4 sticky bottom-0 border-t-2 py-2">
+          <div className="px-4 sticky bottom-0 border-t-2 py-2 disabled-btn">
             <button
+              disabled={btnsDisabled}
               onClick={() => filterByResourcesHandler()}
-              className="px-8 py-2 bg-primaryColor text-white rounded"
+              className="px-8 py-2 bg-primaryColor text-white rounded disabled-btn"
             >
               Save
             </button>
             <button
+              disabled={btnsDisabled}
               onClick={clearSelectedVocabularies}
-              className="mt-4 px-8 py-2 bg-primaryColor text-white rounded"
+              className="mt-4 px-8 py-2 bg-primaryColor text-white rounded disabled-btn"
             >
               Clear All
             </button>

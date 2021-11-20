@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+.disabled-btn:disabled {
+  background: red;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .nav-items {
   @apply text-xl flex justify-center border-l-4 border-transparent hover:bg-red-500  transition-all py-4 hover:text-white px-4;
 }
