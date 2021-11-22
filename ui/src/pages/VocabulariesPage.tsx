@@ -59,11 +59,12 @@ const VocabulariesPage = () => {
     initialLoading && setInitialLoading(false);
   };
 
-  let getting = false;
+  let getting: boolean;
 
   const handleObserver = (entries: any, observer: any) => {
     entries.forEach((entry: any) => {
       if (entry.isIntersecting && !getting) {
+        console.log("Getting More.");
         getVocabularies();
         getting = true;
       }
@@ -123,7 +124,9 @@ const VocabulariesPage = () => {
       )}
       {skeletonLoading && <SkeletonLoading />}
       {initialLoading && <SkeletonLoading />}
-      {!initialLoading && <UserInfo className="px-4 sticky top-0 bg-white" />}
+      {!initialLoading && userId !== uid && (
+        <UserInfo className="px-4 sticky top-0 bg-white" />
+      )}
       {vocabularies.length > 0 && !skeletonLoading && (
         <Vocabularies vocabularies={vocabularies} />
       )}

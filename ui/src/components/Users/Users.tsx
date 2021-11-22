@@ -1,4 +1,5 @@
 import React from "react";
+import { useAuthContext } from "../../customHooks/useAuthContext";
 import { IUsers } from "../../types/types";
 import UserInfo from "../Common/UserInfo/UserInfo";
 
@@ -7,8 +8,9 @@ interface IProps {
 }
 
 const Users: React.FC<IProps> = ({ allUsers }) => {
+  const { _id } = useAuthContext();
   const allUserList = allUsers.map((user) => {
-    return <UserInfo key={user._id} user={user} />;
+    return user._id !== _id && <UserInfo key={user._id} user={user} />;
   });
 
   return (
