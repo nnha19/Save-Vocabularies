@@ -10,7 +10,6 @@ const getAllUsers = async (req, res) => {
       const { username, email, _id, joinedDate, vocabularies } = user;
       return { username, email, _id, joinedDate, vocabularies };
     });
-    console.log(resultUsers);
     res.status(200).json(resultUsers);
   } catch (err) {
     res.status(500).json(err);

@@ -20,6 +20,7 @@ const getVocabulariesByUserId = async (req, res) => {
   try {
     const { uid, page } = req.params;
     let vocabularies = await Vocabulary.find({ owner: uid });
+    vocabularies.reverse();
     let hasMore = !!vocabularies[Number(page)];
     if (vocabularies[Number(page) + 10]) {
       vocabularies = vocabularies.splice(page, 10);

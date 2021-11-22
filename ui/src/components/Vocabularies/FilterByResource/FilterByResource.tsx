@@ -132,7 +132,7 @@ const FilterByResource: React.FC<IProps> = ({
   useEffect(() => {
     //See if there is selected resources in LS
     let lItems: any = localStorage.getItem("selectedResources");
-    if (!!lItems.length) return;
+    if (!lItems || !!lItems.length) return;
     lItems = JSON.parse(lItems);
     setSelectedResources(lItems);
     filterByResourcesHandler(lItems);

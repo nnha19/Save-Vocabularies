@@ -102,7 +102,6 @@ const VocabulariesPage = () => {
   };
 
   useEffect(() => {
-    console.log("Set Has More.");
     setHasMore(true);
   }, [uid]);
 
