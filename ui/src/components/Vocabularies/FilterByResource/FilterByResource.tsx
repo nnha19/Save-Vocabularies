@@ -1,23 +1,24 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { FilterDropdownContext } from "../../../contexts/filterDropdownContext";
+import { VocabulariesContext } from "../../../contexts/vocabulariesContext";
 import { useAuthContext } from "../../../customHooks/useAuthContext";
 import { IVocabularies, IVocabulary } from "../../../types/types";
 import Spinner from "../../Common/Spinner/Spinner";
 
 interface IProps {
   setIsInfinite: React.Dispatch<React.SetStateAction<boolean>>;
-  setOriginalVocabularies: React.Dispatch<React.SetStateAction<IVocabulary[]>>;
   setSkeletonLoading: React.Dispatch<React.SetStateAction<boolean>>;
   getOriginalVocabularies: () => void;
 }
 
 const FilterByResource: React.FC<IProps> = ({
-  setOriginalVocabularies,
   setIsInfinite,
   setSkeletonLoading,
   getOriginalVocabularies,
 }) => {
+  const { setVocabularies: setOriginalVocabularies } =
+    useContext(VocabulariesContext);
   const [fetchResourceIsLoading, setFetchIsLoading] = useState(false);
   const [vocabularies, setVocabularies] = useState<
     IVocabularies["vocabularies"]
@@ -132,7 +133,7 @@ const FilterByResource: React.FC<IProps> = ({
   useEffect(() => {
     //See if there is selected resources in LS
     let lItems: any = localStorage.getItem("selectedResources");
-    if (!lItems || !!lItems.length) return;
+    if (!lItems || lItems.length === 0) return;
     lItems = JSON.parse(lItems);
     setSelectedResources(lItems);
     filterByResourcesHandler(lItems);

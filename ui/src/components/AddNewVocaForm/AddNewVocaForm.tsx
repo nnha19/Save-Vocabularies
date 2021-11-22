@@ -9,6 +9,7 @@ import axios from "axios";
 import { useHistory } from "react-router";
 import ViewExamSent from "../ViewExamSent/ViewExamSent";
 import { useAuthContext } from "../../customHooks/useAuthContext";
+import { VocabulariesContext } from "../../contexts/vocabulariesContext";
 
 interface IProps {
   setShowAddNewVocaForm: React.Dispatch<React.SetStateAction<boolean>>;
@@ -29,6 +30,7 @@ interface IForm {
 const AddNewVocaForm: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
   const history = useHistory();
   const user = useAuthContext();
+  const { setVocabularies, vocabularies } = useContext(VocabulariesContext);
   const [exampleSentenceIsDisabled, setExampleSentenceIsDisabled] =
     useState(true);
   const [addExmSenBtnDis, setAddExmSenBtnDis] = useState(true);
@@ -148,6 +150,7 @@ const AddNewVocaForm: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
         authorization: `bearer ${user.token}`,
       },
     });
+    setVocabularies([resp.data, ...vocabularies]);
     setShowAddNewVocaForm(false);
     history.push(`/dashboard/${user._id}/vocabularies`);
   };

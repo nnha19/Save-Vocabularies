@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 
 import Img from "../assets/images/empty.png";
 
@@ -13,6 +13,7 @@ import UserInfo from "../components/Common/UserInfo/UserInfo";
 import SkeletonLoading from "../components/Vocabularies/SkeletonLoading/SkeletonLoading";
 import Search from "../components/Vocabularies/Search/Search";
 import FilterByResource from "../components/Vocabularies/FilterByResource/FilterByResource";
+import { VocabulariesContext } from "../contexts/vocabulariesContext";
 
 const VocabulariesPage = () => {
   //length of current vocabularies+1
@@ -27,14 +28,12 @@ const VocabulariesPage = () => {
   const [error, setError] = useState(false);
   const [skeletonLoading, setSkeletonLoading] = useState(false);
   const [isInfinite, setIsInfinite] = useState(true);
-  const [vocabularies, setVocabularies] = useState<
-    IVocabularies["vocabularies"]
-  >([] as IVocabularies["vocabularies"]);
+  const { vocabularies, setVocabularies } = useContext(VocabulariesContext);
 
   const getVocabularies = async (startIndex?: number) => {
     const startFrom = startIndex !== undefined ? startIndex : page;
     try {
-      if (!hasMore) {
+      if (!hasMore && isInfinite) {
         return;
       }
       setInfiniteLoading(true);
@@ -61,6 +60,7 @@ const VocabulariesPage = () => {
   };
 
   let getting = false;
+
   const handleObserver = (entries: any, observer: any) => {
     entries.forEach((entry: any) => {
       if (entry.isIntersecting && !getting) {
@@ -83,10 +83,18 @@ const VocabulariesPage = () => {
 
   useEffect(() => {
     const selectedResources = localStorage.getItem("selectedResources");
-    if (!selectedResources || !!selectedResources.length) {
+    if (!selectedResources) {
       getVocabularies(0);
+      return;
     }
-  }, [uid, hasMore]);
+    setInitialLoading(false);
+  }, [uid]);
+
+  useEffect(() => {
+    return () => {
+      setVocabularies([]);
+    };
+  }, [uid]);
 
   //If there is no vocabulary, show this page.
   const noVocabulary = (
@@ -101,24 +109,20 @@ const VocabulariesPage = () => {
     setIsInfinite(true);
   };
 
-  useEffect(() => {
-    setHasMore(true);
-  }, [uid]);
-
   return (
     <Layout>
       {userId === uid && (
         <div className="border-b-2 p-4 flex items-center sticky top-0 bg-white">
           <FilterByResource
             setIsInfinite={setIsInfinite}
-            setOriginalVocabularies={setVocabularies}
             setSkeletonLoading={setSkeletonLoading}
             getOriginalVocabularies={getOriginalVocabularies}
           />
           <Search setSkeletonLoading={setSkeletonLoading} />
         </div>
       )}
-      {initialLoading || (skeletonLoading && <SkeletonLoading />)}
+      {skeletonLoading && <SkeletonLoading />}
+      {initialLoading && <SkeletonLoading />}
       {!initialLoading && <UserInfo className="px-4 sticky top-0 bg-white" />}
       {vocabularies.length > 0 && !skeletonLoading && (
         <Vocabularies vocabularies={vocabularies} />
