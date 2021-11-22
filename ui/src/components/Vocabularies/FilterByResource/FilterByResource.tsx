@@ -100,12 +100,10 @@ const FilterByResource: React.FC<IProps> = ({
 
   const filterByResourcesHandler = async (rArg?: string[]) => {
     if (selectedResources.length === 0 && !rArg) {
-      console.log(selectedResources);
       return;
     }
     setSkeletonLoading(true);
     const resources = rArg ? rArg : selectedResources;
-    console.log(resources);
     const resp = await axios({
       url: `${
         process.env.REACT_APP_BACKEND_URL
@@ -134,7 +132,7 @@ const FilterByResource: React.FC<IProps> = ({
   useEffect(() => {
     //See if there is selected resources in LS
     let lItems: any = localStorage.getItem("selectedResources");
-    if (!lItems) return;
+    if (!!lItems.length) return;
     lItems = JSON.parse(lItems);
     setSelectedResources(lItems);
     filterByResourcesHandler(lItems);

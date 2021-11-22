@@ -27,7 +27,6 @@ const VocabulariesPage = () => {
   const [error, setError] = useState(false);
   const [skeletonLoading, setSkeletonLoading] = useState(false);
   const [isInfinite, setIsInfinite] = useState(true);
-
   const [vocabularies, setVocabularies] = useState<
     IVocabularies["vocabularies"]
   >([] as IVocabularies["vocabularies"]);
@@ -84,10 +83,10 @@ const VocabulariesPage = () => {
 
   useEffect(() => {
     const selectedResources = localStorage.getItem("selectedResources");
-    if (!selectedResources) {
-      getVocabularies();
+    if (!selectedResources || !!selectedResources.length) {
+      getVocabularies(0);
     }
-  }, [uid]);
+  }, [uid, hasMore]);
 
   //If there is no vocabulary, show this page.
   const noVocabulary = (
@@ -101,6 +100,11 @@ const VocabulariesPage = () => {
     getVocabularies(0);
     setIsInfinite(true);
   };
+
+  useEffect(() => {
+    console.log("Set Has More.");
+    setHasMore(true);
+  }, [uid]);
 
   return (
     <Layout>
