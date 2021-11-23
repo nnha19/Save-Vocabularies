@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useAuthContext } from "../../customHooks/useAuthContext";
-import { IUser } from "../../types/types";
 import Layout from "../Common/Layout/Layout";
 import Modal from "../Common/Modal/Modal";
 import UserInfo from "../Common/UserInfo/UserInfo";

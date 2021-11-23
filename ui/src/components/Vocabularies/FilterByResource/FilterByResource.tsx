@@ -151,13 +151,13 @@ const FilterByResource: React.FC<IProps> = ({
         <span>Filter By Resources</span>
       </div>
       {showFilterDropdown && (
-        <div className=" absolute h-96 overflow-y-auto min-h-52 top-10 left-0 rounded w-full pt-4 bg-white mt-2 shadow-xl">
+        <div className=" absolute h-96 overflow-y-auto min-h-52 top-10 left-0 rounded w-80 pt-4 bg-white mt-2 shadow-xl">
           {fetchResourceIsLoading ? (
             <Spinner style={{ height: "8rem" }} />
           ) : (
             resourcesList
           )}
-          <div className="px-4 sticky bottom-0 border-t-2 py-2 disabled-btn">
+          <div className="px-4 sticky bottom-0 border-t-2 bg-white py-2 disabled-btn">
             <button
               disabled={btnsDisabled}
               onClick={() => filterByResourcesHandler()}
@@ -168,7 +168,7 @@ const FilterByResource: React.FC<IProps> = ({
             <button
               disabled={btnsDisabled}
               onClick={clearSelectedVocabularies}
-              className="mt-4 px-8 py-2 bg-primaryColor text-white rounded disabled-btn"
+              className="ml-4 mt-4 px-8 py-2 bg-primaryColor text-white rounded disabled-btn"
             >
               Clear All
             </button>
