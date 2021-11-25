@@ -1,4 +1,6 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useAuthContext } from "../../../customHooks/useAuthContext";
 import Input from "../../Common/Input/Input";
 
 interface IProps {
@@ -11,6 +13,7 @@ interface IInputVals {
 }
 
 const EditInfoBody: React.FC<IProps> = ({ type, value }) => {
+  const { _id, token } = useAuthContext();
   const [inputVals, setInputVals] = useState<any>({});
 
   useEffect(() => {
@@ -51,9 +54,21 @@ const EditInfoBody: React.FC<IProps> = ({ type, value }) => {
     );
   }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(inputVals);
+    const resp = await axios({
+      url: `${process.env.REACT_APP_BACKEND_URL}/user/${_id}`,
+      method: "PUT",
+      data: {
+        type,
+        value: inputVals[type].value,
+        confirmPassword: inputVals["confirmPassword"].value,
+      },
+      headers: {
+        authorization: `bearer ${token}`,
+      },
+    });
+    console.log(resp);
   };
 
   return (
