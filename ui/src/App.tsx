@@ -7,8 +7,8 @@ import AllUsersContextProvider from "./contexts/allUsersContext";
 import FilterDropdownContextProvider from "./contexts/filterDropdownContext";
 
 const CheckAuth = () => {
-  const userData = useAuthContext();
-  return Object.keys(userData)[0] ? (
+  const { user } = useAuthContext();
+  return Object.keys(user)[0] ? (
     <FilterDropdownContextProvider>
       <AllUsersContextProvider>
         <Features />

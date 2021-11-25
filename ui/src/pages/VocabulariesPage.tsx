@@ -26,7 +26,9 @@ const VocabulariesPage = () => {
   const [isInfinite, setIsInfinite] = useState(true);
   const [infiniteLoading, setInfiniteLoading] = useState(false);
   const { vocabularies, setVocabularies } = useContext(VocabulariesContext);
-  const { token, _id: userId } = useAuthContext();
+  const {
+    user: { token, _id: userId },
+  } = useAuthContext();
   const { uid } = useParams<any>();
   const [page, setPage] = useState(0);
 

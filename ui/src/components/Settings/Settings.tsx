@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useAuthContext } from "../../customHooks/useAuthContext";
 import Layout from "../Common/Layout/Layout";
 import Modal from "../Common/Modal/Modal";
+import Spinner from "../Common/Spinner/Spinner";
 import UserInfo from "../Common/UserInfo/UserInfo";
 import EditInfoBody from "./EditInfoBody/EditInfoBody";
 import Infos from "./Infos/Infos";
@@ -14,7 +15,11 @@ interface IEditUserInfoObj {
 }
 
 const Settings = () => {
-  const { email, username } = useAuthContext();
+  const {
+    user: { email, username },
+  } = useAuthContext();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<null | string>(null);
 
   const [showEditForm, setShowEditForm] = useState<{
     type: string;
@@ -46,6 +51,30 @@ const Settings = () => {
 
   return (
     <Layout>
+      {error && (
+        <Modal
+          closeModal={() => setError(null)}
+          title={
+            <h1 className="p-4 font-bold bg-primaryColor text-white rounded">
+              Error Occured
+            </h1>
+          }
+          body={
+            <>
+              <div className="py-12 px-4">{error}</div>
+              <div className="text-right p-4">
+                <button
+                  onClick={() => setError(null)}
+                  className="bg-primaryColor px-4 py-2 text-white rounded"
+                >
+                  Dismiss
+                </button>
+              </div>
+            </>
+          }
+        />
+      )}
+      {loading && <Spinner />}
       <h1 className="px-4 border-b-2 py-4 font-bold text-xl">User Settings</h1>
       {showEditForm && (
         <Modal
@@ -55,7 +84,13 @@ const Settings = () => {
             </h1>
           }
           body={
-            <EditInfoBody type={showEditForm.type} value={showEditForm.value} />
+            <EditInfoBody
+              setShowEditForm={setShowEditForm}
+              type={showEditForm.type}
+              value={showEditForm.value}
+              setLoading={setLoading}
+              setError={setError}
+            />
           }
           closeModal={() => setShowEditForm(null)}
         />

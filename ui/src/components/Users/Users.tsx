@@ -8,7 +8,9 @@ interface IProps {
 }
 
 const Users: React.FC<IProps> = ({ allUsers }) => {
-  const { _id } = useAuthContext();
+  const {
+    user: { _id },
+  } = useAuthContext();
   const allUserList = allUsers.map((user) => {
     return user._id !== _id && <UserInfo key={user._id} user={user} />;
   });

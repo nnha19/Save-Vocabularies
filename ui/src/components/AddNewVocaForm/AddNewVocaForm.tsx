@@ -29,7 +29,9 @@ interface IForm {
 
 const AddNewVocaForm: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
   const history = useHistory();
-  const user = useAuthContext();
+  const {
+    user: { _id, token },
+  } = useAuthContext();
   const { setVocabularies, vocabularies } = useContext(VocabulariesContext);
   const [exampleSentenceIsDisabled, setExampleSentenceIsDisabled] =
     useState(true);
@@ -137,7 +139,7 @@ const AddNewVocaForm: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
   const addNewVocabularyHandler = async (e: any) => {
     e.preventDefault();
     const resp = await axios({
-      url: `${process.env.REACT_APP_BACKEND_URL}/vocabulary/${user._id}`,
+      url: `${process.env.REACT_APP_BACKEND_URL}/vocabulary/${_id}`,
       method: "POST",
       data: {
         vocabulary: inputVals["vocabulary"].value,
@@ -147,12 +149,12 @@ const AddNewVocaForm: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
         resource: inputVals.resource.value,
       },
       headers: {
-        authorization: `bearer ${user.token}`,
+        authorization: `bearer ${token}`,
       },
     });
     setVocabularies([resp.data, ...vocabularies]);
     setShowAddNewVocaForm(false);
-    history.push(`/dashboard/${user._id}/vocabularies`);
+    history.push(`/dashboard/${_id}/vocabularies`);
   };
 
   return (

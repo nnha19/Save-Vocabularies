@@ -14,7 +14,9 @@ export interface ISynAndAnt {
 }
 
 const ShowWordPage = () => {
-  const { token } = useAuthContext();
+  const {
+    user: { token },
+  } = useAuthContext();
   const { wid } = useParams<any>();
 
   const [showWord, setShowWord] = useState({} as IVocabulary);

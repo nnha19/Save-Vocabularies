@@ -23,7 +23,9 @@ const FilterByResource: React.FC<IProps> = ({
   const [vocabularies, setVocabularies] = useState<
     IVocabularies["vocabularies"]
   >([] as IVocabularies["vocabularies"]);
-  const { _id, token } = useAuthContext();
+  const {
+    user: { _id, token },
+  } = useAuthContext();
 
   useEffect(() => {
     if (selectedResources.length > 0) return;

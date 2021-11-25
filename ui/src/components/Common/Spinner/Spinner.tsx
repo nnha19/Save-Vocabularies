@@ -11,7 +11,7 @@ const Spinner = ({
 }) => {
   return (
     <div
-      className={`${className} ml-4 bg-white h-40rem w-full flex items-center justify-center`}
+      className={`${className} ml-4  bg-white h-40rem w-full flex items-center justify-center`}
       style={style}
     >
       <span className="spinner"></span>

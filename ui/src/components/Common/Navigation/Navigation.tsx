@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { authContext } from "../../../contexts/authContext";
+import { useAuthContext } from "../../../customHooks/useAuthContext";
 
 interface IProps {
   navLinkStyle: string;
@@ -11,7 +12,9 @@ const Navigation: React.FC<IProps> = ({
   navLinkStyle,
   setShowAddNewVocaForm,
 }) => {
-  const user = useContext(authContext);
+  const {
+    user: { _id },
+  } = useAuthContext();
 
   return (
     <nav className="fixed sm:static bg-white shadow-sm py-2">
@@ -32,7 +35,7 @@ const Navigation: React.FC<IProps> = ({
             </NavLink>
             <NavLink
               activeClassName="nav-item-active"
-              to={`/dashboard/${user?._id}/vocabularies`}
+              to={`/dashboard/${_id}/vocabularies`}
             >
               <li className="nav-items ">
                 <i className="fas fa-columns"></i>
@@ -41,17 +44,14 @@ const Navigation: React.FC<IProps> = ({
             </NavLink>
             <NavLink
               activeClassName="nav-item-active"
-              to={`/user/${user?._id}/settings`}
+              to={`/user/${_id}/settings`}
             >
               <li className="nav-items">
                 <i className="fas fa-cog"></i>
                 <span className={`ml-4 ${navLinkStyle}`}>Settings</span>
               </li>
             </NavLink>
-            <NavLink
-              activeClassName="nav-item-active"
-              to={`/user/${user?._id}/noti`}
-            >
+            <NavLink activeClassName="nav-item-active" to={`/user/${_id}/noti`}>
               <li className="nav-items">
                 <i className="fas fa-bell"></i>
                 <span className={`ml-4 ${navLinkStyle}`}>Notifications</span>
@@ -59,7 +59,7 @@ const Navigation: React.FC<IProps> = ({
             </NavLink>
             <NavLink
               activeClassName="nav-item-active"
-              to={`/user/${user?._id}/learning`}
+              to={`/user/${_id}/learning`}
             >
               <li className="nav-items">
                 <i className="fas fa-book-reader"></i>

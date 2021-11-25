@@ -10,7 +10,9 @@ interface IProps {
 export const AllUsersContext = createContext([] as IUsers["users"]);
 
 const AllUsersContextProvider: React.FC<IProps> = ({ children }) => {
-  const { token } = useAuthContext();
+  const {
+    user: { token },
+  } = useAuthContext();
   const [allUsers, setAllUsers] = useState([] as IUsers["users"]);
 
   useEffect(() => {

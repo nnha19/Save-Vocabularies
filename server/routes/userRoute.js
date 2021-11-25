@@ -16,6 +16,7 @@ router.post(
   body("password").not().isEmpty(),
   userController.signInUser
 );
+
 router.use(authMiddleware);
 
 router.get("/users", userController.getAllUsers);

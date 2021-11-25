@@ -112,7 +112,7 @@ const updateUser = async (req, res) => {
         foundUser[type] = value;
       }
       await foundUser.save();
-      res.status(200).json("Successfully updated.");
+      res.status(200).json({ user: foundUser });
     } else {
       res.status(400).json("You are not authorized to do this.");
     }

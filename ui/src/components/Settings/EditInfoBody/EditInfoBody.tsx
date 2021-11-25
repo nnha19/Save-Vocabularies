@@ -6,14 +6,27 @@ import Input from "../../Common/Input/Input";
 interface IProps {
   type: string;
   value: string;
+  setShowEditForm: React.Dispatch<
+    React.SetStateAction<{
+      type: string;
+      value: string;
+    } | null>
+  >;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  setError: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
-interface IInputVals {
-  password: {};
-}
-
-const EditInfoBody: React.FC<IProps> = ({ type, value }) => {
-  const { _id, token } = useAuthContext();
+const EditInfoBody: React.FC<IProps> = ({
+  type,
+  value,
+  setShowEditForm,
+  setLoading,
+  setError,
+}) => {
+  const {
+    user: { _id, token },
+    setUser,
+  } = useAuthContext();
   const [inputVals, setInputVals] = useState<any>({});
 
   useEffect(() => {
@@ -55,46 +68,56 @@ const EditInfoBody: React.FC<IProps> = ({ type, value }) => {
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const resp = await axios({
-      url: `${process.env.REACT_APP_BACKEND_URL}/user/${_id}`,
-      method: "PUT",
-      data: {
-        type,
-        value: inputVals[type].value,
-        confirmPassword: inputVals["confirmPassword"].value,
-      },
-      headers: {
-        authorization: `bearer ${token}`,
-      },
-    });
-    console.log(resp);
+    try {
+      setLoading(true);
+      e.preventDefault();
+      const resp = await axios({
+        url: `${process.env.REACT_APP_BACKEND_URL}/user/${_id}`,
+        method: "PUT",
+        data: {
+          type,
+          value: inputVals[type].value,
+          confirmPassword: inputVals["confirmPassword"].value,
+        },
+        headers: {
+          authorization: `bearer ${token}`,
+        },
+      });
+      setLoading(false);
+      setShowEditForm(null);
+    } catch (err: any) {
+      setError(err?.response?.data);
+      setShowEditForm(null);
+      setLoading(false);
+    }
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="h-96 flex flex-col justify-center w-5/6 mx-auto"
-    >
-      {inputVals.confirmPassword && (
-        <Input
-          type="password"
-          value={inputVals["confirmPassword"].value}
-          placeholder="Confirm Your Password"
-          name="confirmPassword"
-          changeInputVal={handleChange}
-          isTouched={inputVals["confirmPassword"].isTouched}
-          error={inputVals["confirmPassword"].error}
-          validRules={{ REQUIRED: true }}
-        />
-      )}
-      {input}
-      <div className="my-4 px-4">
-        <button className="rounded w-full bg-primaryColor text-white mx-2 py-2">
-          Submit
-        </button>
-      </div>
-    </form>
+    <>
+      <form
+        onSubmit={handleSubmit}
+        className="h-96 flex flex-col justify-center w-5/6 mx-auto"
+      >
+        {inputVals.confirmPassword && (
+          <Input
+            type="password"
+            value={inputVals["confirmPassword"].value}
+            placeholder="Confirm Your Password"
+            name="confirmPassword"
+            changeInputVal={handleChange}
+            isTouched={inputVals["confirmPassword"].isTouched}
+            error={inputVals["confirmPassword"].error}
+            validRules={{ REQUIRED: true }}
+          />
+        )}
+        {input}
+        <div className="my-4 px-4">
+          <button className="rounded w-full bg-primaryColor text-white mx-2 py-2">
+            Submit
+          </button>
+        </div>
+      </form>
+    </>
   );
 };
 
