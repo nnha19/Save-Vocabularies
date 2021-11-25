@@ -83,7 +83,6 @@ const VocabulariesPage = () => {
   };
 
   const observerRef: any = useCallback((node: any) => {
-    if (skeletonLoading) return;
     let options = {
       root: null,
       threshold: 0,
