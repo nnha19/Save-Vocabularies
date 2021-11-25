@@ -3,7 +3,7 @@ import BackDrop from "../BackDrop/BackDrop";
 
 interface IProps {
   closeModal: () => void;
-  title: string;
+  title: JSX.Element;
   body: JSX.Element;
 }
 
@@ -12,7 +12,7 @@ const Modal: React.FC<IProps> = ({ title, closeModal, body }) => {
     <>
       <BackDrop clicked={closeModal} />
       <div className="center bg-white w-30rem">
-        <h1 className="px-6 py-2 border-b-2">{title}</h1>
+        {title}
         {body}
       </div>
     </>

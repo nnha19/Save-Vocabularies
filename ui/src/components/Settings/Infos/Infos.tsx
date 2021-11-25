@@ -8,12 +8,15 @@ interface IProps {
 
 const Infos: React.FC<IProps> = ({ type, value, onClick }) => {
   return (
-    <div onClick={onClick} className="flex items-center justify-between mt-4">
+    <div className="flex items-center justify-between mt-4">
       <div className="">
-        <h4 className="font-bold mr-20">{type}</h4>
+        <h4 className="font-bold mr-20 capitalize">{type}</h4>
         <p>{value}</p>
       </div>
-      <button className="bg-primaryColor text-white px-4 py-2 rounded hover:bg-black  transition-all">
+      <button
+        onClick={onClick}
+        className="bg-primaryColor text-white px-4 py-2 rounded hover:bg-black  transition-all"
+      >
         Edit
       </button>
     </div>

@@ -38,7 +38,9 @@ const UserInfo: React.FC<IProps> = (props) => {
       <div className="ml-4">
         <div className="flex">
           <h2 className=" text-xl font-medium">{user.username}</h2>
-          <i className="fas fa-bell ml-4 text-xl cursor-pointer"></i>
+          {uid !== userId && (
+            <i className="fas fa-bell ml-4 text-xl cursor-pointer"></i>
+          )}
         </div>
         <p>({user.vocabularies.length} vocabularies)</p>
         <p>Joined on {`${month && months[month]} ${day} ${year}`}</p>
