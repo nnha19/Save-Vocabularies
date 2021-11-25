@@ -3,11 +3,11 @@ const authMiddleware = (req, res, next) => {
   if (req.headers && req.headers.authorization) {
     const token = req.headers.authorization.split(" ")[1];
     if (token) {
-      jwt.verify(token, process.env.JWT_KEY, (err, resp) => {
+      jwt.verify(token, process.env.JWT_KEY, (err, validToken) => {
         if (err) {
           res.status(400).json("You token is not valid");
         } else {
-          const { username, email, userId } = token;
+          const { username, email, userId } = validToken;
           req.user = { username, email, userId };
           next();
         }

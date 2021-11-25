@@ -8,13 +8,13 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     setUser({
-      _id: "6162e68db8d492f28b8e7870",
-      username: "Nyi Nyi",
-      email: "girl@gmail.com",
+      _id: "6190cc01b3883e0a776eb440",
+      username: "new username2",
+      email: "validuser@gmail.com",
       vocabularies: [""],
       joinedDate: "12/1/2021",
       token:
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTkwY2MwMWIzODgzZTBhNzc2ZWI0NDAiLCJ1c2VybmFtZSI6InZhbGlkdXNlciIsImVtYWlsIjoidmFsaWR1c2VyQGdtYWlsLmNvbSIsImlhdCI6MTYzNjk1OTUwMywiZXhwIjoxNjM2OTYzMTAzfQ.ZyhDCuBM83uLgG_2kwDzx6g3lKD2CpZe5qiX0T507Sc",
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTkwY2MwMWIzODgzZTBhNzc2ZWI0NDAiLCJ1c2VybmFtZSI6Im5ldyB1c2VybmFtZTIiLCJlbWFpbCI6InZhbGlkdXNlckBnbWFpbC5jb20iLCJpYXQiOjE2Mzc4NDI5MTMsImV4cCI6MTYzNzg0NjUxM30.NOjrIe94dXtjll1OML9jPE056O8Bu3cSWDray1XwgFo",
     });
   }, []);
 

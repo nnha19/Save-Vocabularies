@@ -59,7 +59,7 @@ const VocabulariesPage = () => {
 
   useEffect(() => {
     const selectedResources = localStorage.getItem("selectedResources");
-    if (!selectedResources || uid !== userId) {
+    if (!selectedResources) {
       getVocabularies();
       return;
     }

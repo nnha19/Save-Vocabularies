@@ -61,7 +61,7 @@ const EditInfoBody: React.FC<IProps> = ({ type, value }) => {
       onSubmit={handleSubmit}
       className="h-96 flex flex-col justify-center w-5/6 mx-auto"
     >
-      {inputVals.password && (
+      {inputVals.confirmPassword && (
         <Input
           type="password"
           value={inputVals["confirmPassword"].value}

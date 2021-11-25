@@ -91,6 +91,38 @@ const signInUser = async (req, res) => {
   }
 };
 
+const updateUser = async (req, res) => {
+  try {
+    const { uid } = req.params;
+    if (req.user.userId === uid) {
+      const { type, value, confirmPassword } = req.body;
+      const foundUser = await User.findById(uid);
+      const validPassword = await bcrypt.compare(
+        confirmPassword,
+        foundUser.password
+      );
+      if (!validPassword) {
+        res.status(400).json("Password you entered is incorrect.");
+        return;
+      }
+      if (type === "password") {
+        const hashedPassword = await bcrypt.hash(value, 12);
+        foundUser[type] = hashedPassword;
+      } else {
+        foundUser[type] = value;
+      }
+      await foundUser.save();
+      res.status(200).json("Successfully updated.");
+    } else {
+      res.status(400).json("You are not authorized to do this.");
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json("Something went wrong.");
+  }
+};
+
 exports.getAllUsers = getAllUsers;
 exports.signUpUser = signUpUser;
 exports.signInUser = signInUser;
+exports.updateUser = updateUser;

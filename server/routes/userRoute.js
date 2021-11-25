@@ -1,8 +1,8 @@
-const router = require("express").Router();
+const router = require("express").Router({ mergeParams: true });
 const { body } = require("express-validator");
 const userController = require("../controllers/userController");
+const authMiddleware = require("../middlewares/authMiddleware");
 
-router.get("/users", userController.getAllUsers);
 router.post(
   "/signup",
   body("username").not().isEmpty(),
@@ -16,5 +16,9 @@ router.post(
   body("password").not().isEmpty(),
   userController.signInUser
 );
+router.use(authMiddleware);
+
+router.get("/users", userController.getAllUsers);
+router.put("/user/:uid", userController.updateUser);
 
 module.exports = router;
