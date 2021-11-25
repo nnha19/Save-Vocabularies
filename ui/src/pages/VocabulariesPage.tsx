@@ -22,7 +22,7 @@ import { VocabulariesContext } from "../contexts/vocabulariesContext";
 
 const VocabulariesPage = () => {
   const [hasMore, setHasMore] = useState(true);
-  const [skeletonLoading, setSkeletonLoading] = useState(false);
+  const [skeletonLoading, setSkeletonLoading] = useState(true);
   const [isInfinite, setIsInfinite] = useState(true);
   const [infiniteLoading, setInfiniteLoading] = useState(false);
   const { vocabularies, setVocabularies } = useContext(VocabulariesContext);
@@ -65,19 +65,16 @@ const VocabulariesPage = () => {
     }
   }, [uid, page]);
 
+  useEffect(() => {
+    setVocabularies([]);
+    setHasMore(true);
+  }, [uid]);
+
   const getOriginalVocabularies = () => {
     setSkeletonLoading(true);
     setIsInfinite(true);
     page === 0 ? getVocabularies() : setPage(0);
   };
-
-  let showSkeletonOrVocabs = vocabularies?.length > 0 && (
-    <Vocabularies vocabularies={vocabularies} />
-  );
-
-  if (skeletonLoading) {
-    showSkeletonOrVocabs = <SkeletonLoading />;
-  }
 
   const handleOberver = (entries: any) => {
     if (entries[0].isIntersecting) {
@@ -94,6 +91,24 @@ const VocabulariesPage = () => {
     const observer = new IntersectionObserver(handleOberver, options);
     node && observer.observe(node);
   }, []);
+
+  let showSkeletonOrVocabs = vocabularies?.length > 0 && (
+    <Vocabularies vocabularies={vocabularies} />
+  );
+
+  if (skeletonLoading) {
+    showSkeletonOrVocabs = <SkeletonLoading />;
+  }
+  if (!skeletonLoading && vocabularies.length === 0) {
+    showSkeletonOrVocabs = (
+      <div className="h-full flex items-center justify-center">
+        <div>
+          <h1 className="text-xl font-bold text-center">No Vocabularies</h1>
+          <img src={Img} />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <Layout>
