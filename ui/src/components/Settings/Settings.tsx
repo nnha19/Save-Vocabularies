@@ -3,6 +3,7 @@ import { useAuthContext } from "../../customHooks/useAuthContext";
 import Layout from "../Common/Layout/Layout";
 import Modal from "../Common/Modal/Modal";
 import UserInfo from "../Common/UserInfo/UserInfo";
+import EditInfoBody from "./EditInfoBody/EditInfoBody";
 import Infos from "./Infos/Infos";
 
 interface IEditUserInfoObj {
@@ -16,10 +17,8 @@ const Settings = () => {
   const { email, username } = useAuthContext();
 
   const [showEditForm, setShowEditForm] = useState<{
-    username?: string;
-    email?: string;
-    password?: string;
-    status?: string;
+    type: string;
+    value: string;
   } | null>(null);
 
   const editUserInfos: IEditUserInfoObj = {
@@ -34,7 +33,10 @@ const Settings = () => {
       <Infos
         key={k}
         onClick={() =>
-          setShowEditForm({ [k]: editUserInfos[k as keyof IEditUserInfoObj] })
+          setShowEditForm({
+            type: k,
+            value: editUserInfos[k as keyof IEditUserInfoObj],
+          })
         }
         type={k}
         value={editUserInfos[k as keyof IEditUserInfoObj]}
@@ -42,22 +44,19 @@ const Settings = () => {
     );
   });
 
-  console.log(showEditForm);
-
   return (
     <Layout>
       <h1 className="px-4 border-b-2 py-4 font-bold text-xl">User Settings</h1>
       {showEditForm && (
         <Modal
           title={
-            <h1 className="p-4 capitalize">
-              Edit{" "}
-              <span className="font-medium">
-                {Object.keys(showEditForm)[0]}
-              </span>
+            <h1 className="px-8 py-4 capitalize border-b-2">
+              Edit <span className="font-medium">{showEditForm["type"]}</span>
             </h1>
           }
-          body={<div></div>}
+          body={
+            <EditInfoBody type={showEditForm.type} value={showEditForm.value} />
+          }
           closeModal={() => setShowEditForm(null)}
         />
       )}

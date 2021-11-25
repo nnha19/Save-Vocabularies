@@ -5,9 +5,9 @@ interface IProps {
   type: string;
   value: string;
   errMsg?: string;
-  placeholder: string;
-  name: string;
-  label: string;
+  placeholder?: string;
+  name?: string;
+  label?: string;
   changeInputVal: (e: any, error: string | undefined) => void;
   error: string | undefined;
   validRules?: {};
