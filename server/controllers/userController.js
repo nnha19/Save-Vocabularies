@@ -42,8 +42,10 @@ const signUpUser = async (req, res) => {
         process.env.JWT_KEY,
         { expiresIn: "1h" }
       );
-      const { _id } = newUser;
-      res.status(200).json({ username, email, _id, token });
+      const { _id, vocabularies, joinedDate } = newUser;
+      res
+        .status(200)
+        .json({ username, email, _id, token, vocabularies, joinedDate });
     }
   } catch (err) {
     console.log(err);
@@ -65,7 +67,7 @@ const signInUser = async (req, res) => {
     } else {
       const validPassword = await bcrypt.compare(password, user.password);
       if (validPassword) {
-        const { username, _id } = user;
+        const { username, _id, vocabularies, joinedDate } = user;
         const token = jwt.sign(
           {
             userId: user._id,
@@ -80,6 +82,8 @@ const signInUser = async (req, res) => {
           email,
           _id,
           token,
+          vocabularies,
+          joinedDate,
         });
       } else {
         res.status(400).json("Incorrect password.");

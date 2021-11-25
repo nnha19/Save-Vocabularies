@@ -15,9 +15,8 @@ interface IEditUserInfoObj {
 }
 
 const Settings = () => {
-  const {
-    user: { email, username },
-  } = useAuthContext();
+  const { user } = useAuthContext();
+  const { email, username } = user;
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<null | string>(null);
 
@@ -96,7 +95,7 @@ const Settings = () => {
         />
       )}
       <div className="px-4">
-        <UserInfo />
+        <UserInfo user={user} />
       </div>
       <div className="px-4">{editInfoLists}</div>
     </Layout>

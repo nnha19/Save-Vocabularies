@@ -11,10 +11,12 @@ interface IProps {
 }
 
 const UserInfo: React.FC<IProps> = (props) => {
+  console.log(props.user);
   const { style, className } = props;
   const {
     user: { _id: userId },
   } = useAuthContext();
+
   const months = "Jan Feb Mar April May Jun Jul Aug Sep Oct Nov Dec".split(" ");
   const history = useHistory();
   const { uid } = useParams<any>();

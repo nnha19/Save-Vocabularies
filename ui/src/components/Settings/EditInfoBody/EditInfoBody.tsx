@@ -71,7 +71,7 @@ const EditInfoBody: React.FC<IProps> = ({
     try {
       setLoading(true);
       e.preventDefault();
-      const resp = await axios({
+      const resp: any = await axios({
         url: `${process.env.REACT_APP_BACKEND_URL}/user/${_id}`,
         method: "PUT",
         data: {
@@ -85,6 +85,7 @@ const EditInfoBody: React.FC<IProps> = ({
       });
       setLoading(false);
       setShowEditForm(null);
+      setUser((prev) => ({ ...prev, ...resp.data.user }));
     } catch (err: any) {
       setError(err?.response?.data);
       setShowEditForm(null);
