@@ -11,7 +11,6 @@ interface IProps {
 }
 
 const UserInfo: React.FC<IProps> = (props) => {
-  console.log(props.user);
   const { style, className } = props;
   const {
     user: { _id: userId },

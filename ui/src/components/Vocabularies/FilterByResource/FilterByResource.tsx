@@ -135,10 +135,13 @@ const FilterByResource: React.FC<IProps> = ({
   useEffect(() => {
     //See if there is selected resources in LS
     let lItems: any = localStorage.getItem("selectedResources");
-    if (!lItems || lItems.length === 0) return;
-    lItems = JSON.parse(lItems);
-    setSelectedResources(lItems);
-    filterByResourcesHandler(lItems);
+    if (lItems) {
+      lItems = JSON.parse(lItems);
+      if (lItems.length > 0) {
+        setSelectedResources(lItems);
+        filterByResourcesHandler(lItems);
+      }
+    }
   }, []);
 
   const btnsDisabled = selectedResources.length < 1;

@@ -46,7 +46,6 @@ const VocabulariesPage = () => {
           },
         }
       );
-      console.log(resp);
       let updatedVocabularies;
       if (page === 0) {
         updatedVocabularies = [...resp.data.vocabularies];
@@ -62,10 +61,10 @@ const VocabulariesPage = () => {
 
   useEffect(() => {
     const selectedResources = localStorage.getItem("selectedResources");
-    if (!selectedResources) {
-      getVocabularies();
-      return;
+    if (selectedResources) {
+      if (JSON.parse(selectedResources).length > 0) return;
     }
+    getVocabularies();
   }, [uid, page]);
 
   useEffect(() => {
