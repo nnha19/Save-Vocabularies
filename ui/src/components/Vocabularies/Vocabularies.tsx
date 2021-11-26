@@ -1,11 +1,8 @@
 import React from "react";
 import { useHistory } from "react-router";
-import { useAuthContext } from "../../customHooks/useAuthContext";
 
 import { IVocabularies } from "../../types/types";
-import UserInfo from "../Common/UserInfo/UserInfo";
 import AddToLearning from "./AddToLearning/AddToLearning";
-import Search from "./Search/Search";
 
 interface IProps {
   vocabularies: IVocabularies["vocabularies"];

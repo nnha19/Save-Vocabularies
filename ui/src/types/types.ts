@@ -20,6 +20,7 @@ export interface IUser {
   _id: string;
   token: string;
   status: string;
+  learnings: IVocabularies["vocabularies"];
 }
 export interface IUsers {
   users: IUser[];

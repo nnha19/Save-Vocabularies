@@ -1,10 +1,14 @@
 import React from "react";
+import { useAuthContext } from "../../customHooks/useAuthContext";
 import Layout from "../Common/Layout/Layout";
+import Vocabularies from "../Vocabularies/Vocabularies";
 
 const Learning = () => {
+  const { user } = useAuthContext();
+
   return (
     <Layout>
-      <div>Learning</div>
+      <Vocabularies vocabularies={user.learnings} />
     </Layout>
   );
 };
