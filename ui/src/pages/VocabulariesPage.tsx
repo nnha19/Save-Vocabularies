@@ -32,7 +32,7 @@ const VocabulariesPage = () => {
   const { uid } = useParams<any>();
   const [page, setPage] = useState(0);
 
-  const getVocabularies = () => {
+  const getVocabularies = (initial?: boolean) => {
     if (!hasMore && page > 0) return;
     (async () => {
       vocabularies.length === 0
@@ -46,6 +46,7 @@ const VocabulariesPage = () => {
           },
         }
       );
+      console.log(resp);
       let updatedVocabularies;
       if (page === 0) {
         updatedVocabularies = [...resp.data.vocabularies];
@@ -70,6 +71,7 @@ const VocabulariesPage = () => {
   useEffect(() => {
     setVocabularies([]);
     setHasMore(true);
+    setPage(0);
   }, [uid]);
 
   const getOriginalVocabularies = () => {
