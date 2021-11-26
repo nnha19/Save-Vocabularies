@@ -6,6 +6,7 @@ export interface IVocabulary {
   note?: string;
   timeStamp: string;
   resource?: string;
+  owner: string;
 }
 
 export interface IVocabularies {

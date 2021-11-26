@@ -15,7 +15,6 @@ const AddToLearning: React.FC<IProps> = ({ vocabulary }) => {
     user: { token, learnings, _id },
     setUser,
   } = useAuthContext();
-  console.log("Hi.");
   const alreadyOnLearnings = learnings.some((l) => l._id === vocabulary._id);
 
   const handleAddToLearning = async () => {
@@ -43,27 +42,24 @@ const AddToLearning: React.FC<IProps> = ({ vocabulary }) => {
       console.log(err);
     }
   };
-
-  return (
-    <>
-      <button
-        onClick={handleAddToLearning}
-        id="add-to-learning"
-        className="h-8 text-white w-8 rounded-full bg-primaryColor relative atl-btn"
-      >
-        {!alreadyOnLearnings ? (
-          <i className="fas fa-plus"></i>
-        ) : (
-          <i className="fas fa-minus"></i>
-        )}
-        <Label
-          text={`${
-            alreadyOnLearnings ? "Remove From Learning" : "Add To Learning"
-          }`}
-        />
-      </button>
-    </>
-  );
+  return vocabulary.owner === _id ? (
+    <button
+      onClick={handleAddToLearning}
+      id="add-to-learning"
+      className="h-8 text-white w-8 rounded-full bg-primaryColor relative atl-btn"
+    >
+      {!alreadyOnLearnings ? (
+        <i className="fas fa-plus"></i>
+      ) : (
+        <i className="fas fa-minus"></i>
+      )}
+      <Label
+        text={`${
+          alreadyOnLearnings ? "Remove From Learning" : "Add To Learning"
+        }`}
+      />
+    </button>
+  ) : null;
 };
 
 export default AddToLearning;

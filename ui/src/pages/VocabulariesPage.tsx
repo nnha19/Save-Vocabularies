@@ -115,7 +115,7 @@ const VocabulariesPage = () => {
   return (
     <Layout>
       {userId === uid && (
-        <div className="border-b-2 p-4 flex items-center sticky top-0 bg-white">
+        <div className="border-b-2 p-4 flex items-center sticky top-0 bg-white z-10">
           <FilterByResource
             setIsInfinite={setIsInfinite}
             setSkeletonLoading={setSkeletonLoading}
