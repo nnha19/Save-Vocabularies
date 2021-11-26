@@ -46,6 +46,8 @@ const EditInfoBody: React.FC<IProps> = ({
     });
   }, []);
 
+  console.log(inputVals);
+
   let input;
 
   const handleChange = (e: any, error: string | undefined) => {
@@ -54,6 +56,18 @@ const EditInfoBody: React.FC<IProps> = ({
   };
 
   if (type === "status") {
+    input = (
+      <div className="px-4 mx-2 w-full mt-4">
+        <select
+          name={type}
+          onChange={(e) => handleChange(e, undefined)}
+          className="border-2 w-full p-2"
+        >
+          <option>Public</option>
+          <option>Private</option>
+        </select>
+      </div>
+    );
   } else {
     input = inputVals[type] && (
       <Input
