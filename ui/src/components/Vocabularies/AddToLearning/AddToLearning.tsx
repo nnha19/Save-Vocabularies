@@ -12,33 +12,35 @@ interface IProps {
 
 const AddToLearning: React.FC<IProps> = ({ vocabulary }) => {
   const {
-    user: { token, learnings },
+    user: { token, learnings, _id },
     setUser,
   } = useAuthContext();
-
+  console.log("Hi.");
   const alreadyOnLearnings = learnings.some((l) => l._id === vocabulary._id);
 
   const handleAddToLearning = async () => {
-    // const resp = await axios({
-    //   url: `${process.env.REACT_APP_BACKEND_URL}/learning/${vocabulary._id}`,
-    //   method: alreadyOnLearnings?"DELETE" :"POST",
-    //   headers: {
-    //     authorization: `bearer ${token}`,
-    //   },
-    // });
-    if (alreadyOnLearnings) {
-      setUser((prev) => {
-        const updatedLearnings = prev.learnings.filter(
-          (l) => l._id !== vocabulary._id
-        );
-        prev.learnings = updatedLearnings;
-        return prev;
+    try {
+      const resp = await axios({
+        url: `${process.env.REACT_APP_BACKEND_URL}/learnings/${_id}/${vocabulary._id}`,
+        method: alreadyOnLearnings ? "DELETE" : "POST",
+        headers: {
+          authorization: `bearer ${token}`,
+        },
       });
-    } else {
-      setUser((prev) => ({
-        ...prev,
-        learnings: [...prev.learnings, vocabulary],
-      }));
+
+      if (alreadyOnLearnings) {
+        setUser((prev) => ({
+          ...prev,
+          learnings: prev.learnings.filter((l) => l._id !== vocabulary._id),
+        }));
+      } else {
+        setUser((prev) => ({
+          ...prev,
+          learnings: [...prev.learnings, vocabulary],
+        }));
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
