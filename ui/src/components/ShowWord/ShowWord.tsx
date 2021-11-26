@@ -6,6 +6,7 @@ import { ISynAndAnt } from "../../pages/showWordPage";
 import { IVocabulary } from "../../types/types";
 import Back from "../Common/Back/Back";
 import Layout from "../Common/Layout/Layout";
+import AddToLearning from "../Vocabularies/AddToLearning/AddToLearning";
 
 interface IProps {
   showWord: IVocabulary;
@@ -51,8 +52,9 @@ const ShowWord: React.FC<IProps> = ({
             <h2 className="title mr-4">{showWord.vocabulary}</h2>
             <i
               onClick={pronounceWord}
-              className="fas fa-volume-up cursor-pointer"
+              className="fas fa-volume-up cursor-pointer mr-4"
             ></i>
+            <AddToLearning vocabulary={showWord} />
           </div>
           <div className="flex items-start my-4">
             <span className="font-medium mr-4 ">Definition</span>
