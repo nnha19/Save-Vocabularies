@@ -71,6 +71,7 @@ const EditInfoBody: React.FC<IProps> = ({
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
+      setShowEditForm(null);
       setLoading(true);
       e.preventDefault();
       const resp: any = await axios({
@@ -85,10 +86,9 @@ const EditInfoBody: React.FC<IProps> = ({
           authorization: `bearer ${token}`,
         },
       });
-      setLoading(false);
-      setShowEditForm(null);
       setUpdated(true);
       setUser((prev) => ({ ...prev, ...resp.data.user }));
+      setLoading(false);
     } catch (err: any) {
       setError(err?.response?.data);
       setShowEditForm(null);

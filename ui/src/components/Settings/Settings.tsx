@@ -81,7 +81,11 @@ const Settings = () => {
           }
         />
       )}
-      {loading && <Spinner />}
+      {loading && (
+        <Spinner
+          style={{ background: "#0000005e", margin: "0", position: "absolute" }}
+        />
+      )}
       <h1 className="px-4 border-b-2 py-4 font-bold text-xl">User Settings</h1>
       {showEditForm && (
         <Modal
