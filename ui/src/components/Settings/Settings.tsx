@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuthContext } from "../../customHooks/useAuthContext";
 import Layout from "../Common/Layout/Layout";
 import Modal from "../Common/Modal/Modal";
@@ -19,6 +19,7 @@ const Settings = () => {
   const { email, username } = user;
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<null | string>(null);
+  const [updated, setUpdated] = useState(false);
 
   const [showEditForm, setShowEditForm] = useState<{
     type: string;
@@ -47,6 +48,13 @@ const Settings = () => {
       />
     );
   });
+
+  useEffect(() => {
+    updated &&
+      setTimeout(() => {
+        setUpdated(false);
+      }, 1500);
+  }, [updated]);
 
   return (
     <Layout>
@@ -89,6 +97,7 @@ const Settings = () => {
               value={showEditForm.value}
               setLoading={setLoading}
               setError={setError}
+              setUpdated={setUpdated}
             />
           }
           closeModal={() => setShowEditForm(null)}
@@ -98,6 +107,13 @@ const Settings = () => {
         <UserInfo user={user} />
       </div>
       <div className="px-4">{editInfoLists}</div>
+      {updated && (
+        <div
+          className={`absolute bottom-0 bg-primaryColor text-white px-12 rounded py-2 m-4`}
+        >
+          Updated Successfully.
+        </div>
+      )}
     </Layout>
   );
 };

@@ -14,6 +14,7 @@ interface IProps {
   >;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   setError: React.Dispatch<React.SetStateAction<string | null>>;
+  setUpdated: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const EditInfoBody: React.FC<IProps> = ({
@@ -22,6 +23,7 @@ const EditInfoBody: React.FC<IProps> = ({
   setShowEditForm,
   setLoading,
   setError,
+  setUpdated,
 }) => {
   const {
     user: { _id, token },
@@ -85,6 +87,7 @@ const EditInfoBody: React.FC<IProps> = ({
       });
       setLoading(false);
       setShowEditForm(null);
+      setUpdated(true);
       setUser((prev) => ({ ...prev, ...resp.data.user }));
     } catch (err: any) {
       setError(err?.response?.data);
