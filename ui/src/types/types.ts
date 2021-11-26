@@ -19,6 +19,7 @@ export interface IUser {
   vocabularies: string[];
   _id: string;
   token: string;
+  status: string;
 }
 export interface IUsers {
   users: IUser[];

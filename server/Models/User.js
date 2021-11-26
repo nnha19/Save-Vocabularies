@@ -6,6 +6,8 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   vocabularies: [{ type: mongoose.Schema.Types.ObjectId, ref: "Vocabulary" }],
   joinedDate: { type: Date },
+  status: { type: String, required: true },
+  learnings: [{ type: mongoose.Schema.Types.ObjectId, ref: "Vocabulary" }],
 });
 
 module.exports = mongoose.model("User", userSchema);

@@ -5,6 +5,7 @@ const cors = require("cors");
 app.use(cors());
 const mongoose = require("mongoose");
 
+const learningsRoute = require("./routes/learningsRoute");
 const userRoute = require("./routes/userRoute");
 const vocabularyRoute = require("./routes/vocabularyRoute");
 
@@ -20,8 +21,9 @@ mongoose
 
 app.use(express.json());
 
-app.use(userRoute);
+app.use("/learnings", learningsRoute);
 app.use("/vocabulary", vocabularyRoute);
+app.use(userRoute);
 
 const PORT = process.env.PORT || 5000;
 

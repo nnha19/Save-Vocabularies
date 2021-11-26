@@ -16,7 +16,7 @@ interface IEditUserInfoObj {
 
 const Settings = () => {
   const { user } = useAuthContext();
-  const { email, username } = user;
+  const { email, username, status } = user;
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<null | string>(null);
   const [updated, setUpdated] = useState(false);
@@ -30,7 +30,7 @@ const Settings = () => {
     username,
     email,
     password: "Your Password",
-    status: "Public",
+    status,
   };
 
   const editInfoLists = Object.keys(editUserInfos).map((k) => {

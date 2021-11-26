@@ -15,6 +15,7 @@ module.exports = {
       },
       width: {
         "30rem": "30rem",
+        maxcontent: "max-content",
       },
       colors: {
         backdrop: "#000000b0",
