@@ -156,7 +156,7 @@ const FilterByResource: React.FC<IProps> = ({
         <span>Filter By Resources</span>
       </div>
       {showFilterDropdown && (
-        <div className=" absolute h-96 overflow-y-auto min-h-52 top-10 left-0 rounded w-80 pt-4 bg-white mt-2 shadow-xl flex flex-col justify-between">
+        <div className="shadow-boxshadow absolute h-96 overflow-y-auto min-h-52 top-10 left-0 rounded w-80 pt-4 bg-white mt-2 flex flex-col justify-between">
           {fetchResourceIsLoading ? (
             <Spinner style={{ height: "8rem" }} />
           ) : (

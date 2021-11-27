@@ -22,6 +22,9 @@ module.exports = {
         primaryColor: "red",
         secondaryColor: "white",
       },
+      boxShadow: {
+        boxshadow: "0 2px 2px grey",
+      },
     },
   },
   variants: {

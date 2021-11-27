@@ -168,7 +168,7 @@ const AddNewVocaForm: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
         />
       )}
       <BackDrop clicked={() => setShowAddNewVocaForm(false)} />
-      <div className="fixed w-30rem center h-40rem overflow-auto  bg-white rounded">
+      <div className="z-10 shadow-boxshadow fixed w-30rem center h-40rem overflow-auto  bg-white rounded">
         <form onSubmit={addNewVocabularyHandler} className="w-full">
           <div className="flex sticky top-0 bg-white justify-between items-center border-b-2 p-4">
             <h1 className="title ">Add New Vocabulary</h1>
