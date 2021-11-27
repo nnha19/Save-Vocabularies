@@ -12,6 +12,7 @@ import NotificationsPage from "../Notifications/Notifications";
 import AddNewVocaForm from "../AddNewVocaForm/AddNewVocaForm";
 import { FilterDropdownContext } from "../../contexts/filterDropdownContext";
 import VocabulariesContextProvider from "../../contexts/vocabulariesContext";
+import MobileNav from "../Common/Navigation/MobileNav";
 
 const Features = () => {
   const [navLinkStyle, setNavLinkStyle] = useState("nav-right-side");
@@ -37,9 +38,9 @@ const Features = () => {
     <VocabulariesContextProvider>
       <div
         onClick={closeDropdownHandler}
-        className="min-h-screen flex items-center bg-primaryColor  "
+        className=" min-h-screen flex items-center bg-primaryColor  "
       >
-        <div className="w-full flex h-95vh py-2 sm:w-5/6 mx-auto flex-col items-center">
+        <div className="w-full flex h-95vh py-2 lg:w-5/6 mx-auto flex-col items-center">
           <Header toggleNavLinkStyleHandler={toggleNavLinkStyleHandler} />
           <div className="w-full h-90%  flex">
             <Navigation
@@ -70,6 +71,7 @@ const Features = () => {
               <Route path="/:wid" exact component={ShowWordPage} />
             </Switch>
           </div>
+          <MobileNav setShowAddNewVocaForm={setShowAddNewVocaForm} />
         </div>
         {showAddNewVocaForm && (
           <AddNewVocaForm setShowAddNewVocaForm={setShowAddNewVocaForm} />
