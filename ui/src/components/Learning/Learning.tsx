@@ -31,7 +31,7 @@ const Learning = () => {
     <Layout>
       {user.learnings.length > 0 ? (
         <>
-          <h1 className="p-4 border-b-2 font-bold">Your Learnings</h1>
+          <h1 className="p-4 border-b-2 font-bold">My Learnings</h1>
           <Vocabularies vocabularies={user.learnings} />
         </>
       ) : (
