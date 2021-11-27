@@ -7,11 +7,17 @@ import { useAuthContext } from "../../../customHooks/useAuthContext";
 
 interface INavLinkProps {
   navLinkStyle?: string;
+  className?: string;
 }
 
-export const UserProfile: React.FC<INavLinkProps> = ({ navLinkStyle }) => {
+export const UserProfile: React.FC<INavLinkProps> = ({
+  navLinkStyle,
+  className,
+}) => {
   return (
-    <div className="w-full justify-center flex items-center mt-4 border-b-2 border-black pb-4">
+    <div
+      className={`w-full justify-center flex items-center mt-4 border-b-2 border-black pb-4 ${className}`}
+    >
       <span className="user-avatar">N</span>
       <div className={` ${navLinkStyle} `}>
         <h4 className="font-bold text-xl">Nyi Nyi</h4>
