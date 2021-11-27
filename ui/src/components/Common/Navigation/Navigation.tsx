@@ -39,6 +39,7 @@ const Navigation: React.FC<IProps> = ({
           <AddNewVocaBtn
             setShowAddNewVocaForm={setShowAddNewVocaForm}
             navLinkStyle={navLinkStyle}
+            className="mt-4"
           />
         </div>
         <LogoutBtn navLinkStyle={navLinkStyle} />

@@ -2,6 +2,9 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { useAuthContext } from "../../../customHooks/useAuthContext";
 
+//If navLinStyle is not provided,
+//  these nav links are being used in mobile nav and mobile nav style will be applied.
+
 interface INavLinkProps {
   navLinkStyle?: string;
 }
@@ -19,8 +22,14 @@ export const UserProfile: React.FC<INavLinkProps> = ({ navLinkStyle }) => {
 
 export const UsersLink: React.FC<INavLinkProps> = ({ navLinkStyle }) => {
   return (
-    <NavLink activeClassName="nav-item-active" to="/users">
-      <li className="nav-items">
+    <NavLink
+      className="h-full self-stretch"
+      activeClassName={
+        navLinkStyle ? "nav-item-active" : "mobile-nav-item-active"
+      }
+      to="/users"
+    >
+      <li className={`${navLinkStyle ? "nav-items" : "mobile-nav-items"}`}>
         <i className="fas fa-users"></i>
         {navLinkStyle && <span className={`ml-4 ${navLinkStyle}`}>Users</span>}
       </li>
@@ -35,10 +44,13 @@ export const VocabulariesLink: React.FC<INavLinkProps> = ({ navLinkStyle }) => {
 
   return (
     <NavLink
-      activeClassName="nav-item-active"
+      className="h-full self-stretch"
+      activeClassName={
+        navLinkStyle ? "nav-item-active" : "mobile-nav-item-active"
+      }
       to={`/dashboard/${_id}/vocabularies`}
     >
-      <li className="nav-items ">
+      <li className={`${navLinkStyle ? "nav-items" : "mobile-nav-items"}`}>
         <i className="fas fa-columns"></i>
         {navLinkStyle && (
           <span className={`ml-4 ${navLinkStyle}`}>Vocabularies</span>
@@ -53,8 +65,14 @@ export const SettingsLink: React.FC<INavLinkProps> = ({ navLinkStyle }) => {
     user: { _id },
   } = useAuthContext();
   return (
-    <NavLink activeClassName="nav-item-active" to={`/user/${_id}/settings`}>
-      <li className="nav-items">
+    <NavLink
+      className="h-full self-stretch"
+      activeClassName={
+        navLinkStyle ? "nav-item-active" : "mobile-nav-item-active"
+      }
+      to={`/user/${_id}/settings`}
+    >
+      <li className={`${navLinkStyle ? "nav-items" : "mobile-nav-items"}`}>
         <i className="fas fa-cog"></i>
         {navLinkStyle && (
           <span className={`ml-4 ${navLinkStyle}`}>Settings</span>
@@ -71,8 +89,14 @@ export const NotificationsLink: React.FC<INavLinkProps> = ({
     user: { _id },
   } = useAuthContext();
   return (
-    <NavLink activeClassName="nav-item-active" to={`/user/${_id}/noti`}>
-      <li className="nav-items">
+    <NavLink
+      className="h-full self-stretch"
+      activeClassName={
+        navLinkStyle ? "nav-item-active" : "mobile-nav-item-active"
+      }
+      to={`/user/${_id}/noti`}
+    >
+      <li className={`${navLinkStyle ? "nav-items" : "mobile-nav-items"}`}>
         <i className="fas fa-bell"></i>
         {navLinkStyle && (
           <span className={`ml-4 ${navLinkStyle && navLinkStyle}`}>
@@ -89,8 +113,14 @@ export const LearningsLink: React.FC<INavLinkProps> = ({ navLinkStyle }) => {
     user: { _id },
   } = useAuthContext();
   return (
-    <NavLink activeClassName="nav-item-active" to={`/user/${_id}/learning`}>
-      <li className="nav-items">
+    <NavLink
+      className="h-full self-stretch"
+      activeClassName={
+        navLinkStyle ? "nav-item-active" : "mobile-nav-item-active"
+      }
+      to={`/user/${_id}/learning`}
+    >
+      <li className={`${navLinkStyle ? "nav-items" : "mobile-nav-items"}`}>
         <i className="fas fa-book-reader"></i>
         {navLinkStyle && (
           <span className={`ml-4 ${navLinkStyle}`}>Learnings</span>
@@ -103,14 +133,16 @@ export const LearningsLink: React.FC<INavLinkProps> = ({ navLinkStyle }) => {
 export const AddNewVocaBtn = ({
   navLinkStyle,
   setShowAddNewVocaForm,
+  className,
 }: {
   navLinkStyle?: string;
   setShowAddNewVocaForm: (value: React.SetStateAction<boolean>) => void;
+  className?: string;
 }) => {
   return (
     <button
       onClick={() => setShowAddNewVocaForm(true)}
-      className=" text-xl  px-4 rounded-full text-white mt-4 h-12 w-46 bg-primaryColor block"
+      className={` text-xl  px-4 rounded-full text-white h-12 w-46 bg-primaryColor block ${className}`}
     >
       <i className="fas fa-plus"></i>
       {navLinkStyle && <span className={`ml-4 ${navLinkStyle}`}>Add New</span>}

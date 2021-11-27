@@ -11,6 +11,9 @@
 .nav-items {
   @apply text-xl flex justify-center border-l-4 border-transparent hover:bg-red-500  transition-all py-4 hover:text-white px-4;
 }
+.mobile-nav-items {
+  @apply text-xl flex justify-center border-b-4 border-transparent hover:bg-red-500 h-full  items-center transition-all py-4 hover:text-white px-4;
+}
 .user-avatar {
   @apply flex items-center justify-center text-xl text-white h-12 w-12 rounded-full bg-purple-400;
 }
@@ -20,6 +23,9 @@
 
 .nav-item-active li {
   border-left: 4px solid black;
+}
+.mobile-nav-item-active li {
+  border-bottom: 4px solid black;
 }
 .title {
   @apply font-medium text-xl;
