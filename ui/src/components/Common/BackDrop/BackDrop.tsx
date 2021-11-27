@@ -11,7 +11,7 @@ const BackDrop = ({
     <div
       style={style}
       onClick={clicked}
-      className="h-screen w-screen  fixed top-0 left-0 bg-backdrop"
+      className="z-10 h-screen w-screen  fixed top-0 left-0 bg-backdrop"
     ></div>
   );
 };

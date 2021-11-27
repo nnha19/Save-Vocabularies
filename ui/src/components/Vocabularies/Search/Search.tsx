@@ -21,7 +21,7 @@ const Search: React.FC<IProps> = ({ setSkeletonLoading }) => {
   }, [searchVal]);
 
   return (
-    <div className="w-3/5  mx-auto">
+    <div className="mt-4 sm:mt-0 w-3/5  mx-auto">
       <form onSubmit={searchVocabularyHandler} className="relative">
         <input
           onChange={(e) => setSearchVal(e.target.value)}
@@ -29,9 +29,6 @@ const Search: React.FC<IProps> = ({ setSkeletonLoading }) => {
           type="text"
           placeholder="Search Vocabularies"
         />
-        <button className="absolute bg-primarColor h-full px-8 bg-primaryColor -ml-10 text-white rounded-full">
-          Search
-        </button>
       </form>
     </div>
   );

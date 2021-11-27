@@ -156,9 +156,14 @@ export const AddNewVocaBtn = ({
   );
 };
 
-export const LogoutBtn: React.FC<INavLinkProps> = ({ navLinkStyle }) => {
+export const LogoutBtn: React.FC<INavLinkProps> = ({
+  navLinkStyle,
+  className,
+}) => {
   return (
-    <div className="flex px-4 items-center text-xl my-4 cursor-pointer">
+    <div
+      className={`flex px-4 items-center text-xl my-4 cursor-pointer ${className}`}
+    >
       <i className="fas fa-sign-out-alt "></i>
       <p className={`ml-4 ${navLinkStyle}`}>Logout</p>
     </div>

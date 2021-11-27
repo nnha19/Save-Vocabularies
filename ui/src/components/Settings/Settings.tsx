@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useAuthContext } from "../../customHooks/useAuthContext";
 import Layout from "../Common/Layout/Layout";
 import Modal from "../Common/Modal/Modal";
+import { LogoutBtn } from "../Common/Navigation/NavLinks";
 import Spinner from "../Common/Spinner/Spinner";
 import UserInfo from "../Common/UserInfo/UserInfo";
 import EditInfoBody from "./EditInfoBody/EditInfoBody";
@@ -118,6 +119,7 @@ const Settings = () => {
           Updated Successfully.
         </div>
       )}
+      <LogoutBtn className="mt-8 sm:hidden" />
     </Layout>
   );
 };
