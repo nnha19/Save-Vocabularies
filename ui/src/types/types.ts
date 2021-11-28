@@ -22,7 +22,13 @@ export interface IUser {
   token: string;
   status: string;
   learnings: IVocabularies["vocabularies"];
-  notifications: { notification: string; _id: string }[];
+  notifications: {
+    user: IUser;
+    vocabulary: IVocabulary;
+    action: string;
+    _id: string;
+    new: boolean;
+  }[];
   sendNotisTo: string[];
 }
 export interface IUsers {

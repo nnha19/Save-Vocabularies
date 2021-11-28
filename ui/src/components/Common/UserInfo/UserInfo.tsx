@@ -16,7 +16,7 @@ interface IProps {
 const UserInfo: React.FC<IProps> = (props) => {
   const { style, className } = props;
   const {
-    user: { _id: userId },
+    user: { _id: userId, token },
   } = useAuthContext();
   const [error, setError] = useState<null | string>(null);
   const months = "Jan Feb Mar April May Jun Jul Aug Sep Oct Nov Dec".split(" ");
@@ -59,6 +59,9 @@ const UserInfo: React.FC<IProps> = (props) => {
         url: `${process.env.REACT_APP_BACKEND_URL}/notification/bell`,
         data: { userId: user._id, curUserId: userId },
         method: bellRang ? "DELETE" : "POST",
+        headers: {
+          authorization: `bearer ${token}`,
+        },
       });
     } catch (err: any) {
       setError(err?.response?.data);

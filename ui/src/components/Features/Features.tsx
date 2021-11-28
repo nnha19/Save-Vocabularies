@@ -8,7 +8,7 @@ import UsersPage from "../../pages/usersPage";
 import SettingsPage from "../../pages/settingsPage";
 import LearningPage from "../../pages/learningPage";
 import ShowWordPage from "../../pages/showWordPage";
-import NotificationsPage from "../Notifications/Notifications";
+import NotificationsPage from "../../pages/notificationsPage";
 import AddNewVocaForm from "../AddNewVocaForm/AddNewVocaForm";
 import { FilterDropdownContext } from "../../contexts/filterDropdownContext";
 import VocabulariesContextProvider from "../../contexts/vocabulariesContext";

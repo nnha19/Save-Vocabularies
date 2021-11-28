@@ -24,8 +24,8 @@ app.use(express.json());
 
 app.use("/learnings", learningsRoute);
 app.use("/vocabulary", vocabularyRoute);
-app.use("/notification", notificationsRoute);
 app.use(userRoute);
+app.use("/notification", notificationsRoute);
 
 const PORT = process.env.PORT || 5000;
 

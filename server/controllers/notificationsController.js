@@ -4,17 +4,20 @@ const getNotisByUserId = (req, res) => {};
 
 const addNoti = async (req, res) => {
   try {
-    const { userId, action, vocabulary } = req.body;
+    const { userId, vocabulary } = req.body;
     const user = await User.findById(userId);
     const newNoti = await Notification.create({
-      notification: `${user.username} just added ${vocabulary} to their list`,
+      user,
+      new: true,
+      vocabulary,
+      action: "added",
     });
     const users = await User.find({ _id: user.sendNotisTo });
     users.forEach(async (u) => {
       u.notifications.push(newNoti);
       await u.save();
     });
-    console.log(users);
+    res.status(200).json("Succeded");
   } catch (err) {
     console.log(err);
     res.status(500).json("Something went wrong");

@@ -87,17 +87,34 @@ const signInUser = async (req, res) => {
   }
   try {
     const { email, password } = req.body;
-    const user = await User.findOne({ email }).populate({
-      path: "learnings",
-    });
+    const user = await User.findOne({ email })
+      .populate({
+        path: "learnings",
+      })
+      .populate({
+        path: "notifications",
+        populate: { path: "vocabulary" },
+      })
+      .populate({
+        path: "notifications",
+        populate: { path: "user" },
+      });
     console.log(user);
     if (!user) {
       res.status(400).json("User with the provided email doesn't exist");
     } else {
       const validPassword = await bcrypt.compare(password, user.password);
       if (validPassword) {
-        const { username, _id, vocabularies, joinedDate, status, learnings } =
-          user;
+        const {
+          username,
+          _id,
+          vocabularies,
+          joinedDate,
+          status,
+          learnings,
+          sendNotisTo,
+          notifications,
+        } = user;
         const token = jwt.sign(
           {
             userId: user._id,
@@ -116,6 +133,8 @@ const signInUser = async (req, res) => {
           joinedDate,
           status,
           learnings,
+          sendNotisTo,
+          notifications,
         });
       } else {
         res.status(400).json("Incorrect password.");
