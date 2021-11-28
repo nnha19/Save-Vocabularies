@@ -58,7 +58,13 @@ const turnOffNoti = async (req, res) => {
   }
 };
 
+const updateNotification = async (req, res) => {
+  const { userId } = req.body;
+  const user = await User.findById(userId);
+};
+
 exports.getNotisByUserId = getNotisByUserId;
 exports.addNoti = addNoti;
 exports.ringNotiBell = ringNotiBell;
 exports.turnOffNoti = turnOffNoti;
+exports.updateNotification = updateNotification;
