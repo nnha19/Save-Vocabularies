@@ -138,7 +138,7 @@ const AddNewVocaForm: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
 
   const addNewVocabularyHandler = async (e: any) => {
     e.preventDefault();
-    const resp = await axios({
+    const resp: any = await axios({
       url: `${process.env.REACT_APP_BACKEND_URL}/vocabulary/${_id}`,
       method: "POST",
       data: {
@@ -152,7 +152,21 @@ const AddNewVocaForm: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
         authorization: `bearer ${token}`,
       },
     });
+    //Request to notify other users that current user added new voca to his/her list.
+
     setVocabularies([resp.data, ...vocabularies]);
+    const notiResp = await axios({
+      url: `${process.env.REACT_APP_BACKEND_URL}/notification`,
+      method: "POST",
+      data: {
+        userId: _id,
+        vocabulary: resp.data._id,
+      },
+      headers: {
+        authorization: `bearer ${token}`,
+      },
+    });
+    console.log(notiResp);
     setShowAddNewVocaForm(false);
     history.push(`/dashboard/${_id}/vocabularies`);
   };

@@ -105,7 +105,7 @@ export const NotificationsLink: React.FC<INavLinkProps> = ({
     >
       <li className={`${navLinkStyle ? "nav-items" : "mobile-nav-items"}`}>
         <i className="fas fa-bell relative">
-          {navLinkStyle !== "w-36 px-4 ml-4" && (
+          {navLinkStyle !== "w-36 px-4 ml-4" && newNoti > 0 && (
             <span className="absolute -top-3 left-3 text-xs text-white bg-primaryColor h-4 w-4 rounded-full flex items-center justify-center ">
               {newNoti}
             </span>
@@ -114,7 +114,7 @@ export const NotificationsLink: React.FC<INavLinkProps> = ({
         {navLinkStyle && (
           <span className={`ml-4 ${navLinkStyle && navLinkStyle}`}>
             Notifications
-            <span className=" text-sm">({newNoti})</span>
+            {newNoti > 0 && <span className=" text-sm">({newNoti})</span>}
           </span>
         )}
       </li>
