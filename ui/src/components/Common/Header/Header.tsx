@@ -21,7 +21,10 @@ const Header: React.FC<IProps> = ({ toggleNavLinkStyleHandler }) => {
         <span className="w-12 h-2px mb-2 bg-white"></span>
         <span className="w-12 h-2px  bg-white"></span>
       </div>
-      <h1 className="text-xl font-bold ml-4">Save Vocabularies</h1>
+      <h1 className="text-xl font-bold ml-4">
+        <span className="bg-primaryColor p-2">V</span>
+        List
+      </h1>
       <NavLink to={`/dashboard/${_id}/vocabularies`}>
         <UserProfile navLinkStyle="ml-4" className="w-maxcontent sm:hidden" />
       </NavLink>
