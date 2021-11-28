@@ -17,7 +17,7 @@ router.post(
   userController.signInUser
 );
 
-router.use(authMiddleware);
+// router.use(authMiddleware);
 
 router.get("/users", userController.getAllUsers);
 router.put("/user/:uid", userController.updateUser);

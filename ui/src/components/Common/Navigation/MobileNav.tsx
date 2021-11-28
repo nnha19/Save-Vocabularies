@@ -14,7 +14,7 @@ interface IProps {
 
 const MobileNav: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
   return (
-    <nav className="fixed h-16  bottom-0 md:hidden bg-green-200 w-screen flex justify-around items-center">
+    <nav className="fixed h-16  bottom-0 sm:hidden bg-green-200 w-screen flex justify-around items-center">
       <NotificationsLink />
       <VocabulariesLink />
       <AddNewVocaBtn setShowAddNewVocaForm={setShowAddNewVocaForm} />

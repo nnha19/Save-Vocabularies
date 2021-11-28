@@ -5,10 +5,28 @@ const { validationResult } = require("express-validator");
 
 const getAllUsers = async (req, res) => {
   try {
-    const users = await User.find({ status: "Public" });
+    const users = await User.find({ status: "Public" }).populate({
+      path: "notifications",
+    });
     const resultUsers = users.map((user) => {
-      const { username, email, _id, joinedDate, vocabularies } = user;
-      return { username, email, _id, joinedDate, vocabularies };
+      const {
+        username,
+        email,
+        _id,
+        joinedDate,
+        vocabularies,
+        sendNotisTo,
+        notifications,
+      } = user;
+      return {
+        username,
+        email,
+        _id,
+        joinedDate,
+        vocabularies,
+        sendNotisTo,
+        notifications,
+      };
     });
     res.status(200).json(resultUsers);
   } catch (err) {

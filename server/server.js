@@ -8,6 +8,7 @@ const mongoose = require("mongoose");
 const learningsRoute = require("./routes/learningsRoute");
 const userRoute = require("./routes/userRoute");
 const vocabularyRoute = require("./routes/vocabularyRoute");
+const notificationsRoute = require("./routes/notificationsRoute");
 
 mongoose
   .connect(process.env.CONNECT_DB, {
@@ -23,6 +24,7 @@ app.use(express.json());
 
 app.use("/learnings", learningsRoute);
 app.use("/vocabulary", vocabularyRoute);
+app.use("/notification", notificationsRoute);
 app.use(userRoute);
 
 const PORT = process.env.PORT || 5000;

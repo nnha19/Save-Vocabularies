@@ -20,12 +20,8 @@ const Navigation: React.FC<IProps> = ({
   navLinkStyle,
   setShowAddNewVocaForm,
 }) => {
-  const {
-    user: { _id },
-  } = useAuthContext();
-
   return (
-    <nav className="hidden md:block sm:static  bg-white shadow-sm py-2">
+    <nav className="hidden sm:block   bg-white shadow-sm py-2">
       <div className="flex flex-col justify-between items-center h-full">
         <div className="flex flex-col items-center">
           <UserProfile navLinkStyle={navLinkStyle} />

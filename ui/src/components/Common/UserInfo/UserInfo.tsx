@@ -3,6 +3,7 @@ import { useHistory, useParams } from "react-router";
 import { useAllUsersContext } from "../../../customHooks/useAllUsersContext";
 import { useAuthContext } from "../../../customHooks/useAuthContext";
 import { IUser } from "../../../types/types";
+import Label from "../Label/Label";
 
 interface IProps {
   user?: IUser;
@@ -31,6 +32,7 @@ const UserInfo: React.FC<IProps> = (props) => {
   const year = date?.getFullYear();
   const month = date?.getMonth();
   const day = date?.getDate();
+
   return user ? (
     <div
       onClick={() => history.push(`/dashboard/${user?._id}/vocabularies`)}
@@ -42,7 +44,12 @@ const UserInfo: React.FC<IProps> = (props) => {
         <div className="flex">
           <h2 className=" text-xl font-medium">{user.username}</h2>
           {uid !== userId && (
-            <i className="fas fa-bell ml-4 text-xl cursor-pointer"></i>
+            <i
+              id="notification-bell"
+              className="atl-btn far fa-bell  ml-4 text-2xl cursor-pointer relative"
+            >
+              <Label text="Turn on notification" />
+            </i>
           )}
         </div>
         <p>({user.vocabularies.length} vocabularies)</p>

@@ -91,9 +91,9 @@ const Settings = () => {
       {showEditForm && (
         <Modal
           title={
-            <h1 className="px-8 py-4 capitalize border-b-2">
+            <span>
               Edit <span className="font-medium">{showEditForm["type"]}</span>
-            </h1>
+            </span>
           }
           body={
             <EditInfoBody
