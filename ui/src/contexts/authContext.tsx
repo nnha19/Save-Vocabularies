@@ -18,7 +18,7 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
         method: "POST",
         url: "http://localhost:5000/signin",
         data: {
-          email: "myemail@gmail.com",
+          email: "girl@gmail.com",
           password: "password",
         },
       });
