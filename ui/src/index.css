@@ -8,6 +8,12 @@
   cursor: not-allowed;
 }
 
+@media (max-width: 400px) {
+  html {
+    font-size: 75%;
+  }
+}
+
 .nav-items {
   @apply text-xl flex justify-center border-l-4 border-transparent hover:bg-red-500  transition-all py-4 hover:text-white px-4;
 }

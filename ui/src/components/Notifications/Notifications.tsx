@@ -40,7 +40,10 @@ const Notifications: React.FC<IProps> = ({ notifications }) => {
   const history = useHistory();
   const notificationsList = notifications.map((notification) => {
     return (
-      <p className="grid grid-cols-maxfr border-b-2 gap-8 py-4">
+      <div
+        key={notification.noti._id}
+        className="grid grid-cols-maxfr border-b-2 gap-8 py-4"
+      >
         <span className="user-avatar">
           {notification.noti.user.username[0]}
         </span>
@@ -51,12 +54,12 @@ const Notifications: React.FC<IProps> = ({ notifications }) => {
                 `/dashboard/${notification.noti.user._id}/vocabularies`
               )
             }
-            className="font-bold text-lg capitalize mx-2 cursor-pointer hover:underline"
+            className="font-bold text-lg capitalize cursor-pointer hover:underline"
           >
             {notification.noti.user.username}
           </span>
           <div>
-            just {notification.noti.action}
+            just {notification.noti.action} a new word
             <span
               onClick={() =>
                 history.push(`/${notification.noti.vocabulary._id}`)
@@ -68,7 +71,7 @@ const Notifications: React.FC<IProps> = ({ notifications }) => {
             to their vocabulary's list.
           </div>
         </div>
-      </p>
+      </div>
     );
   });
   return <div className="p-4">{notificationsList}</div>;
