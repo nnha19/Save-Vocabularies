@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
-import { IUsers } from "../types/types";
+import { IUsers, IUser } from "../types/types";
 import axios from "axios";
 import { useAuthContext } from "../customHooks/useAuthContext";
 
@@ -7,7 +7,12 @@ interface IProps {
   children: React.ReactNode;
 }
 
-export const AllUsersContext = createContext([] as IUsers["users"]);
+interface IAllUsersContext {
+  allUsers: IUser[];
+  setAllUsers: React.Dispatch<React.SetStateAction<IUser[]>>;
+}
+
+export const AllUsersContext = createContext({} as IAllUsersContext);
 
 const AllUsersContextProvider: React.FC<IProps> = ({ children }) => {
   const {
@@ -34,7 +39,7 @@ const AllUsersContextProvider: React.FC<IProps> = ({ children }) => {
   }, []);
 
   return (
-    <AllUsersContext.Provider value={allUsers}>
+    <AllUsersContext.Provider value={{ allUsers, setAllUsers }}>
       {children}
     </AllUsersContext.Provider>
   );

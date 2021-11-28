@@ -20,7 +20,7 @@ const UserInfo: React.FC<IProps> = (props) => {
   const months = "Jan Feb Mar April May Jun Jul Aug Sep Oct Nov Dec".split(" ");
   const history = useHistory();
   const { uid } = useParams<any>();
-  const allUsers = useAllUsersContext();
+  const { allUsers, setAllUsers } = useAllUsersContext();
   let user: IUser | undefined;
   if (!props.user) {
     user = allUsers.find((user) => user._id === uid);
@@ -28,14 +28,39 @@ const UserInfo: React.FC<IProps> = (props) => {
     user = props.user;
   }
 
+  const bellRang =
+    uid !== userId && user?.sendNotisTo.find((id) => id === userId);
+
   const date = user && new Date(user.joinedDate);
   const year = date?.getFullYear();
   const month = date?.getMonth();
   const day = date?.getDate();
 
+  const navigateHandler = (e: any) => {
+    if (e.target.closest("#notification-bell")) return;
+    history.push(`/dashboard/${user?._id}/vocabularies`);
+  };
+
+  const toggleNotificationBellHandler = () => {
+    if (!user) return;
+    try {
+      const updatedUsers = [...allUsers];
+      const index = updatedUsers.findIndex((u) => u === uid);
+      if (bellRang) {
+        user.sendNotisTo = user.sendNotisTo.filter((id) => id !== userId);
+      } else {
+        user.sendNotisTo.push(userId);
+      }
+      updatedUsers[index] = user;
+      setAllUsers(updatedUsers);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return user ? (
     <div
-      onClick={() => history.push(`/dashboard/${user?._id}/vocabularies`)}
+      onClick={navigateHandler}
       key={user._id}
       className={`flex items-center cursor-pointer border-b-2 py-4 ${className}`}
     >
@@ -45,10 +70,13 @@ const UserInfo: React.FC<IProps> = (props) => {
           <h2 className=" text-xl font-medium">{user.username}</h2>
           {uid !== userId && (
             <i
+              onClick={toggleNotificationBellHandler}
               id="notification-bell"
-              className="atl-btn far fa-bell  ml-4 text-2xl cursor-pointer relative"
+              className={`atl-btn fa${
+                bellRang ? "s" : "r"
+              } fa-bell  ml-4 text-2xl cursor-pointer relative text-primaryColor`}
             >
-              <Label text="Turn on notification" />
+              <Label text={`Turn ${bellRang ? "off" : "on"} notification`} />
             </i>
           )}
         </div>

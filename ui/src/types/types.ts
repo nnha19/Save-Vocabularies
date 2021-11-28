@@ -22,6 +22,8 @@ export interface IUser {
   token: string;
   status: string;
   learnings: IVocabularies["vocabularies"];
+  notifications: { notification: string; _id: string }[];
+  sendNotisTo: string[];
 }
 export interface IUsers {
   users: IUser[];
