@@ -1,9 +1,11 @@
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
 import { useHistory, useParams } from "react-router";
 import { useAllUsersContext } from "../../../customHooks/useAllUsersContext";
 import { useAuthContext } from "../../../customHooks/useAuthContext";
 import { IUser } from "../../../types/types";
 import Label from "../Label/Label";
+import Modal from "../Modal/Modal";
 
 interface IProps {
   user?: IUser;
@@ -16,7 +18,7 @@ const UserInfo: React.FC<IProps> = (props) => {
   const {
     user: { _id: userId },
   } = useAuthContext();
-
+  const [error, setError] = useState<null | string>(null);
   const months = "Jan Feb Mar April May Jun Jul Aug Sep Oct Nov Dec".split(" ");
   const history = useHistory();
   const { uid } = useParams<any>();
@@ -41,7 +43,7 @@ const UserInfo: React.FC<IProps> = (props) => {
     history.push(`/dashboard/${user?._id}/vocabularies`);
   };
 
-  const toggleNotificationBellHandler = () => {
+  const toggleNotificationBellHandler = async () => {
     if (!user) return;
     try {
       const updatedUsers = [...allUsers];
@@ -53,10 +55,23 @@ const UserInfo: React.FC<IProps> = (props) => {
       }
       updatedUsers[index] = user;
       setAllUsers(updatedUsers);
-    } catch (err) {
-      console.log(err);
+      const resp = await axios({
+        url: `${process.env.REACT_APP_BACKEND_URL}/notification/bell`,
+        data: { userId: user._id, curUserId: userId },
+        method: bellRang ? "DELETE" : "POST",
+      });
+    } catch (err: any) {
+      setError(err?.response?.data);
     }
   };
+
+  const displayErrorMessage = error && (
+    <Modal
+      closeModal={() => setError(null)}
+      title={<span>Error Occured</span>}
+      body={<p className="p-4">{error}</p>}
+    />
+  );
 
   return user ? (
     <div
@@ -64,6 +79,7 @@ const UserInfo: React.FC<IProps> = (props) => {
       key={user._id}
       className={`flex items-center cursor-pointer border-b-2 py-4 ${className}`}
     >
+      {displayErrorMessage}
       <span className="user-avatar">{user.username.split("")[0]}</span>
       <div className="ml-4">
         <div className="flex">
