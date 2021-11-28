@@ -13,6 +13,17 @@ export interface IVocabularies {
   vocabularies: IVocabulary[];
 }
 
+export interface INotification {
+  noti: {
+    user: IUser;
+    vocabulary: IVocabulary;
+    action: string;
+    _id: string;
+    new: boolean;
+  };
+  new: boolean;
+}
+
 export interface IUser {
   username: string;
   email: string;
@@ -22,13 +33,7 @@ export interface IUser {
   token: string;
   status: string;
   learnings: IVocabularies["vocabularies"];
-  notifications: {
-    user: IUser;
-    vocabulary: IVocabulary;
-    action: string;
-    _id: string;
-    new: boolean;
-  }[];
+  notifications: INotification[];
   sendNotisTo: string[];
 }
 export interface IUsers {

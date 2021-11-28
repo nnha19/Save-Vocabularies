@@ -15,7 +15,13 @@ const userSchema = new mongoose.Schema({
     },
   ],
   notifications: [
-    { type: mongoose.Schema.Types.ObjectId, ref: "Notification" },
+    {
+      noti: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Notification",
+      },
+      new: { type: Boolean, default: true, required: true },
+    },
   ],
 });
 

@@ -92,14 +92,13 @@ const signInUser = async (req, res) => {
         path: "learnings",
       })
       .populate({
-        path: "notifications",
+        path: "notifications.noti",
         populate: { path: "vocabulary" },
       })
       .populate({
-        path: "notifications",
+        path: "notifications.noti",
         populate: { path: "user" },
       });
-    console.log(user);
     if (!user) {
       res.status(400).json("User with the provided email doesn't exist");
     } else {

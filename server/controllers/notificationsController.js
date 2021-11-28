@@ -8,13 +8,12 @@ const addNoti = async (req, res) => {
     const user = await User.findById(userId);
     const newNoti = await Notification.create({
       user,
-      new: true,
       vocabulary,
       action: "added",
     });
     const users = await User.find({ _id: user.sendNotisTo });
     users.forEach(async (u) => {
-      u.notifications.push(newNoti);
+      u.notifications.push({ noti: newNoti, new: true });
       await u.save();
     });
     res.status(200).json("Succeded");
@@ -33,7 +32,6 @@ const ringNotiBell = async (req, res) => {
       user.sendNotisTo = [];
     }
     user.sendNotisTo.push(curUserId);
-    console.log(user);
     await user.save();
     res.status(200).json("Succeeded");
   } catch (err) {
@@ -50,7 +48,6 @@ const turnOffNoti = async (req, res) => {
       (uid) => uid.toString() !== curUserId
     );
     await user.save();
-    console.log(user);
     res.status(200).json("Succeded");
   } catch (err) {
     console.log(err);
@@ -60,7 +57,13 @@ const turnOffNoti = async (req, res) => {
 
 const updateNotification = async (req, res) => {
   const { userId } = req.body;
-  const user = await User.findById(userId);
+  const user = await User.findById(userId).populate({ path: "notifications" });
+  user.notifications = user.notifications.map((noti) => {
+    noti.new = false;
+    return noti;
+  });
+  await user.save();
+  res.send(user);
 };
 
 exports.getNotisByUserId = getNotisByUserId;

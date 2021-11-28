@@ -1,39 +1,39 @@
 import React from "react";
 import { useHistory } from "react-router";
-import { IUser, IVocabulary } from "../../types/types";
+import { INotification, IUser, IVocabulary } from "../../types/types";
 
 interface IProps {
-  notifications: {
-    user: IUser;
-    vocabulary: IVocabulary;
-    action: string;
-    new: boolean;
-    _id: string;
-  }[];
+  notifications: INotification[];
 }
 
 const Notifications: React.FC<IProps> = ({ notifications }) => {
   const history = useHistory();
-  const notificationsList = notifications.map((noti) => {
+  const notificationsList = notifications.map((notification) => {
     return (
       <p className="grid grid-cols-maxfr border-b-2 gap-8 py-4">
-        <span className="user-avatar">{noti.user.username[0]}</span>
+        <span className="user-avatar">
+          {notification.noti.user.username[0]}
+        </span>
         <div>
           <span
             onClick={() =>
-              history.push(`/dashboard/${noti.user._id}/vocabularies`)
+              history.push(
+                `/dashboard/${notification.noti.user._id}/vocabularies`
+              )
             }
             className="font-bold text-lg capitalize mx-2 cursor-pointer hover:underline"
           >
-            {noti.user.username}
+            {notification.noti.user.username}
           </span>
           <div>
-            just {noti.action}{" "}
+            just {notification.noti.action}
             <span
-              onClick={() => history.push(`/${noti.vocabulary._id}`)}
+              onClick={() =>
+                history.push(`/${notification.noti.vocabulary._id}`)
+              }
               className="font-bold mx-4 cursor-pointer hover:underline"
             >
-              {noti.vocabulary.vocabulary}
+              {notification.noti.vocabulary.vocabulary}
             </span>{" "}
             to their vocabulary's list.
           </div>
