@@ -29,20 +29,23 @@ const Search: React.FC<IProps> = ({
 
   const changeSearchValHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    setSkeletonLoading(true);
     setSearchVal(value);
+  };
+
+  useEffect(() => {
+    setSkeletonLoading(true);
     if (timer) {
       clearTimeout(timer);
     }
     const result: any = setTimeout(async () => {
-      if (value === "") {
+      if (searchVal === "") {
         getOriginalVocabularies();
         return;
       }
       try {
         setIsInfinite(false);
         const resp = await axios({
-          url: `${process.env.REACT_APP_BACKEND_URL}/vocabulary/search/${value}/${_id}`,
+          url: `${process.env.REACT_APP_BACKEND_URL}/vocabulary/search/${searchVal}/${_id}`,
           method: "GET",
           headers: {
             authorization: `bearer ${token}`,
@@ -56,17 +59,26 @@ const Search: React.FC<IProps> = ({
       }
     }, 2000);
     setTimer(result);
-  };
+  }, [searchVal]);
 
   return (
     <div className="mt-4 sm:mt-0 w-3/5  mx-auto">
       <form className="relative">
-        <input
-          onChange={changeSearchValHandler}
-          className="border-2 w-full p-2 rounded-full"
-          type="text"
-          placeholder="Search Vocabularies"
-        />
+        <div className="relative flex items-center">
+          <input
+            value={searchVal}
+            onChange={changeSearchValHandler}
+            className="border-2 w-full p-2 rounded-full"
+            type="text"
+            placeholder="Search Vocabularies"
+          />
+          {searchVal && (
+            <i
+              onClick={() => setSearchVal("")}
+              className="-ml-8 fas fa-times cursor-pointer text-xl"
+            ></i>
+          )}
+        </div>
       </form>
     </div>
   );
