@@ -15,7 +15,10 @@ const Header: React.FC<IProps> = ({ toggleNavLinkStyleHandler }) => {
   } = useAuthContext();
   return (
     <div className="justify-between sm:justify-start flex items-center h-16 bg-black w-full  text-white px-4 ">
-      <HamburgerMenu className="hidden" clicked={toggleNavLinkStyleHandler} />
+      <HamburgerMenu
+        className="hidden sm:flex"
+        clicked={toggleNavLinkStyleHandler}
+      />
       <Logo className="ml-4" />
       <NavLink to={`/dashboard/${_id}/vocabularies`}>
         <UserProfile navLinkStyle="ml-4" className="w-maxcontent sm:hidden" />

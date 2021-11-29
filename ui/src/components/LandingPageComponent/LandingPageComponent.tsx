@@ -1,19 +1,36 @@
-import React from "react";
+import React, { useRef } from "react";
 import Logo from "../Common/Logo/Logo";
 import LpPrimaryBtn from "../Common/LpPrimaryBtn/LpPrimaryBtn";
 import VListss from "../../assets/images/vlist.png";
 import DesktopNav from "./DesktopNav";
 import MobileNav from "./MobileNav";
 const LandingPageComponent = () => {
+  const homeRef: any = useRef();
+  const aboutRef: any = useRef();
+  const contactRef: any = useRef();
   return (
     <div>
-      <DesktopNav />
-      <MobileNav />
-      <section className="grid-cols-1 lp-wrapper h-95vh  mt-8  grid lg:grid-cols-half border-b-2">
+      <DesktopNav
+        homeRef={homeRef}
+        contactRef={contactRef}
+        aboutRef={aboutRef}
+      />
+      <MobileNav
+        homeRef={homeRef}
+        aboutRef={aboutRef}
+        contactRef={contactRef}
+      />
+      <section
+        ref={homeRef}
+        id="home"
+        className="grid-cols-1 lp-wrapper h-95vh  mt-8  grid lg:grid-cols-half border-b-2"
+      >
         <div className="mt-52">
           <h1 className="text-4xl font-bold ">
             Expand Your Vocabularies{" "}
-            <span className="block mt-4">with VList</span>
+            <span className="block mt-4">
+              with <span className="text-lpPrimaryColor text-5xl">V</span>List
+            </span>
           </h1>
           <p className="mt-8 text-lg tracking-widest">
             VList helps you to save your vocabularies and view other learners'
@@ -26,7 +43,7 @@ const LandingPageComponent = () => {
           src="https://media.istockphoto.com/vectors/people-learning-english-isometric-vector-illustration-distance-vector-id1214244642?k=20&m=1214244642&s=612x612&w=0&h=9xnN0QiEaJWRkL6NGHkirlD0qyWHjuxZMooW0xOZwm4="
         />
       </section>
-      <section className="lp-wrapper border-b-2">
+      <section ref={aboutRef} id="about" className="lp-wrapper border-b-2">
         <div className="grid grid-cols-1 lg:grid-cols-half gap-2">
           <div className="py-12">
             <div>
@@ -53,6 +70,27 @@ const LandingPageComponent = () => {
           </div>
           <img className="self-center" src={VListss} />
         </div>
+      </section>
+      <section
+        ref={contactRef}
+        id="contact"
+        className="lp-wrapper py-16 border-b-2"
+      >
+        <h1 className="text-3xl text-lpPrimaryColor">Contact Us</h1>
+        <ul>
+          <li className="flex items-center text-xl my-8">
+            <i className="fas fa-envelope-open mr-4"></i>
+            <p>hello@vlist.com</p>
+          </li>
+          <li className="flex items-center text-xl my-8">
+            <i className="fas fa-phone mr-4"></i>
+            <p>+1-202-555-0156</p>
+          </li>
+          <li className="flex items-center text-xl my-8">
+            <i className="fas fa-map-marker mr-4"></i>
+            <p>1406 Camden Place, Florence, South Carolina</p>
+          </li>
+        </ul>
       </section>
       <footer className="lp-wrapper py-16">
         <div className="flex mx-4 flex-wrap justify-center sm:justify-around  w-full">
