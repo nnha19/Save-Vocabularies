@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router";
 import Logo from "../Common/Logo/Logo";
 import LpPrimaryBtn from "../Common/LpPrimaryBtn/LpPrimaryBtn";
 
@@ -9,6 +10,7 @@ interface IProps {
 }
 
 const DesktopNav: React.FC<IProps> = ({ homeRef, aboutRef, contactRef }) => {
+  const history = useHistory();
   return (
     <nav className="hidden bg-white md:flex lp-wrapper fixed top-0 left-0   w-full justify-between px-6 h-20 items-center">
       <Logo />
@@ -36,7 +38,12 @@ const DesktopNav: React.FC<IProps> = ({ homeRef, aboutRef, contactRef }) => {
           Contact
         </li>
         <li className="lp-nav-items">
-          <LpPrimaryBtn className="rounded-full">Join Now</LpPrimaryBtn>
+          <LpPrimaryBtn
+            clicked={() => history.push("/auth")}
+            className="rounded-full"
+          >
+            Join Now
+          </LpPrimaryBtn>
         </li>
       </ul>
     </nav>

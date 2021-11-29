@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router";
 import HamburgerMenu from "../Common/HamburgerMenu/HamburgerMenu";
 import Logo from "../Common/Logo/Logo";
 import LpPrimaryBtn from "../Common/LpPrimaryBtn/LpPrimaryBtn";
@@ -10,6 +11,7 @@ interface IProps {
 }
 
 const MobileNav: React.FC<IProps> = ({ homeRef, contactRef, aboutRef }) => {
+  const history = useHistory();
   const [showNavLinks, setShowNavLinks] = useState(false);
 
   const scrollHandler = (ref: any) => {
@@ -51,7 +53,9 @@ const MobileNav: React.FC<IProps> = ({ homeRef, contactRef, aboutRef }) => {
               Contact
             </li>
             <li className="text-white my-4 text-xl cursor-pointer">
-              <LpPrimaryBtn>Get Started</LpPrimaryBtn>
+              <LpPrimaryBtn clicked={() => history.push("/auth")}>
+                Get Started
+              </LpPrimaryBtn>
             </li>
           </ul>
         </div>

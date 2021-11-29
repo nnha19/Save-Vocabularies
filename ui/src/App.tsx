@@ -6,6 +6,8 @@ import { useAuthContext } from "./customHooks/useAuthContext";
 import AllUsersContextProvider from "./contexts/allUsersContext";
 import FilterDropdownContextProvider from "./contexts/filterDropdownContext";
 import LandingPage from "./pages/landingPage";
+import { Route } from "react-router";
+import AuthPage from "./pages/authPage";
 
 const CheckAuth = () => {
   const { user } = useAuthContext();
@@ -16,7 +18,10 @@ const CheckAuth = () => {
       </AllUsersContextProvider>
     </FilterDropdownContextProvider>
   ) : (
-    <LandingPage />
+    <>
+      <Route path="/" exact component={LandingPage} />
+      <Route path="/auth" exact component={AuthPage} />
+    </>
   );
 };
 

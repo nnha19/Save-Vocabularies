@@ -4,7 +4,9 @@ import LpPrimaryBtn from "../Common/LpPrimaryBtn/LpPrimaryBtn";
 import VListss from "../../assets/images/vlist.png";
 import DesktopNav from "./DesktopNav";
 import MobileNav from "./MobileNav";
+import { useHistory } from "react-router";
 const LandingPageComponent = () => {
+  const history = useHistory();
   const homeRef: any = useRef();
   const aboutRef: any = useRef();
   const contactRef: any = useRef();
@@ -36,7 +38,9 @@ const LandingPageComponent = () => {
             VList helps you to save your vocabularies and view other learners'
             vocabularies for inspiration
           </p>
-          <LpPrimaryBtn className="mt-8">Get Started</LpPrimaryBtn>
+          <LpPrimaryBtn clicked={() => history.push("/auth")} className="mt-8">
+            Get Started
+          </LpPrimaryBtn>
         </div>
         <img
           className="hidden lg:block h-full w-full"
