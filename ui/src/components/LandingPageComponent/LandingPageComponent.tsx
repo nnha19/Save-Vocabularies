@@ -16,7 +16,7 @@ const LandingPageComponent = () => {
           </li>
         </ul>
       </nav>
-      <section className="lp-wrapper h-95vh  mt-8  grid grid-cols-half border-b-2">
+      <section className="grid-cols-1 lp-wrapper h-95vh  mt-8  grid lg:grid-cols-half border-b-2">
         <div className="mt-52">
           <h1 className="text-4xl font-bold ">
             Expand Your Vocabularies{" "}
@@ -29,13 +29,13 @@ const LandingPageComponent = () => {
           <LpPrimaryBtn className="mt-8">Get Started</LpPrimaryBtn>
         </div>
         <img
-          className="h-full w-full"
+          className="hidden lg:block h-full w-full"
           src="https://media.istockphoto.com/vectors/people-learning-english-isometric-vector-illustration-distance-vector-id1214244642?k=20&m=1214244642&s=612x612&w=0&h=9xnN0QiEaJWRkL6NGHkirlD0qyWHjuxZMooW0xOZwm4="
         />
       </section>
       <section className="lp-wrapper border-b-2">
-        <div className="grid grid-cols-half">
-          <div className="w-4/6 py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-half gap-2">
+          <div className="py-12">
             <div>
               <h1 className="font-medium text-2xl mb-4 text-lpPrimaryColor">
                 About Us
@@ -62,19 +62,19 @@ const LandingPageComponent = () => {
         </div>
       </section>
       <footer className="lp-wrapper py-16">
-        <div className="flex flex-wrap justify-around w-full">
+        <div className="flex mx-4 flex-wrap justify-center sm:justify-around  w-full">
           <Logo />
-          <ul>
+          <ul className="mx-6">
             <li className="lp-footer-list">Blog</li>
             <li className="lp-footer-list">Team</li>
             <li className="lp-footer-list">FAQs</li>
           </ul>
-          <ul>
+          <ul className="mx-6">
             <li className="lp-footer-list">Privacy Policy</li>
             <li className="lp-footer-list">Copy Right</li>
             <li className="lp-footer-list">Legal Notice</li>
           </ul>
-          <ul>
+          <ul className="mx-6">
             <li className="lp-footer-list">Career</li>
             <li className="lp-footer-list">Contact</li>
             <li className="lp-footer-list">Register</li>
