@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { VocabulariesContext } from "../../../contexts/vocabulariesContext";
 import { useAuthContext } from "../../../customHooks/useAuthContext";
+import ErrorModal from "../../Common/ErrorModal/ErrorModal";
 
 interface IProps {
   setSkeletonLoading: React.Dispatch<React.SetStateAction<boolean>>;
@@ -17,6 +18,7 @@ const Search: React.FC<IProps> = ({
   const {
     user: { _id, token },
   } = useAuthContext();
+  const [error, setError] = useState<null | string>(null);
   const { setVocabularies } = useContext(VocabulariesContext);
   const [searchVal, setSearchVal] = useState("");
   const [timer, setTimer] = useState<null | number>(null);
@@ -53,8 +55,8 @@ const Search: React.FC<IProps> = ({
         });
         setSkeletonLoading(false);
         setVocabularies(resp.data);
-      } catch (err) {
-        console.log(err);
+      } catch (err: any) {
+        setError(err?.response?.data);
         setSkeletonLoading(false);
       }
     }, 2000);
@@ -63,6 +65,7 @@ const Search: React.FC<IProps> = ({
 
   return (
     <div className="mt-4 sm:mt-0 w-3/5  mx-auto">
+      {error && <ErrorModal error={error} setError={setError} />}
       <form className="relative">
         <div className="relative flex items-center">
           <input

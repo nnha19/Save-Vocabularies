@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAuthContext } from "../../customHooks/useAuthContext";
+import ErrorModal from "../Common/ErrorModal/ErrorModal";
 import Layout from "../Common/Layout/Layout";
 import Modal from "../Common/Modal/Modal";
 import { LogoutBtn } from "../Common/Navigation/NavLinks";
@@ -59,29 +60,7 @@ const Settings = () => {
 
   return (
     <Layout>
-      {error && (
-        <Modal
-          closeModal={() => setError(null)}
-          title={
-            <h1 className="p-4 font-bold bg-primaryColor text-white rounded">
-              Error Occured
-            </h1>
-          }
-          body={
-            <>
-              <div className="py-12 px-4">{error}</div>
-              <div className="text-right p-4">
-                <button
-                  onClick={() => setError(null)}
-                  className="bg-primaryColor px-4 py-2 text-white rounded"
-                >
-                  Dismiss
-                </button>
-              </div>
-            </>
-          }
-        />
-      )}
+      {error && <ErrorModal error={error} setError={setError} />}
       {loading && (
         <Spinner
           style={{ background: "#0000005e", margin: "0", position: "absolute" }}
