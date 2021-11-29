@@ -2,6 +2,7 @@ import React from "react";
 import { UserProfile } from "../Navigation/NavLinks";
 import { NavLink } from "react-router-dom";
 import { useAuthContext } from "../../../customHooks/useAuthContext";
+import HamburgerMenu from "../HamburgerMenu/HamburgerMenu";
 import Logo from "../Logo/Logo";
 
 interface IProps {
@@ -14,14 +15,7 @@ const Header: React.FC<IProps> = ({ toggleNavLinkStyleHandler }) => {
   } = useAuthContext();
   return (
     <div className="justify-between sm:justify-start flex items-center h-16 bg-black w-full  text-white px-4 ">
-      <div
-        onClick={toggleNavLinkStyleHandler}
-        className="hidden sm:flex flex-col justify-center h-full cursor-pointer"
-      >
-        <span className="w-12 h-2px mb-2 bg-white"></span>
-        <span className="w-12 h-2px mb-2 bg-white"></span>
-        <span className="w-12 h-2px  bg-white"></span>
-      </div>
+      <HamburgerMenu className="hidden" clicked={toggleNavLinkStyleHandler} />
       <Logo className="ml-4" />
       <NavLink to={`/dashboard/${_id}/vocabularies`}>
         <UserProfile navLinkStyle="ml-4" className="w-maxcontent sm:hidden" />
