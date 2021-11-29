@@ -44,6 +44,7 @@ const ShowWordPage = () => {
       setSynAndAntIsLoading(false);
     })();
   }, [wid, showWord.vocabulary]);
+
   useEffect(() => {
     //Fetch detail of a vocabulary own API
     (async () => {

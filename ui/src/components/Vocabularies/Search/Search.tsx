@@ -23,12 +23,6 @@ const Search: React.FC<IProps> = ({
   const [searchVal, setSearchVal] = useState("");
   const [timer, setTimer] = useState<null | number>(null);
 
-  useEffect(() => {
-    if (searchVal.length < 1) {
-      setTimeout(() => {}, 1000);
-    }
-  }, [searchVal]);
-
   const changeSearchValHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     setSearchVal(value);
@@ -41,7 +35,7 @@ const Search: React.FC<IProps> = ({
     }
     const result: any = setTimeout(async () => {
       if (searchVal === "") {
-        getOriginalVocabularies();
+        timer && getOriginalVocabularies();
         return;
       }
       try {
