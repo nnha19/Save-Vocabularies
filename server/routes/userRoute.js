@@ -20,6 +20,10 @@ router.post(
 router.use(authMiddleware);
 
 router.get("/users", userController.getAllUsers);
-router.put("/user/:uid", userController.updateUser);
+router.put(
+  "/user/:uid",
+  body("value").not().isEmpty(),
+  userController.updateUser
+);
 
 module.exports = router;

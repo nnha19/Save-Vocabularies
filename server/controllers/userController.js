@@ -147,6 +147,13 @@ const signInUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
   try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      res
+        .status(400)
+        .json("Invalid Input. Please fill all the required fields.");
+      return;
+    }
     const { uid } = req.params;
     if (req.user.userId === uid) {
       const { type, value, confirmPassword } = req.body;
