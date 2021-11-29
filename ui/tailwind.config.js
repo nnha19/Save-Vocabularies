@@ -6,6 +6,7 @@ module.exports = {
       gridTemplateColumns: {
         2: "18rem 1fr",
         maxfr: "max-content 1fr",
+        half: "50% 50%",
       },
       height: {
         "90vh": "90vh",
@@ -23,6 +24,7 @@ module.exports = {
         backdrop: "#000000b0",
         primaryColor: "red",
         secondaryColor: "white",
+        lpPrimaryColor: "#2d33fd",
       },
       boxShadow: {
         boxshadow: "0 2px 2px grey",

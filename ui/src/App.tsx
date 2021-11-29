@@ -5,6 +5,7 @@ import Features from "./components/Features/Features";
 import { useAuthContext } from "./customHooks/useAuthContext";
 import AllUsersContextProvider from "./contexts/allUsersContext";
 import FilterDropdownContextProvider from "./contexts/filterDropdownContext";
+import LandingPage from "./pages/landingPage";
 
 const CheckAuth = () => {
   const { user } = useAuthContext();
@@ -15,7 +16,7 @@ const CheckAuth = () => {
       </AllUsersContextProvider>
     </FilterDropdownContextProvider>
   ) : (
-    <div>Login First</div>
+    <LandingPage />
   );
 };
 
