@@ -77,20 +77,26 @@ const LandingPageComponent = () => {
         className="lp-wrapper py-16 border-b-2"
       >
         <h1 className="text-3xl text-lpPrimaryColor">Contact Us</h1>
-        <ul>
-          <li className="flex items-center text-xl my-8">
-            <i className="fas fa-envelope-open mr-4"></i>
-            <p>hello@vlist.com</p>
-          </li>
-          <li className="flex items-center text-xl my-8">
-            <i className="fas fa-phone mr-4"></i>
-            <p>+1-202-555-0156</p>
-          </li>
-          <li className="flex items-center text-xl my-8">
-            <i className="fas fa-map-marker mr-4"></i>
-            <p>1406 Camden Place, Florence, South Carolina</p>
-          </li>
-        </ul>
+        <div className="grid grid-cols-half">
+          <ul className="self-center">
+            <li className="flex items-center text-xl my-8">
+              <i className="fas fa-envelope-open mr-4"></i>
+              <p>hello@vlist.com</p>
+            </li>
+            <li className="flex items-center text-xl my-8">
+              <i className="fas fa-phone mr-4"></i>
+              <p>+1-202-555-0156</p>
+            </li>
+            <li className="flex items-center text-xl my-8">
+              <i className="fas fa-map-marker mr-4"></i>
+              <p>1406 Camden Place, Florence, South Carolina</p>
+            </li>
+          </ul>
+          <img
+            className="h-full w-full"
+            src="https://i.pinimg.com/originals/5d/2d/95/5d2d955df2895ca18dec554b0e716042.jpg"
+          />
+        </div>
       </section>
       <footer className="lp-wrapper py-16">
         <div className="flex mx-4 flex-wrap justify-center sm:justify-around  w-full">
