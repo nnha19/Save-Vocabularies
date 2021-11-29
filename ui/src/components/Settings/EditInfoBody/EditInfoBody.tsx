@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useAllValid } from "../../../customHooks/useAllValid";
 import { useAuthContext } from "../../../customHooks/useAuthContext";
 import Input from "../../Common/Input/Input";
 
@@ -30,7 +31,7 @@ const EditInfoBody: React.FC<IProps> = ({
     setUser,
   } = useAuthContext();
   const [inputVals, setInputVals] = useState<any>({});
-
+  const allValid = useAllValid(inputVals);
   useEffect(() => {
     setInputVals({
       confirmPassword: {
@@ -45,8 +46,6 @@ const EditInfoBody: React.FC<IProps> = ({
       },
     });
   }, []);
-
-  console.log(inputVals);
 
   let input;
 
@@ -130,7 +129,10 @@ const EditInfoBody: React.FC<IProps> = ({
         )}
         {input}
         <div className="my-4 px-4">
-          <button className="rounded w-full bg-primaryColor text-white mx-2 py-2">
+          <button
+            disabled={!allValid}
+            className="disabled-btn rounded w-full bg-primaryColor text-white mx-2 py-2"
+          >
             Submit
           </button>
         </div>
