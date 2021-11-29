@@ -30,6 +30,7 @@ const ShowWordPage = () => {
 
   useEffect(() => {
     //Fetch Syn and Ant from third party API
+    if (!showWord.vocabulary) return;
     (async () => {
       try {
         setSynAndAntIsLoading(true);
