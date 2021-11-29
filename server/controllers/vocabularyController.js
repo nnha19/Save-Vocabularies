@@ -34,6 +34,20 @@ const getVocabulariesByUserId = async (req, res) => {
   }
 };
 
+const getVocabulariesBySearchQuery = async (req, res) => {
+  try {
+    const { query, uid } = req.params;
+    const vocabularies = await Vocabulary.find({
+      owner: uid,
+      vocabulary: { $regex: query, $options: "i" },
+    });
+    res.status(200).json(vocabularies);
+  } catch (err) {
+    console.log(err);
+    res.status(400).json("Something went wrong");
+  }
+};
+
 const addNewVocabulary = async (req, res) => {
   try {
     const errors = validationResult(req);
@@ -104,6 +118,7 @@ const getVocabulariesByResources = async (req, res) => {
 
 exports.getAllVocabulariesByUserId = getAllVocabulariesByUserId;
 exports.getVocabulariesByUserId = getVocabulariesByUserId;
+exports.getVocabulariesBySearchQuery = getVocabulariesBySearchQuery;
 exports.addNewVocabulary = addNewVocabulary;
 exports.getVocabularyById = getVocabularyById;
 exports.getVocabulariesByResources = getVocabulariesByResources;

@@ -1,10 +1,23 @@
-import React, { useEffect, useState } from "react";
+import axios from "axios";
+import React, { useContext, useEffect, useState } from "react";
+import { VocabulariesContext } from "../../../contexts/vocabulariesContext";
+import { useAuthContext } from "../../../customHooks/useAuthContext";
 
 interface IProps {
   setSkeletonLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsInfinite: React.Dispatch<React.SetStateAction<boolean>>;
+  getOriginalVocabularies: () => void;
 }
 
-const Search: React.FC<IProps> = ({ setSkeletonLoading }) => {
+const Search: React.FC<IProps> = ({
+  setSkeletonLoading,
+  setIsInfinite,
+  getOriginalVocabularies,
+}) => {
+  const {
+    user: { _id, token },
+  } = useAuthContext();
+  const { setVocabularies } = useContext(VocabulariesContext);
   const [searchVal, setSearchVal] = useState("");
   const [timer, setTimer] = useState<null | number>(null);
 
@@ -15,13 +28,32 @@ const Search: React.FC<IProps> = ({ setSkeletonLoading }) => {
   }, [searchVal]);
 
   const changeSearchValHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchVal(e.target.value);
+    const { value } = e.target;
+    setSkeletonLoading(true);
+    setSearchVal(value);
     if (timer) {
       clearTimeout(timer);
     }
     const result: any = setTimeout(async () => {
+      if (value === "") {
+        getOriginalVocabularies();
+        return;
+      }
       try {
-      } catch (err) {}
+        setIsInfinite(false);
+        const resp = await axios({
+          url: `${process.env.REACT_APP_BACKEND_URL}/vocabulary/search/${value}/${_id}`,
+          method: "GET",
+          headers: {
+            authorization: `bearer ${token}`,
+          },
+        });
+        setSkeletonLoading(false);
+        setVocabularies(resp.data);
+      } catch (err) {
+        console.log(err);
+        setSkeletonLoading(false);
+      }
     }, 2000);
     setTimer(result);
   };

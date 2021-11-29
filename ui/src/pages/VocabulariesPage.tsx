@@ -121,7 +121,11 @@ const VocabulariesPage = () => {
             setSkeletonLoading={setSkeletonLoading}
             getOriginalVocabularies={getOriginalVocabularies}
           />
-          <Search setSkeletonLoading={setSkeletonLoading} />
+          <Search
+            setIsInfinite={setIsInfinite}
+            setSkeletonLoading={setSkeletonLoading}
+            getOriginalVocabularies={getOriginalVocabularies}
+          />
         </div>
       )}
       {userId !== uid && <UserInfo className="px-4 sticky top-0 bg-white" />}

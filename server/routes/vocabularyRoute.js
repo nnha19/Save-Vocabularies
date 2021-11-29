@@ -12,6 +12,10 @@ route.get(
   "/filter/:resources",
   vocabularyController.getVocabulariesByResources
 );
+route.get(
+  "/search/:query/:uid",
+  vocabularyController.getVocabulariesBySearchQuery
+);
 route.get("/:uid/:page", vocabularyController.getVocabulariesByUserId);
 route.post(
   "/:uid",
