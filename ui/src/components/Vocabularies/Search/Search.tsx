@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { IVocabularies } from "../../../types/types";
 
 interface IProps {
   setSkeletonLoading: React.Dispatch<React.SetStateAction<boolean>>;
@@ -7,12 +6,7 @@ interface IProps {
 
 const Search: React.FC<IProps> = ({ setSkeletonLoading }) => {
   const [searchVal, setSearchVal] = useState("");
-
-  const searchVocabularyHandler = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (searchVal === "") return;
-    setSkeletonLoading(true);
-  };
+  const [timer, setTimer] = useState<null | number>(null);
 
   useEffect(() => {
     if (searchVal.length < 1) {
@@ -20,11 +14,23 @@ const Search: React.FC<IProps> = ({ setSkeletonLoading }) => {
     }
   }, [searchVal]);
 
+  const changeSearchValHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchVal(e.target.value);
+    if (timer) {
+      clearTimeout(timer);
+    }
+    const result: any = setTimeout(async () => {
+      try {
+      } catch (err) {}
+    }, 2000);
+    setTimer(result);
+  };
+
   return (
     <div className="mt-4 sm:mt-0 w-3/5  mx-auto">
-      <form onSubmit={searchVocabularyHandler} className="relative">
+      <form className="relative">
         <input
-          onChange={(e) => setSearchVal(e.target.value)}
+          onChange={changeSearchValHandler}
           className="border-2 w-full p-2 rounded-full"
           type="text"
           placeholder="Search Vocabularies"

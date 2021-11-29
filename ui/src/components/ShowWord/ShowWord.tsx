@@ -61,7 +61,7 @@ const ShowWord: React.FC<IProps> = ({
             <span>{showWord.definition}</span>
           </div>
         </div>
-        {showWord.exampleSentences && (
+        {showWord.exampleSentences && showWord.exampleSentences.length > 0 && (
           <div>
             <h2 className="title my-2">Example Sentences</h2>
             {renderExampleSentences}
