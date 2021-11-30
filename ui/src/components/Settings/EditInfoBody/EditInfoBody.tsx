@@ -61,9 +61,10 @@ const EditInfoBody: React.FC<IProps> = ({
           name={type}
           onChange={(e) => handleChange(e, undefined)}
           className="border-2 w-full p-2"
+          defaultValue={value}
         >
-          <option>Public</option>
-          <option>Private</option>
+          <option value="Public">Public</option>
+          <option value="Private">Private</option>
         </select>
       </div>
     );
