@@ -168,8 +168,11 @@ export const LogoutBtn: React.FC<INavLinkProps> = ({
   navLinkStyle,
   className,
 }) => {
+  const { setUser } = useAuthContext();
   const history = useHistory();
   const logoutHandler = () => {
+    setUser(undefined);
+    localStorage.clear();
     history.push("/");
   };
   return (

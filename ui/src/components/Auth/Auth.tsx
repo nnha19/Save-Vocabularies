@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useHistory } from "react-router";
 import Logo from "../Common/Logo/Logo";
 import LpPrimaryBtn from "../Common/LpPrimaryBtn/LpPrimaryBtn";
@@ -7,11 +7,13 @@ import Modal from "../Common/Modal/Modal";
 import axios from "axios";
 import ErrorModal from "../Common/ErrorModal/ErrorModal";
 import { useAuthContext } from "../../customHooks/useAuthContext";
+import { authContext } from "../../contexts/authContext";
 
 const Auth = () => {
   const [error, setError] = useState<null | string>(null);
   const [loading, setLoading] = useState(false);
-  const { setUser } = useAuthContext();
+  const user = useContext(authContext);
+
   const {
     register,
     handleSubmit,
@@ -39,7 +41,7 @@ const Auth = () => {
         method: "POST",
       });
       setLoading(false);
-      setUser(resp.data);
+      user?.setUser(resp.data);
       localStorage.setItem("user", JSON.stringify(resp.data));
       history.push(`/dashboard/${resp.data._id}/vocabularies`);
     } catch (err: any) {
