@@ -82,7 +82,7 @@ const LandingPageComponent = () => {
         className="lp-wrapper py-16 border-b-2"
       >
         <h1 className="text-3xl text-lpPrimaryColor">Contact Us</h1>
-        <div className="grid grid-cols-half">
+        <div className="grid sm:grid-cols-half">
           <ul className="self-center">
             <li className="flex items-center text-xl my-8">
               <i className="fas fa-envelope-open mr-4"></i>
@@ -98,7 +98,7 @@ const LandingPageComponent = () => {
             </li>
           </ul>
           <img
-            className="h-full w-full"
+            className="hidden sm:block h-full w-full"
             src="https://i.pinimg.com/originals/5d/2d/95/5d2d955df2895ca18dec554b0e716042.jpg"
           />
         </div>

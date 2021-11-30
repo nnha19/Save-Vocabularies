@@ -34,7 +34,6 @@ const Auth = () => {
   };
 
   const submitFormHandler = async (data: any) => {
-    console.log(data);
     try {
       setLoading(true);
       const resp: any = await axios({
@@ -68,7 +67,7 @@ const Auth = () => {
       <div className="h-screen flex flex-col border-b-2 justify-center">
         <form
           onSubmit={handleSubmit(submitFormHandler)}
-          className=" w-30rem bg-white mx-auto shadow-boxshadow mt-12 rounded"
+          className=" sm:w-30rem bg-white mx-auto shadow-boxshadow mt-12 rounded"
         >
           <h1 className="text-xl  text-center px-8 py-4 font-medium border-b-2">
             {authMode === "signin" ? "Sign In" : "Sign Up"}
