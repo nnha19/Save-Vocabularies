@@ -36,6 +36,47 @@ const getAllUsers = async (req, res) => {
   }
 };
 
+const getUserInfos = async (req, res) => {
+  try {
+    const { email } = req.params;
+    const user = await User.findOne({ email })
+      .populate({
+        path: "learnings",
+      })
+      .populate({
+        path: "notifications.noti",
+        populate: { path: "vocabulary" },
+      })
+      .populate({
+        path: "notifications.noti",
+        populate: { path: "user" },
+      });
+    const {
+      username,
+      _id,
+      vocabularies,
+      joinedDate,
+      status,
+      learnings,
+      sendNotisTo,
+      notifications,
+    } = user;
+    res.status(200).json({
+      username,
+      email,
+      _id,
+      vocabularies,
+      joinedDate,
+      status,
+      learnings,
+      sendNotisTo,
+      notifications,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 const signUpUser = async (req, res) => {
   try {
     const errors = validationResult(req);
@@ -51,31 +92,17 @@ const signUpUser = async (req, res) => {
       res.status(400).json("User with this email already exists.");
     } else {
       const hashedPassword = await bcrypt.hash(password, 12);
-      const newUser = await User.create({
-        username,
-        email,
-        password: hashedPassword,
-        joinedDate: new Date(),
-        learnings: [],
-        status,
-      });
       const token = await jwt.sign(
         { userId: newUser._id, username, email },
         process.env.JWT_KEY,
         { expiresIn: "1h" }
       );
-      const { _id, vocabularies, joinedDate, learnings, notifications } =
-        newUser;
+      const { _id } = newUser;
       res.status(200).json({
         username,
         email,
         _id,
         token,
-        vocabularies,
-        joinedDate,
-        status,
-        learnings,
-        notifications,
       });
     }
   } catch (err) {
@@ -92,33 +119,13 @@ const signInUser = async (req, res) => {
   }
   try {
     const { email, password } = req.body;
-    const user = await User.findOne({ email })
-      .populate({
-        path: "learnings",
-      })
-      .populate({
-        path: "notifications.noti",
-        populate: { path: "vocabulary" },
-      })
-      .populate({
-        path: "notifications.noti",
-        populate: { path: "user" },
-      });
+    const user = await User.findOne({ email });
     if (!user) {
       res.status(400).json("User with the provided email doesn't exist");
     } else {
       const validPassword = await bcrypt.compare(password, user.password);
       if (validPassword) {
-        const {
-          username,
-          _id,
-          vocabularies,
-          joinedDate,
-          status,
-          learnings,
-          sendNotisTo,
-          notifications,
-        } = user;
+        const { username, _id } = user;
         const token = jwt.sign(
           {
             userId: user._id,
@@ -133,12 +140,6 @@ const signInUser = async (req, res) => {
           email,
           _id,
           token,
-          vocabularies,
-          joinedDate,
-          status,
-          learnings,
-          sendNotisTo,
-          notifications,
         });
       } else {
         res.status(400).json("Incorrect password.");
@@ -189,6 +190,7 @@ const updateUser = async (req, res) => {
 };
 
 exports.getAllUsers = getAllUsers;
+exports.getUserInfos = getUserInfos;
 exports.signUpUser = signUpUser;
 exports.signInUser = signInUser;
 exports.updateUser = updateUser;

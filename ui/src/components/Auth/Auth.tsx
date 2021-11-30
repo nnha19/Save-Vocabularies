@@ -13,7 +13,7 @@ import Footer from "../Common/Footer/Footer";
 const Auth = () => {
   const [error, setError] = useState<null | string>(null);
   const [loading, setLoading] = useState(false);
-  const user = useContext(authContext);
+  const userContext = useContext(authContext);
 
   const {
     register,
@@ -42,7 +42,7 @@ const Auth = () => {
         method: "POST",
       });
       setLoading(false);
-      user?.setUser(resp.data);
+      userContext?.setAuthInfo(resp.data);
       localStorage.setItem("user", JSON.stringify(resp.data));
       history.push(`/dashboard/${resp.data._id}/vocabularies`);
     } catch (err: any) {

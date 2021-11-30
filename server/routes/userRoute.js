@@ -19,6 +19,7 @@ router.post(
 
 router.use(authMiddleware);
 
+router.get("/user/:email/infos", userController.getUserInfos);
 router.get("/users", userController.getAllUsers);
 router.put(
   "/user/:uid",

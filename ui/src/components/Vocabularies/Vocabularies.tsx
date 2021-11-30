@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router";
 
 import { IVocabularies } from "../../types/types";
+import ErrorModal from "../Common/ErrorModal/ErrorModal";
 import AddToLearning from "./AddToLearning/AddToLearning";
 
 interface IProps {
@@ -10,6 +11,7 @@ interface IProps {
 
 const Vocabularies: React.FC<IProps> = ({ vocabularies }) => {
   const history = useHistory();
+  const [atlError, setAtlError] = useState<null | string>(null);
 
   const vocabularyList = vocabularies.map((vo) => {
     const navigateHandler = (e: any) => {
@@ -28,7 +30,7 @@ const Vocabularies: React.FC<IProps> = ({ vocabularies }) => {
       >
         <div className="flex mb-4">
           <h2 className="text-xl font-bold mr-4">{vo.vocabulary}</h2>
-          <AddToLearning vocabulary={vo} />
+          <AddToLearning setError={setAtlError} vocabulary={vo} />
         </div>
         <p>{vo.definition}</p>
         <p className="text-right">{`${day}/${month}/${year}`}</p>
@@ -38,6 +40,7 @@ const Vocabularies: React.FC<IProps> = ({ vocabularies }) => {
 
   return (
     <div>
+      {atlError && <ErrorModal error={atlError} setError={setAtlError} />}
       <div>{vocabularyList}</div>
     </div>
   );

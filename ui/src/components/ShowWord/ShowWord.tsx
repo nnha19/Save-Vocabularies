@@ -5,6 +5,7 @@ import useRenderExampleSentences from "../../customHooks/useRenderExampleSentenc
 import { ISynAndAnt } from "../../pages/showWordPage";
 import { IVocabulary } from "../../types/types";
 import Back from "../Common/Back/Back";
+import ErrorModal from "../Common/ErrorModal/ErrorModal";
 import Layout from "../Common/Layout/Layout";
 import AddToLearning from "../Vocabularies/AddToLearning/AddToLearning";
 
@@ -23,7 +24,7 @@ const ShowWord: React.FC<IProps> = ({
     showWord.exampleSentences,
     showWord.vocabulary
   );
-
+  const [atlError, setAtlError] = useState<null | string>(null);
   const func = (arr: string[]) => {
     return arr.map((s) => {
       return (
@@ -45,6 +46,7 @@ const ShowWord: React.FC<IProps> = ({
 
   return (
     <>
+      {atlError && <ErrorModal error={atlError} setError={setAtlError} />}
       <Back />
       <div className="p-4 ">
         <div className="border-b-2">
@@ -54,7 +56,7 @@ const ShowWord: React.FC<IProps> = ({
               onClick={pronounceWord}
               className="fas fa-volume-up cursor-pointer mr-4"
             ></i>
-            <AddToLearning vocabulary={showWord} />
+            <AddToLearning setError={setAtlError} vocabulary={showWord} />
           </div>
           <div className="flex items-start my-4">
             <span className="font-medium mr-4 ">Definition</span>

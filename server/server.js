@@ -22,9 +22,9 @@ mongoose
 
 app.use(express.json());
 
+app.use(userRoute);
 app.use("/learnings", learningsRoute);
 app.use("/vocabulary", vocabularyRoute);
-app.use(userRoute);
 app.use("/notification", notificationsRoute);
 
 const PORT = process.env.PORT || 5000;
