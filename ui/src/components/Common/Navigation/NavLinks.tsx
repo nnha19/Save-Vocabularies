@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { useAuthContext } from "../../../customHooks/useAuthContext";
-
+import { useHistory } from "react-router-dom";
 //If navLinStyle is not provided,
 //  these nav links are being used in mobile nav and mobile nav style will be applied.
 
@@ -168,9 +168,14 @@ export const LogoutBtn: React.FC<INavLinkProps> = ({
   navLinkStyle,
   className,
 }) => {
+  const history = useHistory();
+  const logoutHandler = () => {
+    history.push("/");
+  };
   return (
     <div
       className={`flex px-4 items-center text-xl my-4 cursor-pointer ${className}`}
+      onClick={logoutHandler}
     >
       <i className="fas fa-sign-out-alt "></i>
       <p className={`ml-4 ${navLinkStyle}`}>Logout</p>

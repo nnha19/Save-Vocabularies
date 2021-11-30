@@ -1,20 +1,18 @@
-import axios from "axios";
 import React, { createContext, useEffect, useState } from "react";
 import { IUser } from "../types/types";
 
 interface IAuthContext {
-  user: IUser;
-  setUser: React.Dispatch<React.SetStateAction<IUser>>;
+  user: IUser | undefined;
+  setUser: React.Dispatch<React.SetStateAction<IUser | undefined>>;
 }
 
-export const authContext = createContext({} as IAuthContext);
+export const authContext = createContext<IAuthContext | undefined>(undefined);
 
 const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<IUser>({} as IUser);
+  const [user, setUser] = useState<IUser>();
 
   useEffect(() => {
     let user: any = localStorage.getItem("user");
-    console.log(user);
     if (!user) return;
     user = JSON.parse(user);
     setUser(user);

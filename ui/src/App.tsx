@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 
-import AuthContextProvider from "./contexts/authContext";
+import AuthContextProvider, { authContext } from "./contexts/authContext";
 import Features from "./components/Features/Features";
 import { useAuthContext } from "./customHooks/useAuthContext";
 import AllUsersContextProvider from "./contexts/allUsersContext";
@@ -10,8 +10,8 @@ import { Route } from "react-router";
 import AuthPage from "./pages/authPage";
 
 const CheckAuth = () => {
-  const { user } = useAuthContext();
-  return Object.keys(user)[0] ? (
+  const user = useContext(authContext);
+  return user?.user?.token ? (
     <FilterDropdownContextProvider>
       <AllUsersContextProvider>
         <Features />

@@ -1,6 +1,7 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router";
+import { authContext } from "../../contexts/authContext";
 import { useAuthContext } from "../../customHooks/useAuthContext";
 import { INotification, IUser, IVocabulary } from "../../types/types";
 
@@ -9,21 +10,20 @@ interface IProps {
 }
 
 const Notifications: React.FC<IProps> = ({ notifications }) => {
-  const {
-    setUser,
-    user: { _id: userId, token },
-  } = useAuthContext();
+  const { user, setUser } = useAuthContext();
+  const { _id: userId, token } = user;
   useEffect(() => {
     (async () => {
       try {
         //set new notification to false as soon as this page gets rendered
-        setUser((prev) => ({
-          ...prev,
-          notifications: prev.notifications.map((noti) => ({
-            ...noti,
-            new: false,
-          })),
+        const updatedUser = { ...user };
+        const updatedNotis = updatedUser.notifications.map((noti) => ({
+          ...noti,
+          new: false,
         }));
+        updatedUser.notifications = updatedNotis;
+        setUser(updatedUser);
+
         //send http request to set new notis to false
         const resp = await axios({
           url: `${process.env.REACT_APP_BACKEND_URL}/notification`,

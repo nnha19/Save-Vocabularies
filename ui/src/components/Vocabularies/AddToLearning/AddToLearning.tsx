@@ -11,10 +11,8 @@ interface IProps {
 }
 
 const AddToLearning: React.FC<IProps> = ({ vocabulary }) => {
-  const {
-    user: { token, learnings, _id },
-    setUser,
-  } = useAuthContext();
+  const { user, setUser } = useAuthContext();
+  const { token, learnings, _id } = user;
   const alreadyOnLearnings = learnings.some((l) => l._id === vocabulary._id);
 
   const handleAddToLearning = async () => {
@@ -26,16 +24,18 @@ const AddToLearning: React.FC<IProps> = ({ vocabulary }) => {
           authorization: `bearer ${token}`,
         },
       });
-
+      const updatedUsers = { ...user };
       if (alreadyOnLearnings) {
         setUser((prev) => ({
-          ...prev,
-          learnings: prev.learnings.filter((l) => l._id !== vocabulary._id),
+          ...updatedUsers,
+          learnings: updatedUsers.learnings.filter(
+            (l) => l._id !== vocabulary._id
+          ),
         }));
       } else {
         setUser((prev) => ({
-          ...prev,
-          learnings: [...prev.learnings, vocabulary],
+          ...updatedUsers,
+          learnings: [...updatedUsers.learnings, vocabulary],
         }));
       }
     } catch (err) {
