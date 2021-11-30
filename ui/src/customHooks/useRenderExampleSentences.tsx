@@ -17,7 +17,7 @@ const useRenderExampleSentences = (
             return (
               <span
                 className={`mr-2 ${
-                  vocabulary.toLocaleLowerCase() === w.toLocaleLowerCase() &&
+                  vocabulary?.toLocaleLowerCase() === w?.toLocaleLowerCase() &&
                   "font-bold"
                 }`}
               >

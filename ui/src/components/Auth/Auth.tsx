@@ -4,20 +4,23 @@ import Logo from "../Common/Logo/Logo";
 import LpPrimaryBtn from "../Common/LpPrimaryBtn/LpPrimaryBtn";
 import { useForm } from "react-hook-form";
 import Modal from "../Common/Modal/Modal";
+import axios from "axios";
+import ErrorModal from "../Common/ErrorModal/ErrorModal";
+import { useAuthContext } from "../../customHooks/useAuthContext";
 
 const Auth = () => {
+  const [error, setError] = useState<null | string>(null);
+  const [loading, setLoading] = useState(false);
+  const { setUser } = useAuthContext();
   const {
     register,
     handleSubmit,
-    watch,
     reset,
     formState: { errors },
   } = useForm();
   const history = useHistory();
   const [authMode, setAuthMode] = useState<"signin" | "signup">("signup");
-  const submitFormHandler = (data: any) => {
-    console.log(data);
-  };
+
   const formErrorMsg = (text: string) => {
     return <span className="text-red-500 mt-2">{text}</span>;
   };
@@ -27,8 +30,27 @@ const Auth = () => {
     reset();
   };
 
+  const submitFormHandler = async (data: any) => {
+    try {
+      setLoading(true);
+      const resp: any = await axios({
+        url: `${process.env.REACT_APP_BACKEND_URL}/${authMode}`,
+        data,
+        method: "POST",
+      });
+      setLoading(false);
+      setUser(resp.data);
+      localStorage.setItem("user", JSON.stringify(resp.data));
+      history.push(`/dashboard/${resp.data._id}/vocabularies`);
+    } catch (err: any) {
+      setLoading(false);
+      setError(err?.response?.data);
+    }
+  };
+
   return (
     <div>
+      {error && <ErrorModal error={error} setError={setError} />}
       <div className="h-20 flex items-center justify-between lp-wrapper ">
         <Logo />
         <LpPrimaryBtn
