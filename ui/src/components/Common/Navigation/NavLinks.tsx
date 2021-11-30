@@ -94,7 +94,8 @@ export const NotificationsLink: React.FC<INavLinkProps> = ({
   const {
     user: { _id, notifications },
   } = useAuthContext();
-  const newNoti = notifications.filter((no) => no.new).length;
+  const newNoti =
+    !!notifications.length && notifications.filter((no) => no.new).length;
   return (
     <NavLink
       className="h-full self-stretch"
@@ -105,7 +106,7 @@ export const NotificationsLink: React.FC<INavLinkProps> = ({
     >
       <li className={`${navLinkStyle ? "nav-items" : "mobile-nav-items"}`}>
         <i className="fas fa-bell relative">
-          {navLinkStyle !== "w-36 px-4 ml-4" && newNoti > 0 && (
+          {navLinkStyle !== "w-36 px-4 ml-4" && !!newNoti && (
             <span className="absolute -top-3 left-3 text-xs text-white bg-primaryColor h-4 w-4 rounded-full flex items-center justify-center ">
               {newNoti}
             </span>

@@ -5,7 +5,9 @@ const { validationResult } = require("express-validator");
 
 const getAllUsers = async (req, res) => {
   try {
-    const users = await User.find({ status: "Public" }).populate({
+    const users = await User.find({
+      status: { $regex: new RegExp("public", "i") },
+    }).populate({
       path: "notifications",
     });
     const resultUsers = users.map((user) => {
@@ -43,7 +45,7 @@ const signUpUser = async (req, res) => {
         .json("Invalid Input. Please fill all the required fields.");
       return;
     }
-    const { username, email, password } = req.body;
+    const { username, email, password, status } = req.body;
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       res.status(400).json("User with this email already exists.");
@@ -55,13 +57,15 @@ const signUpUser = async (req, res) => {
         password: hashedPassword,
         joinedDate: new Date(),
         learnings: [],
+        status,
       });
       const token = await jwt.sign(
         { userId: newUser._id, username, email },
         process.env.JWT_KEY,
         { expiresIn: "1h" }
       );
-      const { _id, vocabularies, joinedDate, status } = newUser;
+      const { _id, vocabularies, joinedDate, learnings, notifications } =
+        newUser;
       res.status(200).json({
         username,
         email,
@@ -71,6 +75,7 @@ const signUpUser = async (req, res) => {
         joinedDate,
         status,
         learnings,
+        notifications,
       });
     }
   } catch (err) {
