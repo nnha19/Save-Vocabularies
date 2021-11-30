@@ -7,7 +7,7 @@ const LpPrimaryBtn = ({
 }: {
   children: React.ReactNode;
   className?: string;
-  clicked: () => void;
+  clicked?: () => void;
 }) => {
   return (
     <button

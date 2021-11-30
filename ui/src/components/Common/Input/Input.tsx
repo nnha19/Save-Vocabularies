@@ -41,7 +41,7 @@ const Input: React.FC<IProps> = ({
       </label>
       <input
         onChange={changeInputValHandler}
-        className="w-full mt-2  border px-4 py-2"
+        className="form-input-style"
         type={type}
         name={name}
         value={value}

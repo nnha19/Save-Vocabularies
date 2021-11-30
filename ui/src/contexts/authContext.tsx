@@ -13,17 +13,17 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<IUser>({} as IUser);
 
   useEffect(() => {
-    (async () => {
-      const resp = await axios({
-        method: "POST",
-        url: "http://localhost:5000/signin",
-        data: {
-          email: "girl@gmail.com",
-          password: "password",
-        },
-      });
-      setUser(resp.data);
-    })();
+    // (async () => {
+    //   const resp = await axios({
+    //     method: "POST",
+    //     url: "http://localhost:5000/signin",
+    //     data: {
+    //       email: "girl@gmail.com",
+    //       password: "password",
+    //     },
+    //   });
+    //   setUser(resp.data);
+    // })();
   }, []);
 
   return (

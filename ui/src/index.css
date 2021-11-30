@@ -56,3 +56,6 @@
 .lp-footer-list {
   @apply text-lg my-2 hover:text-lpPrimaryColor border-lpPrimaryColor cursor-pointer transition-all;
 }
+.form-input-style {
+  @apply w-full mt-2  border px-4 py-2;
+}

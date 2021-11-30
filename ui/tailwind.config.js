@@ -27,7 +27,7 @@ module.exports = {
         lpPrimaryColor: "#2d33fd",
       },
       boxShadow: {
-        boxshadow: "0 2px 2px grey",
+        boxshadow: "0 0 2px 1px grey",
       },
     },
   },
