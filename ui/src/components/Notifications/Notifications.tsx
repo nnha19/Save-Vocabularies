@@ -38,7 +38,7 @@ const Notifications: React.FC<IProps> = ({ notifications }) => {
   }, []);
 
   const history = useHistory();
-  const notificationsList = notifications.map((notification) => {
+  const notificationsList = notifications.reverse().map((notification) => {
     return (
       <div
         key={notification.noti._id}

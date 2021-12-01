@@ -53,6 +53,24 @@ const Auth = () => {
     }
   };
 
+  const demoLogin = async () => {
+    try {
+      setLoading(true);
+      const resp: any = await axios({
+        url: `${process.env.REACT_APP_BACKEND_URL}/signin`,
+        data: { email: "demouser@gmail.com", password: "password" },
+        method: "POST",
+      });
+      setLoading(false);
+      userContext?.setAuthInfo(resp.data);
+      localStorage.setItem("user", JSON.stringify(resp.data));
+      history.push(`/dashboard/${resp.data._id}/vocabularies`);
+    } catch (err: any) {
+      setLoading(false);
+      setError(err?.response?.data);
+    }
+  };
+
   return (
     <div className="h-screen">
       {loading && <SpinnerWithBackDrop />}
@@ -145,6 +163,12 @@ const Auth = () => {
                 instead.
               </p>
             )}
+            <p
+              onClick={demoLogin}
+              className="text-right mt-12 text-lpPrimaryColor cursor-pointer"
+            >
+              Sign in with demo account.
+            </p>
           </div>
         </form>
       </div>
