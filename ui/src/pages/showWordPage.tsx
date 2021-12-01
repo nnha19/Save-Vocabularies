@@ -20,9 +20,9 @@ const ShowWordPage = () => {
   const { wid } = useParams<any>();
 
   const [showWord, setShowWord] = useState({} as IVocabulary);
-  const [synAndAntIsLoading, setSynAndAntIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [exampleSentences, setExampleSentences] = useState<string[]>([]);
-
+  const [secLoading, setSecLoading] = useState(false);
   const [synAndAnt, setSynAndAnt] = useState<ISynAndAnt>({
     synonyms: [],
     antonyms: [],
@@ -33,7 +33,7 @@ const ShowWordPage = () => {
     if (!showWord.vocabulary) return;
     (async () => {
       try {
-        setSynAndAntIsLoading(true);
+        setLoading(true);
         const resp: any = await axios.get(
           `https://api.dictionaryapi.dev/api/v2/entries/en/${showWord.vocabulary}`
         );
@@ -42,23 +42,29 @@ const ShowWordPage = () => {
       } catch (err) {
         console.log(err);
       }
-      setSynAndAntIsLoading(false);
+      setLoading(false);
     })();
   }, [wid, showWord.vocabulary]);
 
   useEffect(() => {
-    //Fetch detail of a vocabulary own API
-    (async () => {
-      const resp = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/vocabulary/vocabulary/${wid}`,
-        {
-          headers: {
-            authorization: `bearer ${token}`,
-          },
-        }
-      );
-      setShowWord(resp.data);
-    })();
+    try {
+      setSecLoading(true);
+      //Fetch detail of a vocabulary own API
+      (async () => {
+        const resp = await axios.get(
+          `${process.env.REACT_APP_BACKEND_URL}/vocabulary/vocabulary/${wid}`,
+          {
+            headers: {
+              authorization: `bearer ${token}`,
+            },
+          }
+        );
+        setShowWord(resp.data);
+        setSecLoading(false);
+      })();
+    } catch (err) {
+      setSecLoading(false);
+    }
   }, [wid]);
 
   useEffect(() => {
@@ -80,7 +86,7 @@ const ShowWordPage = () => {
 
   return (
     <Layout>
-      {synAndAntIsLoading ? (
+      {loading || secLoading ? (
         <Spinner />
       ) : (
         <ShowWord
