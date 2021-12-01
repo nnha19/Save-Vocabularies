@@ -35,22 +35,20 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     setLoading(true);
-    setTimeout(() => {
-      (async () => {
-        if (authInfo?.token) {
-          const resp: any = await axios({
-            url: `${process.env.REACT_APP_BACKEND_URL}/user/${authInfo.email}/infos`,
-            headers: {
-              authorization: `bearer ${authInfo.token}`,
-            },
-          });
-          setUser({ ...resp.data, token: authInfo.token });
-        } else {
-          setUser(undefined);
-        }
-        setLoading(false);
-      })();
-    }, 3000);
+    (async () => {
+      if (authInfo?.token) {
+        const resp: any = await axios({
+          url: `${process.env.REACT_APP_BACKEND_URL}/user/${authInfo.email}/infos`,
+          headers: {
+            authorization: `bearer ${authInfo.token}`,
+          },
+        });
+        setUser({ ...resp.data, token: authInfo.token });
+      } else {
+        setUser(undefined);
+      }
+      setLoading(false);
+    })();
   }, [authInfo]);
 
   return (

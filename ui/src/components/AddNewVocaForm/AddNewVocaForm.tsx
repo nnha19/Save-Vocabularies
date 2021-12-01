@@ -10,9 +10,11 @@ import { useHistory } from "react-router";
 import ViewExamSent from "../ViewExamSent/ViewExamSent";
 import { useAuthContext } from "../../customHooks/useAuthContext";
 import { VocabulariesContext } from "../../contexts/vocabulariesContext";
+import { SpinnerWithBackDrop } from "../Common/Spinner/Spinner";
 
 interface IProps {
   setShowAddNewVocaForm: React.Dispatch<React.SetStateAction<boolean>>;
+  setAddNewVocaIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface IForm {
@@ -27,7 +29,10 @@ interface IForm {
   resource: { value: string; error: string | undefined; isTouched: boolean };
 }
 
-const AddNewVocaForm: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
+const AddNewVocaForm: React.FC<IProps> = ({
+  setShowAddNewVocaForm,
+  setAddNewVocaIsLoading,
+}) => {
   const history = useHistory();
   const {
     user: { _id, token },
@@ -137,6 +142,8 @@ const AddNewVocaForm: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
   };
 
   const addNewVocabularyHandler = async (e: any) => {
+    setShowAddNewVocaForm(false);
+    setAddNewVocaIsLoading(true);
     e.preventDefault();
     const resp: any = await axios({
       url: `${process.env.REACT_APP_BACKEND_URL}/vocabulary/${_id}`,
@@ -152,9 +159,9 @@ const AddNewVocaForm: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
         authorization: `bearer ${token}`,
       },
     });
-    //Request to notify other users that current user added new voca to his/her list.
-
     setVocabularies([resp.data, ...vocabularies]);
+    //Request to notify other users that current user added new voca to his/her list.
+    setAddNewVocaIsLoading(false);
     const notiResp = await axios({
       url: `${process.env.REACT_APP_BACKEND_URL}/notification`,
       method: "POST",
@@ -166,8 +173,7 @@ const AddNewVocaForm: React.FC<IProps> = ({ setShowAddNewVocaForm }) => {
         authorization: `bearer ${token}`,
       },
     });
-    console.log(notiResp);
-    setShowAddNewVocaForm(false);
+
     history.push(`/dashboard/${_id}/vocabularies`);
   };
 

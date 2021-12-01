@@ -13,10 +13,13 @@ import AddNewVocaForm from "../AddNewVocaForm/AddNewVocaForm";
 import { FilterDropdownContext } from "../../contexts/filterDropdownContext";
 import VocabulariesContextProvider from "../../contexts/vocabulariesContext";
 import MobileNav from "../Common/Navigation/MobileNav";
+import { SpinnerWithBackDrop } from "../Common/Spinner/Spinner";
 
 const Features = () => {
   const [navLinkStyle, setNavLinkStyle] = useState("nav-right-side");
   const [showAddNewVocaForm, setShowAddNewVocaForm] = useState(false);
+  const [addNewVocaIsLoading, setAddNewVocaIsLoading] = useState(false);
+
   const { setShowFilterDropdown } = useContext(FilterDropdownContext);
 
   const toggleNavLinkStyleHandler = () => {
@@ -73,9 +76,14 @@ const Features = () => {
           </div>
           <MobileNav setShowAddNewVocaForm={setShowAddNewVocaForm} />
         </div>
+
         {showAddNewVocaForm && (
-          <AddNewVocaForm setShowAddNewVocaForm={setShowAddNewVocaForm} />
+          <AddNewVocaForm
+            setAddNewVocaIsLoading={setAddNewVocaIsLoading}
+            setShowAddNewVocaForm={setShowAddNewVocaForm}
+          />
         )}
+        {addNewVocaIsLoading && <SpinnerWithBackDrop />}
       </div>
     </VocabulariesContextProvider>
   );

@@ -22,7 +22,7 @@ const Spinner = ({
 
 export const SpinnerWithBackDrop = () => {
   return (
-    <div className="h-screen fixed top-0 left-0 w-screen flex justify-center items-center">
+    <div className="h-screen z-10 fixed top-0 left-0 w-screen flex justify-center items-center">
       <BackDrop />
       <Spinner style={{ height: "4rem", background: "none" }} />
     </div>
