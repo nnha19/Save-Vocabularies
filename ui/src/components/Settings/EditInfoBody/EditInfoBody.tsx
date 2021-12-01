@@ -27,7 +27,7 @@ const EditInfoBody: React.FC<IProps> = ({
   setUpdated,
 }) => {
   const {
-    user: { _id, token },
+    user: { _id, token, email },
     setUser,
   } = useAuthContext();
   const [inputVals, setInputVals] = useState<any>({});
@@ -84,10 +84,15 @@ const EditInfoBody: React.FC<IProps> = ({
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
     try {
+      if (email === "demouser@gmail.com") {
+        console.log("Hi.");
+        throw new Error("Updating is not available on demo account.");
+      }
       setShowEditForm(null);
       setLoading(true);
-      e.preventDefault();
       const resp: any = await axios({
         url: `${process.env.REACT_APP_BACKEND_URL}/user/${_id}`,
         method: "PUT",
@@ -104,7 +109,12 @@ const EditInfoBody: React.FC<IProps> = ({
       setUser((prev) => ({ ...prev, ...resp.data.user }));
       setLoading(false);
     } catch (err: any) {
-      setError(err?.response?.data);
+      const error =
+        (err && err.response && err.response.data) ||
+        err.toString() ||
+        "Some thing went wrong.";
+
+      setError(error);
       setShowEditForm(null);
       setLoading(false);
     }

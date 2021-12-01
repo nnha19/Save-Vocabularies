@@ -1,9 +1,8 @@
 import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useHistory } from "react-router";
-import { authContext } from "../../contexts/authContext";
 import { useAuthContext } from "../../customHooks/useAuthContext";
-import { INotification, IUser, IVocabulary } from "../../types/types";
+import { INotification } from "../../types/types";
 
 interface IProps {
   notifications: INotification[];
@@ -38,7 +37,7 @@ const Notifications: React.FC<IProps> = ({ notifications }) => {
   }, []);
 
   const history = useHistory();
-  const notificationsList = notifications.reverse().map((notification) => {
+  const notificationsList = notifications.map((notification) => {
     return (
       <div
         key={notification.noti._id}

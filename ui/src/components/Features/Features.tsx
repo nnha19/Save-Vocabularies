@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 
 import VocabulariesPage from "../../pages/VocabulariesPage";
 import Header from "../Common/Header/Header";

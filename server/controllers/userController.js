@@ -94,8 +94,7 @@ const signUpUser = async (req, res) => {
       const hashedPassword = await bcrypt.hash(password, 12);
       const token = await jwt.sign(
         { userId: newUser._id, username, email },
-        process.env.JWT_KEY,
-        { expiresIn: "1h" }
+        process.env.JWT_KEY
       );
       const { _id } = newUser;
       res.status(200).json({
@@ -132,8 +131,7 @@ const signInUser = async (req, res) => {
             username,
             email,
           },
-          process.env.JWT_KEY,
-          { expiresIn: "1h" }
+          process.env.JWT_KEY
         );
         res.status(200).json({
           username,
