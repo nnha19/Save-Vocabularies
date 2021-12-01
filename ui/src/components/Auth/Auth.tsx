@@ -9,6 +9,8 @@ import ErrorModal from "../Common/ErrorModal/ErrorModal";
 import { useAuthContext } from "../../customHooks/useAuthContext";
 import { authContext } from "../../contexts/authContext";
 import Footer from "../Common/Footer/Footer";
+import Spinner, { SpinnerWithBackDrop } from "../Common/Spinner/Spinner";
+import BackDrop from "../Common/BackDrop/BackDrop";
 
 const Auth = () => {
   const [error, setError] = useState<null | string>(null);
@@ -53,6 +55,7 @@ const Auth = () => {
 
   return (
     <div className="h-screen">
+      {loading && <SpinnerWithBackDrop />}
       {error && <ErrorModal error={error} setError={setError} />}
       <div className="h-20 flex items-center justify-between lp-wrapper ">
         <Logo />

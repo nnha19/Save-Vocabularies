@@ -1,4 +1,5 @@
 import React from "react";
+import BackDrop from "../BackDrop/BackDrop";
 
 import "./Spinner.css";
 
@@ -15,6 +16,15 @@ const Spinner = ({
       style={style}
     >
       <span className="spinner"></span>
+    </div>
+  );
+};
+
+export const SpinnerWithBackDrop = () => {
+  return (
+    <div className="h-screen fixed top-0 left-0 w-screen flex justify-center items-center">
+      <BackDrop />
+      <Spinner style={{ height: "4rem", background: "none" }} />
     </div>
   );
 };

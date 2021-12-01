@@ -14,6 +14,7 @@ interface IAuthContext {
   setUser: React.Dispatch<React.SetStateAction<IUser | undefined>>;
   authInfo: IAuthInfo | undefined;
   setAuthInfo: React.Dispatch<React.SetStateAction<IAuthInfo | undefined>>;
+  loading: boolean;
 }
 
 export const authContext = createContext<IAuthContext | undefined>(undefined);
@@ -23,6 +24,7 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
     {} as IAuthInfo
   );
   const [user, setUser] = useState<IUser>();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     let user: any = localStorage.getItem("user");
@@ -32,25 +34,29 @@ const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   useEffect(() => {
-    (async () => {
-      if (authInfo?.token) {
-        const resp: any = await axios({
-          url: `${process.env.REACT_APP_BACKEND_URL}/user/${authInfo.email}/infos`,
-          headers: {
-            authorization: `bearer ${authInfo.token}`,
-          },
-        });
-        setUser({ ...resp.data, token: authInfo.token });
-      } else {
-        setUser(undefined);
-      }
-    })();
+    setLoading(true);
+    setTimeout(() => {
+      (async () => {
+        if (authInfo?.token) {
+          const resp: any = await axios({
+            url: `${process.env.REACT_APP_BACKEND_URL}/user/${authInfo.email}/infos`,
+            headers: {
+              authorization: `bearer ${authInfo.token}`,
+            },
+          });
+          setUser({ ...resp.data, token: authInfo.token });
+        } else {
+          setUser(undefined);
+        }
+        setLoading(false);
+      })();
+    }, 3000);
   }, [authInfo]);
 
-  console.log(user);
-
   return (
-    <authContext.Provider value={{ user, setUser, authInfo, setAuthInfo }}>
+    <authContext.Provider
+      value={{ user, setUser, authInfo, setAuthInfo, loading }}
+    >
       {children}
     </authContext.Provider>
   );

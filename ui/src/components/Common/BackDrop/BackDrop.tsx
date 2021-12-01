@@ -4,7 +4,7 @@ const BackDrop = ({
   clicked,
   style,
 }: {
-  clicked: () => void;
+  clicked?: () => void;
   style?: object;
 }) => {
   return (
