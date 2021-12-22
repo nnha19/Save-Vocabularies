@@ -66,6 +66,7 @@ const Auth = () => {
       localStorage.setItem("user", JSON.stringify(resp.data));
       history.push(`/dashboard/${resp.data._id}/vocabularies`);
     } catch (err: any) {
+      console.log(err);
       setLoading(false);
       setError(err?.response?.data);
     }

@@ -92,6 +92,12 @@ const signUpUser = async (req, res) => {
       res.status(400).json("User with this email already exists.");
     } else {
       const hashedPassword = await bcrypt.hash(password, 12);
+      const newUser = await User.create({
+        username,
+        email,
+        password: hashedPassword,
+        status,
+      });
       const token = await jwt.sign(
         { userId: newUser._id, username, email },
         process.env.JWT_KEY
