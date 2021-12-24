@@ -1,16 +1,3 @@
-Vlist is a website for english learners to keep their vocabularies in one place. 
-
-## Key Features
-
-Sign Up/ Sign In [x]
-Add vocabularies to your list
-[#] See list of other users
-[#] Ring notification bell to be notified when a user adds new word to his list
-[#] Add your added vocabularies to learning
-[#] Update your account settings
-[#] Search added vocabularies
-
-## Techs Used
-React.js, Typescript, TailwindCSS, Express, Node, MongoDB
+Vlist allows users to save the vocabularies. Users can add a vocabulary to their list, get the definition of that vocabulary from third party api or add it manually. Users can also add the example sentences and resource. Users can search and filter the vocabularies by resources. If users want to be notified when another user adds a vocabulary to their list, they can ring noti bell and will receive notifications.
 
 # View live on https://vlist2021.netlify.app
